@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:wght@200;300;400;500&family=DM+Mono:wght@400&display=swap');
+
+@import "tailwindcss";
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #1e2e22;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Grain texture — très subtil ────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.022;
+  pointer-events: none;
+  z-index: 9997;
+  mix-blend-mode: overlay;
+}
+
+/* ── Grilles responsives ─────────────────────── */
+.grid-2col    { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+.grid-3col    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4col    { display: grid; grid-template-columns: repeat(4, 1fr); }
+.grid-masonry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.section-pad  { padding: 120px 72px; }
+
+@media (max-width: 1024px) { .section-pad { padding: 96px 48px; } }
+@media (max-width: 768px) {
+  .grid-2col    { grid-template-columns: 1fr; }
+  .grid-3col    { grid-template-columns: 1fr 1fr; }
+  .grid-4col    { grid-template-columns: 1fr 1fr; }
+  .grid-masonry { grid-template-columns: 1fr 1fr; }
+  .section-pad  { padding: 72px 24px; }
+}
+@media (max-width: 480px) {
+  .grid-3col    { grid-template-columns: 1fr; }
+  .grid-masonry { grid-template-columns: 1fr; }
+}
