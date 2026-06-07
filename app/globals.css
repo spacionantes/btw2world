@@ -42,3 +42,11 @@ body::after {
   .grid-3col    { grid-template-columns: 1fr; }
   .grid-masonry { grid-template-columns: 1fr; }
 }
+
+/* ── Responsive 2-col → 1-col ────────────────── */
+@media (max-width: 900px) {
+  .two-col-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Sélection de texte — couleur accent ──────── */
+::selection { background: rgba(246,183,77,0.25); color: #fff; }

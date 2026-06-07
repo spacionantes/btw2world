@@ -7,124 +7,208 @@ import { motion } from 'framer-motion'
 import Nav from '@/components/layout/Nav'
 import type { TVoyage } from '@/lib/data'
 
+const J = "'Jost', sans-serif"
+const C = "'Bodoni Moda', serif"
+const M = "'DM Mono', monospace"
+
+const BGDARK = '#0d1a10'
+const BGMID  = '#243429'
+const BG     = '#1a2e1e'
+const ACCENT = '#f6b74d'
+
 const STATUS_LABELS: Record<string, string> = {
   ouvert: 'Ouvert',
   complet: 'Complet',
-  bientot: 'Bientôt',
-  passe: 'Passé',
+  bientot: 'À venir',
+  passe: 'Réalisé',
 }
-
-const F = "'Jost',sans-serif"
-const D = "'Cormorant Garamond',serif"
-const C = "'Jost',sans-serif"
 
 export default function VoyageDetail({ voyage }: { voyage: TVoyage }) {
   const [playing, setPlaying] = useState(false)
+  const [lightbox, setLightbox] = useState<string | null>(null)
 
   return (
-    <div style={{ background: '#426248', minHeight: '100dvh' }}>
+    <div style={{ background: BGDARK, minHeight: '100dvh' }}>
 
-      {/* Hero */}
-      <div style={{ height: '80dvh', position: 'relative', overflow: 'hidden' }}>
-        <Image src={voyage.coverImage} alt={voyage.title} fill sizes="100vw" style={{ objectFit: 'cover' }} priority />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom,rgba(30,46,34,0.15),rgba(30,46,34,0.88))', zIndex: 1 }} />
+      {/* ── Hero plein écran ─────────────────────── */}
+      <div style={{ height: '95dvh', position: 'relative', overflow: 'hidden' }}>
+        <Image src={voyage.coverImage} alt={voyage.title} fill sizes="100vw"
+          style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,20,14,0.2) 0%, rgba(10,20,14,0.1) 40%, rgba(10,20,14,0.92) 100%)' }} />
+
         <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
           <Nav />
-          <div style={{ marginTop: 'auto', padding: '0 56px 64px' }}>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+
+          {/* Contenu bas hero */}
+          <div style={{ marginTop: 'auto', padding: '0 72px 64px' }}>
+            {/* Tags */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+              style={{ display: 'flex', gap: '10px', marginBottom: '28px', flexWrap: 'wrap' }}>
               {voyage.tags?.map(t => (
-                <span key={t} style={{ fontFamily: F, fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase' as const, border: '1px solid rgba(246,183,77,0.4)', color: '#f6b74d', padding: '4px 12px' }}>{t}</span>
+                <span key={t} style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.22em', textTransform: 'uppercase', border: `1px solid rgba(246,183,77,0.4)`, color: ACCENT, padding: '5px 14px' }}>{t}</span>
               ))}
-            </div>
-            <h1 style={{ fontFamily: D, fontSize: 'clamp(48px,7vw,92px)', fontWeight: 400, color: '#fff', lineHeight: 0.95, marginBottom: '20px' }}>{voyage.title}</h1>
-            <p style={{ fontFamily: F, fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '0.25em', color: 'rgba(255,255,255,0.5)' }}>
-              {voyage.continent} · {voyage.duration} jours
-              {voyage.status === 'ouvert' ? ` · ${voyage.spotsLeft} place${voyage.spotsLeft > 1 ? 's' : ''} dispo` : ''}
-            </p>
+            </motion.div>
+
+            {/* Titre */}
+            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              style={{ fontFamily: C, fontSize: 'clamp(48px, 7vw, 104px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.88, marginBottom: '24px', letterSpacing: '-0.02em' }}>
+              {voyage.title}
+            </motion.h1>
+
+            {/* Meta */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.7 }}
+              style={{ display: 'flex', gap: '28px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <span style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.45)' }}>
+                {voyage.continent}
+              </span>
+              <span style={{ width: '1px', height: '12px', background: 'rgba(255,255,255,0.2)' }} />
+              <span style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.45)' }}>
+                {voyage.duration} jours
+              </span>
+              <span style={{ width: '1px', height: '12px', background: 'rgba(255,255,255,0.2)' }} />
+              <span style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.28em', color: voyage.status === 'ouvert' ? ACCENT : 'rgba(255,255,255,0.45)', background: voyage.status === 'ouvert' ? 'rgba(246,183,77,0.12)' : 'transparent', padding: voyage.status === 'ouvert' ? '4px 12px' : '0' }}>
+                {voyage.status === 'ouvert' ? `${voyage.spotsLeft} place${voyage.spotsLeft > 1 ? 's' : ''} disponible${voyage.spotsLeft > 1 ? 's' : ''}` : STATUS_LABELS[voyage.status]}
+              </span>
+            </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Body */}
-      <div style={{ padding: '72px 56px', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 360px', gap: '72px' }} className="max-md:grid-cols-1">
+      {/* ── Corps ───────────────────────────────── */}
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '96px 72px', display: 'grid', gridTemplateColumns: '1fr 340px', gap: '80px', alignItems: 'start' }}>
 
-        {/* Gauche : texte + vidéo + galerie */}
-        <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+        {/* Gauche — texte + galerie + vidéo */}
+        <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.2 }}>
 
-          {voyage.longDescription?.split('\n\n').map((para, i) => (
-            <p key={i} style={{ fontFamily: C, fontSize: '21px', fontWeight: 300, color: 'rgba(255,255,255,0.78)', lineHeight: 1.85, marginBottom: '24px' }}>{para}</p>
-          ))}
-
-          {/* Vidéo */}
-          {voyage.videoUrl && (
-            <div style={{ marginTop: '48px' }}>
-              <p style={{ fontFamily: F, fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '0.3em', color: '#f6b74d', marginBottom: '16px' }}>Le film du voyage</p>
-              <div style={{ position: 'relative', aspectRatio: '16/9' as const, background: '#1e2e22', border: '1px solid rgba(246,183,77,0.2)', overflow: 'hidden' }}>
-                {!playing ? (
-                  <div onClick={() => setPlaying(true)} style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', gap: '14px', cursor: 'pointer' }}>
-                    <Image src={voyage.coverImage} alt="" fill sizes="100vw" style={{ objectFit: 'cover', opacity: 0.4 }} />
-                    <motion.div whileHover={{ scale: 1.1 }} style={{ position: 'relative', zIndex: 2, width: '68px', height: '68px', border: '2px solid #f6b74d', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <svg width="20" height="20" viewBox="0 0 20 20"><path d="M7 4L17 10L7 16V4Z" fill="#f6b74d" /></svg>
-                    </motion.div>
-                    <span style={{ position: 'relative', zIndex: 2, fontFamily: F, fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '0.2em', color: 'rgba(255,255,255,0.55)' }}>Voir le film</span>
-                  </div>
-                ) : (
-                  <iframe
-                    src={`${voyage.videoUrl}?autoplay=1`}
-                    allow="autoplay; fullscreen"
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
-                  />
-                )}
-              </div>
-            </div>
+          {/* Description longue */}
+          {voyage.longDescription ? (
+            voyage.longDescription.split('\n\n').map((para, i) => (
+              <p key={i} style={{ fontFamily: J, fontSize: '17px', fontWeight: 300, color: 'rgba(255,255,255,0.65)', lineHeight: 2, marginBottom: '24px', maxWidth: '640px' }}>
+                {para}
+              </p>
+            ))
+          ) : (
+            <p style={{ fontFamily: J, fontSize: '17px', fontWeight: 300, color: 'rgba(255,255,255,0.65)', lineHeight: 2, maxWidth: '640px' }}>
+              {voyage.description}
+            </p>
           )}
 
-          {/* Galerie */}
+          {/* Séparateur */}
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', margin: '56px 0' }} />
+
+          {/* Galerie photos */}
           {voyage.gallery && voyage.gallery.length > 0 && (
-            <div style={{ marginTop: '48px' }}>
-              <p style={{ fontFamily: F, fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '0.3em', color: '#f6b74d', marginBottom: '16px' }}>Galerie</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div style={{ marginBottom: '64px' }}>
+              <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '28px' }}>
+                Galerie
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px' }}>
                 {voyage.gallery.map((src, i) => (
-                  <div key={i} style={{ position: 'relative', aspectRatio: '4/3' as const, overflow: 'hidden' }}>
-                    <Image src={src} alt={`Photo ${i + 1}`} fill sizes="50vw" style={{ objectFit: 'cover' }} />
-                  </div>
+                  <motion.div key={i}
+                    initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.08 }}
+                    onClick={() => setLightbox(src)}
+                    style={{ position: 'relative', aspectRatio: i === 0 ? '16/9' : '4/3', overflow: 'hidden', cursor: 'zoom-in', gridColumn: i === 0 ? '1 / -1' : 'auto' }}>
+                    <Image src={src} alt={`Photo ${i + 1}`} fill sizes={i === 0 ? '100vw' : '50vw'}
+                      style={{ objectFit: 'cover', transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)' }}
+                      onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')}
+                      onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+                    />
+                  </motion.div>
                 ))}
               </div>
             </div>
           )}
+
+          {/* Vidéo */}
+          {voyage.videoUrl && (
+            <div>
+              <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
+                Le film du voyage
+              </p>
+              <div style={{ position: 'relative', aspectRatio: '16/9', background: BGMID, overflow: 'hidden', border: '1px solid rgba(246,183,77,0.15)' }}>
+                {!playing ? (
+                  <div onClick={() => setPlaying(true)}
+                    style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', cursor: 'pointer' }}>
+                    <Image src={voyage.coverImage} alt="" fill sizes="100vw" style={{ objectFit: 'cover', opacity: 0.3 }} />
+                    <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}
+                      style={{ position: 'relative', zIndex: 2, width: '72px', height: '72px', border: `2px solid ${ACCENT}`, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <svg width="22" height="22" viewBox="0 0 20 20"><path d="M7 4L17 10L7 16V4Z" fill={ACCENT} /></svg>
+                    </motion.div>
+                    <span style={{ position: 'relative', zIndex: 2, fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.45)' }}>Voir le film</span>
+                  </div>
+                ) : (
+                  <iframe src={`${voyage.videoUrl}?autoplay=1`} allow="autoplay; fullscreen"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }} />
+                )}
+              </div>
+            </div>
+          )}
         </motion.div>
 
-        {/* Sidebar */}
-        <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} style={{ position: 'sticky', top: '32px', alignSelf: 'start' }}>
-          <div style={{ background: '#2d4433', border: '1px solid rgba(255,255,255,0.1)', padding: '28px', marginBottom: '12px' }}>
-            <p style={{ fontFamily: F, fontSize: '9px', textTransform: 'uppercase' as const, letterSpacing: '0.25em', color: 'rgba(255,255,255,0.3)', marginBottom: '20px' }}>Infos pratiques</p>
+        {/* Sidebar sticky */}
+        <motion.aside initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
+          style={{ position: 'sticky', top: '32px' }}>
+
+          {/* Infos pratiques */}
+          <div style={{ background: BGMID, border: '1px solid rgba(255,255,255,0.07)', padding: '32px', marginBottom: '10px' }}>
+            <p style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.25)', marginBottom: '24px' }}>
+              Infos pratiques
+            </p>
             {[
               { l: 'Durée', v: `${voyage.duration} jours` },
-              { l: 'Groupe', v: `${voyage.spotsTotal} pers. max` },
+              { l: 'Groupe', v: `max ${voyage.spotsTotal} pers.` },
               { l: 'Statut', v: voyage.status === 'ouvert' ? `${voyage.spotsLeft} place${voyage.spotsLeft > 1 ? 's' : ''}` : STATUS_LABELS[voyage.status] },
-            ].map(row => (
-              <div key={row.l} style={{ display: 'flex', justifyContent: 'space-between', padding: '11px 0', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-                <span style={{ fontFamily: F, fontSize: '9px', textTransform: 'uppercase' as const, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.35)' }}>{row.l}</span>
-                <span style={{ fontFamily: C, fontSize: '16px', color: '#fff' }}>{row.v}</span>
+              { l: 'Départ', v: new Date(voyage.departureDate).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }) },
+            ].map((row, i, arr) => (
+              <div key={row.l} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '13px 0', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+                <span style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)' }}>{row.l}</span>
+                <span style={{ fontFamily: C, fontSize: '17px', fontStyle: 'italic', color: '#fff' }}>{row.v}</span>
               </div>
             ))}
-            <Link href="/candidater" style={{ display: 'block', marginTop: '24px', fontFamily: F, fontSize: '11px', textTransform: 'uppercase' as const, letterSpacing: '0.2em', background: '#f6b74d', color: '#1e2e22', padding: '14px 0', textAlign: 'center' as const, textDecoration: 'none', fontWeight: 600 }}>
-              Je candidate
-            </Link>
+
+            {voyage.status === 'ouvert' && (
+              <Link href="/candidater"
+                style={{ display: 'block', marginTop: '28px', fontFamily: J, fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.22em', background: ACCENT, color: BGDARK, padding: '16px 0', textAlign: 'center', textDecoration: 'none', fontWeight: 600 }}>
+                Je candidate →
+              </Link>
+            )}
           </div>
 
+          {/* Lien blog */}
           {voyage.blogUrl && voyage.blogUrl !== '#' && (
-            <div style={{ background: '#1e2e22', border: '1px solid rgba(246,183,77,0.15)', padding: '20px', marginBottom: '12px' }}>
-              <p style={{ fontFamily: C, fontSize: '16px', fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', marginBottom: '12px', lineHeight: 1.6 }}>Récit complet sur le blog.</p>
-              <a href={voyage.blogUrl} style={{ fontFamily: F, fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '0.18em', color: '#f6b74d', textDecoration: 'none', borderBottom: '1px solid #f6b74d', paddingBottom: '2px' }}>Lire le récit →</a>
+            <div style={{ background: BG, border: '1px solid rgba(255,255,255,0.06)', padding: '24px', marginBottom: '10px' }}>
+              <p style={{ fontFamily: C, fontSize: '16px', fontStyle: 'italic', color: 'rgba(255,255,255,0.5)', marginBottom: '14px', lineHeight: 1.6 }}>
+                Le récit complet de cette expédition est sur le blog.
+              </p>
+              <a href={voyage.blogUrl}
+                style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: ACCENT, textDecoration: 'none', borderBottom: `1px solid ${ACCENT}`, paddingBottom: '2px' }}>
+                Lire le récit →
+              </a>
             </div>
           )}
 
-          <Link href="/destinations" style={{ fontFamily: F, fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '0.15em', color: 'rgba(255,255,255,0.3)', textDecoration: 'none', display: 'block' }}>
-            ← Toutes les expéditions
+          {/* Retour */}
+          <Link href="/"
+            style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.25)', textDecoration: 'none', display: 'block', marginTop: '8px' }}>
+            ← Retour à l&apos;accueil
           </Link>
-        </motion.div>
+        </motion.aside>
       </div>
+
+      {/* ── Lightbox ─────────────────────────────── */}
+      {lightbox && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          onClick={() => setLightbox(null)}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out', padding: '40px' }}>
+          <div style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh', width: '100%', height: '100%' }}>
+            <Image src={lightbox} alt="Photo" fill style={{ objectFit: 'contain' }} sizes="90vw" />
+          </div>
+          <button onClick={() => setLightbox(null)}
+            style={{ position: 'absolute', top: '24px', right: '32px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.5)', fontSize: '32px', cursor: 'pointer', fontFamily: J }}>
+            ×
+          </button>
+        </motion.div>
+      )}
     </div>
   )
 }

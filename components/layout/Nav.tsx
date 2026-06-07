@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const J = "'Jost', sans-serif"
@@ -19,6 +20,9 @@ const LINKS = [
 export default function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
+  const isHome = pathname === '/'
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60)
@@ -28,6 +32,10 @@ export default function Nav() {
 
   const scrollTo = (id: string) => {
     setOpen(false)
+    if (!isHome) {
+      router.push(`/${id}`)
+      return
+    }
     const el = document.querySelector(id)
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }

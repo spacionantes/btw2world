@@ -1,28 +1,46 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
-import { VOYAGES, PHOTOS } from '@/lib/data'
+import WorldMapSection from '@/components/sections/WorldMapSection'
+import { VOYAGES } from '@/lib/data'
 
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
 
-/* ── Constantes couleurs ────────────────────────── */
-const BG     = '#426248'
-const BGDARK = '#1e2e22'
-const BGMID  = '#2d4433'
+const BG     = '#1a2e1e'
+const BGDARK = '#0d1a10'
+const BGMID  = '#243429'
 const ACCENT = '#f6b74d'
 
-/* ── Label utilitaire ───────────────────────────── */
-function Label({ children }: { children: React.ReactNode }) {
+/* ════════════════════════════════════════════════ */
+/*  MARQUEE                                         */
+/* ════════════════════════════════════════════════ */
+const TICKER_ITEMS = ['Kirghizistan', '·', 'Népal', '·', 'Destination inconnue', '·', 'J-7', '·', 'Petit groupe', '·', 'Terrain inexploré', '·', 'Kirghizistan', '·', 'Népal', '·', 'Destination inconnue', '·', 'J-7', '·', 'Petit groupe', '·', 'Terrain inexploré', '·']
+
+function Marquee() {
   return (
-    <p style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '24px' }}>
-      {children}
-    </p>
+    <div style={{ background: ACCENT, overflow: 'hidden', padding: '14px 0', display: 'flex' }}>
+      <style>{`
+        @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        .marquee-track { display: flex; gap: 0; animation: marquee 22s linear infinite; white-space: nowrap; will-change: transform; }
+        .marquee-track:hover { animation-play-state: paused; }
+      `}</style>
+      <div className="marquee-track">
+        {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+          <span key={i} style={{
+            fontFamily: M, fontSize: '10px', letterSpacing: '0.28em', textTransform: 'uppercase',
+            color: '#0d1a10', paddingRight: item === '·' ? '28px' : '28px', paddingLeft: item === '·' ? '0' : '0',
+            fontWeight: 500,
+          }}>{item}</span>
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -34,33 +52,9 @@ function Hero() {
     <section id="hero" style={{ height: '100dvh', position: 'relative', overflow: 'hidden' }}>
       <Image src="/images/hero-bg.jpg" alt="BTW2WORLD" fill priority sizes="100vw"
         style={{ objectFit: 'cover', objectPosition: 'center 45%' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(20,36,26,0.3) 0%, rgba(20,36,26,0.05) 35%, rgba(20,36,26,0.72) 100%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 110% 100% at 50% 50%, transparent 40%, rgba(10,22,16,0.45) 100%)' }} />
-
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,20,14,0.15) 0%, rgba(10,20,14,0.05) 50%, rgba(10,20,14,0.35) 100%)' }} />
       <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
         <Nav />
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 32px', gap: '16px' }}>
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }}
-            style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.36em', textTransform: 'uppercase', color: ACCENT }}>
-            L&apos;Entre 2 Mondes
-          </motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.3, delay: 0.7, ease: [0.22,1,0.36,1] }}
-            style={{ fontFamily: C, fontSize: 'clamp(48px, 7vw, 96px)', fontWeight: 300, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, letterSpacing: '-0.01em' }}>
-            Partir à l&apos;aveugle<br />en terre inconnue
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.2 }}
-            style={{ fontFamily: J, fontSize: '14px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.06em' }}>
-            Expéditions nature · Petit groupe · Destination révélée J-7
-          </motion.p>
-        </div>
-
-        {/* Scroll hint */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2, duration: 1 }}
-          style={{ padding: '28px 48px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ height: '1px', flex: 1, background: 'rgba(255,255,255,0.08)' }} />
-          <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>Défiler pour découvrir</p>
-          <div style={{ height: '1px', flex: 1, background: 'rgba(255,255,255,0.08)' }} />
-        </motion.div>
       </div>
     </section>
   )
@@ -72,48 +66,65 @@ function Hero() {
 function LeProjet() {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 0.4'] })
-  const y = useTransform(scrollYProgress, [0, 1], [80, 0])
-  const br = useTransform(scrollYProgress, [0, 0.6], ['20px 20px 0 0', '0px'])
+  const y = useTransform(scrollYProgress, [0, 1], [60, 0])
 
   return (
-    <div ref={ref} id="le-projet" style={{ marginTop: '-64px', position: 'relative', zIndex: 10 }}>
-      <motion.section style={{ y, borderRadius: br, background: BG, boxShadow: '0 -32px 100px rgba(0,0,0,0.5)' }}>
-        <div className="grid-2col" style={{ minHeight: '85vh' }}>
+    <div ref={ref} id="le-projet" style={{ position: 'relative', zIndex: 10 }}>
+      <Marquee />
+      <motion.section style={{ y, background: BG }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '90vh' }}>
 
           {/* Texte */}
-          <div style={{ padding: '88px 64px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Label>Le projet</Label>
-            <h2 style={{ fontFamily: C, fontSize: 'clamp(40px, 4.5vw, 64px)', fontWeight: 300, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, marginBottom: '32px' }}>
-              Maxence,<br />photographe voyageur
-            </h2>
-            <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.6)', lineHeight: 1.95, maxWidth: '420px', marginBottom: '16px' }}>
-              BTW2WORLD n&apos;est pas une agence. C&apos;est un projet photographique et humain — des expéditions pensées comme des rencontres, dans des endroits que la plupart des gens ne verront jamais.
-            </p>
-            <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.6)', lineHeight: 1.95, maxWidth: '420px', marginBottom: '48px' }}>
-              Petit groupe, terrain connu, destination tenue secrète jusqu&apos;à J-7. Chaque expédition est unique. Il n&apos;y en aura jamais deux pareilles.
-            </p>
+          <div style={{ padding: '88px 64px 88px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+            {/* Numéro décoratif géant */}
+            <div aria-hidden style={{
+              position: 'absolute', right: '-20px', top: '50%', transform: 'translateY(-50%)',
+              fontFamily: C, fontSize: '280px', fontStyle: 'italic', fontWeight: 700,
+              color: 'rgba(255,255,255,0.03)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
+            }}>01</div>
 
-            {/* Stats discrets */}
-            <div style={{ display: 'flex', paddingTop: '32px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <motion.p initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
+              style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '28px' }}>
+              Le projet
+            </motion.p>
+
+            <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.1 }}
+              style={{ fontFamily: C, fontSize: 'clamp(52px, 5.5vw, 80px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, marginBottom: '36px', letterSpacing: '-0.02em' }}>
+              Maxence,<br />photographe<br />voyageur
+            </motion.h2>
+
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }}
+              style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
+              BTW2WORLD n&apos;est pas une agence. C&apos;est un projet photographique et humain — des expéditions pensées comme des rencontres, dans des endroits que la plupart des gens ne verront jamais.
+            </motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}
+              style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '56px' }}>
+              Petit groupe, terrain connu, destination tenue secrète jusqu&apos;à J-7. Chaque expédition est unique.
+            </motion.p>
+
+            <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.5 }}
+              style={{ display: 'flex', gap: '0', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '40px' }}>
               {[['2–6', 'Participants'], ['J-7', 'Révélation'], ['0', 'Agences']].map(([v, l], i) => (
-                <div key={l} style={{ flex: 1, paddingRight: i < 2 ? '24px' : '0', paddingLeft: i > 0 ? '24px' : '0', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
-                  <div style={{ fontFamily: C, fontSize: '40px', fontStyle: 'italic', fontWeight: 300, color: ACCENT, lineHeight: 1 }}>{v}</div>
-                  <div style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', marginTop: '8px' }}>{l}</div>
+                <div key={l} style={{ flex: 1, paddingRight: i < 2 ? '32px' : 0, paddingLeft: i > 0 ? '32px' : 0, borderRight: i < 2 ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
+                  <div style={{ fontFamily: C, fontSize: '44px', fontStyle: 'italic', fontWeight: 400, color: ACCENT, lineHeight: 1 }}>{v}</div>
+                  <div style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.25)', marginTop: '10px' }}>{l}</div>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Photo */}
-          <div style={{ position: 'relative', overflow: 'hidden', minHeight: '500px' }}>
+          <div style={{ position: 'relative', overflow: 'hidden' }}>
             <Image src="/images/maxence.jpg" alt="Maxence" fill sizes="50vw"
-              style={{ objectFit: 'cover', objectPosition: 'center top' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(66,98,72,0.3), transparent 50%)' }} />
-            <div style={{ position: 'absolute', bottom: '40px', left: '36px', right: '36px', borderLeft: '2px solid rgba(246,183,77,0.45)', paddingLeft: '18px' }}>
-              <p style={{ fontFamily: C, fontSize: '17px', fontStyle: 'italic', fontWeight: 300, color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>
+              style={{ objectFit: 'cover', objectPosition: 'center top', transition: 'transform 0.8s ease' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(26,46,30,0.4), transparent 50%)' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,20,14,0.85) 0%, rgba(10,20,14,0.4) 35%, transparent 60%)' }} />
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}
+              style={{ position: 'absolute', bottom: '48px', left: '40px', right: '40px', borderLeft: '2px solid rgba(246,183,77,0.6)', paddingLeft: '20px' }}>
+              <p style={{ fontFamily: C, fontSize: '18px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.95)', lineHeight: 1.65 }}>
                 &ldquo;Je ne guide pas des touristes. Je partage des endroits avec des gens qui méritent de les voir.&rdquo;
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </motion.section>
@@ -122,113 +133,206 @@ function LeProjet() {
 }
 
 /* ════════════════════════════════════════════════ */
-/*  LE CONCEPT                                      */
+/*  LE CONCEPT — Timeline verticale                 */
 /* ════════════════════════════════════════════════ */
 const STEPS = [
-  { n: '01', t: 'Candidature', b: "Un formulaire, quelques lignes sur vous. Je lis chaque dossier personnellement." },
-  { n: '02', t: 'Sélection', b: "Je compose un groupe de 2 à 6 personnes. L'équilibre humain compte autant que la destination." },
-  { n: '03', t: 'Révélation J-7', b: "Sept jours avant le départ, les participants reçoivent la destination. Pas une heure avant." },
-  { n: '04', t: "L'expédition", b: "Terrain, logistique, photo. Vous apportez l'ouverture. Le reste se construit ensemble." },
+  { n: '01', t: 'Candidature', b: "Un formulaire, quelques lignes sur vous. Je lis chaque dossier personnellement.", icon: '✦' },
+  { n: '02', t: 'Sélection', b: "Je compose un groupe de 2 à 6 personnes. L'équilibre humain compte autant que la destination.", icon: '✦' },
+  { n: '03', t: 'Révélation J-7', b: "Sept jours avant le départ, les participants reçoivent la destination. Pas une heure avant.", icon: '✦' },
+  { n: '04', t: "L'expédition", b: "Terrain, logistique, photo. Vous apportez l'ouverture. Le reste se construit ensemble.", icon: '✦' },
 ]
 
 function LeConcept() {
   return (
-    <section id="le-concept" style={{ background: BGMID, padding: '96px 64px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '72px', flexWrap: 'wrap', gap: '32px' }}>
-          <div>
-            <Label>Comment ça marche</Label>
-            <h2 style={{ fontFamily: C, fontSize: 'clamp(36px, 4vw, 58px)', fontWeight: 300, fontStyle: 'italic', color: '#fff', lineHeight: 0.95 }}>
-              L&apos;Entre 2 Mondes
-            </h2>
-          </div>
-          <p style={{ fontFamily: J, fontSize: '14px', fontWeight: 300, color: 'rgba(255,255,255,0.45)', maxWidth: '320px', lineHeight: 1.85 }}>
+    <section id="le-concept" style={{ background: BGDARK, padding: '0', overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '85vh' }}>
+
+        {/* Gauche — Titre oversized */}
+        <div style={{ padding: '96px 64px', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
+          <div aria-hidden style={{
+            position: 'absolute', left: '-30px', bottom: '-40px',
+            fontFamily: C, fontSize: '320px', fontStyle: 'italic', fontWeight: 700,
+            color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
+          }}>02</div>
+
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '32px' }}>
+            Comment ça marche
+          </motion.p>
+
+          <motion.h2 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            style={{ fontFamily: C, fontSize: 'clamp(60px, 6vw, 92px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.88, letterSpacing: '-0.02em', marginBottom: '40px' }}>
+            L&apos;Entre<br />2 Mondes
+          </motion.h2>
+
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
+            style={{ fontFamily: J, fontSize: '14px', fontWeight: 300, color: 'rgba(255,255,255,0.4)', lineHeight: 1.9, maxWidth: '320px' }}>
             Pas de destination connue avant le départ. L&apos;aventure commence quand on décide de faire confiance.
-          </p>
+          </motion.p>
         </div>
 
-        <div className="grid-4col" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+        {/* Droite — Steps en timeline */}
+        <div style={{ padding: '96px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '0' }}>
           {STEPS.map((s, i) => (
-            <motion.div key={s.n} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.1 }}
-              style={{ padding: '48px 32px 48px 0', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.07)' : 'none', paddingLeft: i > 0 ? '32px' : '0' }}>
-              <div style={{ fontFamily: C, fontSize: '64px', fontStyle: 'italic', fontWeight: 300, color: ACCENT, opacity: 0.5, lineHeight: 1, marginBottom: '20px' }}>{s.n}</div>
-              <h3 style={{ fontFamily: C, fontSize: '22px', fontWeight: 500, color: '#fff', marginBottom: '12px' }}>{s.t}</h3>
-              <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', lineHeight: 1.85 }}>{s.b}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
+            <motion.div key={s.n}
+              initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.12 }}
+              style={{ display: 'flex', gap: '28px', paddingBottom: i < STEPS.length - 1 ? '40px' : 0, marginBottom: i < STEPS.length - 1 ? '0' : 0, position: 'relative' }}>
 
-/* ════════════════════════════════════════════════ */
-/*  EXPÉDITIONS                                     */
-/* ════════════════════════════════════════════════ */
-function Expeditions() {
-  const STATUS_LBL: Record<string, string> = { ouvert: 'Ouvert', complet: 'Complet', bientot: 'À venir', passe: 'Réalisé' }
-  return (
-    <section id="expeditions" style={{ background: BG, padding: '96px 64px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '64px' }}>
-          <Label>Les expéditions</Label>
-          <h2 style={{ fontFamily: C, fontSize: 'clamp(36px, 4vw, 58px)', fontWeight: 300, fontStyle: 'italic', color: '#fff', lineHeight: 0.95 }}>
-            Terres explorées
-          </h2>
-        </div>
+              {/* Ligne verticale + point */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                <div style={{ width: '28px', height: '28px', border: `1px solid ${ACCENT}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '4px' }}>
+                  <span style={{ fontFamily: M, fontSize: '7px', color: ACCENT, letterSpacing: '0.1em' }}>{s.n}</span>
+                </div>
+                {i < STEPS.length - 1 && (
+                  <div style={{ width: '1px', flex: 1, background: 'rgba(255,255,255,0.07)', marginTop: '8px', minHeight: '32px' }} />
+                )}
+              </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-          {VOYAGES.map((v, i) => (
-            <motion.div key={v.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.08 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', minHeight: '280px', background: BGDARK, overflow: 'hidden' }} className="grid-2col">
-                {/* Image */}
-                <div style={{ position: 'relative', overflow: 'hidden' }}>
-                  <Image src={v.coverImage} alt={v.title} fill sizes="340px" loading="lazy"
-                    style={{ objectFit: 'cover' }} />
-                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(30,46,34,0.2)' }} />
-                </div>
-                {/* Texte */}
-                <div style={{ padding: '40px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                    <span style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.35)' }}>{v.continent}</span>
-                    <span style={{ width: '1px', height: '12px', background: 'rgba(255,255,255,0.15)' }} />
-                    <span style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.15em', color: v.status === 'ouvert' ? ACCENT : 'rgba(255,255,255,0.35)', background: v.status === 'ouvert' ? 'rgba(246,183,77,0.12)' : 'transparent', padding: v.status === 'ouvert' ? '3px 10px' : '0' }}>
-                      {STATUS_LBL[v.status]}
-                    </span>
-                  </div>
-                  <h3 style={{ fontFamily: C, fontSize: 'clamp(28px, 3vw, 42px)', fontWeight: 300, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, marginBottom: '16px' }}>
-                    {v.title}
-                  </h3>
-                  <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8, maxWidth: '400px', marginBottom: '16px' }}>
-                    {v.description}
-                  </p>
-                  <p style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.25)' }}>
-                    {v.duration} jours · {new Date(v.departureDate).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
-                  </p>
-                </div>
+              <div style={{ paddingBottom: i < STEPS.length - 1 ? '32px' : 0 }}>
+                <h3 style={{ fontFamily: C, fontSize: '24px', fontWeight: 400, fontStyle: 'italic', color: '#fff', marginBottom: '10px', lineHeight: 1 }}>{s.t}</h3>
+                <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.45)', lineHeight: 1.9 }}>{s.b}</p>
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   )
 }
 
 /* ════════════════════════════════════════════════ */
-/*  GALERIE                                         */
+/*  EXPÉDITIONS — Cards hover dramatiques           */
+/* ════════════════════════════════════════════════ */
+function ExpeditionCard({ v, i }: { v: typeof VOYAGES[0], i: number }) {
+  const [hovered, setHovered] = useState(false)
+  const STATUS_LBL: Record<string, string> = { ouvert: 'Ouvert', complet: 'Complet', bientot: 'À venir', passe: 'Réalisé' }
+
+  return (
+    <Link href={`/destinations/${v.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
+    <motion.div
+      initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.1 }}
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+      style={{ position: 'relative', overflow: 'hidden', cursor: 'pointer', background: BGMID }}>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', minHeight: '300px' }}>
+        {/* Image avec zoom hover */}
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <Image src={v.coverImage} alt={v.title} fill sizes="380px" loading="lazy"
+            style={{ objectFit: 'cover', transition: 'transform 0.7s cubic-bezier(0.22,1,0.36,1)', transform: hovered ? 'scale(1.06)' : 'scale(1)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: `rgba(13,26,16,${hovered ? 0.1 : 0.25})`, transition: 'background 0.5s' }} />
+          {/* Badge statut */}
+          <div style={{ position: 'absolute', top: '20px', left: '20px', fontFamily: M, fontSize: '8px', letterSpacing: '0.22em', textTransform: 'uppercase', background: v.status === 'ouvert' ? ACCENT : 'rgba(255,255,255,0.15)', color: v.status === 'ouvert' ? BGDARK : 'rgba(255,255,255,0.7)', padding: '6px 12px' }}>
+            {STATUS_LBL[v.status]}
+          </div>
+        </div>
+
+        {/* Texte */}
+        <div style={{ padding: '44px 56px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderLeft: `1px solid rgba(255,255,255,${hovered ? 0.1 : 0.04})`, transition: 'border-color 0.4s' }}>
+          <div>
+            <p style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: '16px' }}>{v.continent}</p>
+            <h3 style={{ fontFamily: C, fontSize: 'clamp(30px, 3vw, 46px)', fontWeight: 400, fontStyle: 'italic', color: hovered ? '#fff' : 'rgba(255,255,255,0.9)', lineHeight: 0.92, marginBottom: '20px', transition: 'color 0.3s', letterSpacing: '-0.01em' }}>
+              {v.title}
+            </h3>
+            <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.45)', lineHeight: 1.85, maxWidth: '380px' }}>
+              {v.description}
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '28px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+            <p style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.2)' }}>
+              {v.duration} jours · {new Date(v.departureDate).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
+            </p>
+            <motion.span animate={{ x: hovered ? 6 : 0 }} transition={{ duration: 0.3 }}
+              style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.15em', color: ACCENT }}>
+              EXPLORER →
+            </motion.span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+    </Link>
+  )
+}
+
+function Expeditions() {
+  return (
+    <section id="expeditions" style={{ background: BG, padding: '104px 0 0' }}>
+      <div style={{ padding: '0 72px', marginBottom: '64px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
+        <div style={{ position: 'relative' }}>
+          <div aria-hidden style={{
+            position: 'absolute', left: '-24px', top: '-60px',
+            fontFamily: C, fontSize: '220px', fontStyle: 'italic', fontWeight: 700,
+            color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
+          }}>03</div>
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
+            Les expéditions
+          </motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}
+            style={{ fontFamily: C, fontSize: 'clamp(44px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
+            Terres explorées
+          </motion.h2>
+        </div>
+        <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.35)', maxWidth: '260px', lineHeight: 1.9 }}>
+          Chaque destination, une rencontre. Chaque groupe, une alchimie unique.
+        </p>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+        {VOYAGES.map((v, i) => <ExpeditionCard key={v.id} v={v} i={i} />)}
+      </div>
+    </section>
+  )
+}
+
+/* ════════════════════════════════════════════════ */
+/*  GALERIE — Masonry avec hover reveal             */
 /* ════════════════════════════════════════════════ */
 const GALLERY = [
-  { src: '/images/hero-bg.jpg', ratio: '16/9', loc: 'Song-Köl', country: 'Kirghizistan' },
-  { src: '/images/15.jpg',      ratio: '4/3',  loc: 'Ala-Kul 3500m', country: 'Kirghizistan' },
-  { src: '/images/11.jpg',      ratio: '4/3',  loc: 'Thorong-La 5416m', country: 'Népal' },
-  { src: '/images/kyrg-famille.jpg', ratio: '3/2', loc: 'Yourte nomade', country: 'Kirghizistan' },
-  { src: '/images/13.jpg',      ratio: '4/3',  loc: 'Kel-Suu', country: 'Kirghizistan' },
-  { src: '/images/12.jpg',      ratio: '16/9', loc: 'Himalaya', country: 'Népal' },
-  { src: '/images/kyrg-fille-cheval.jpg', ratio: '3/4', loc: 'Steppe', country: 'Kirghizistan' },
-  { src: '/images/14.jpg',      ratio: '16/9', loc: 'Song-Köl', country: 'Kirghizistan' },
-  { src: '/images/kyrg-filles.jpg', ratio: '3/4', loc: 'Camp nomade', country: 'Kirghizistan' },
+  { src: '/images/hero-bg.jpg',        ratio: '16/9', loc: 'Song-Köl',       country: 'Kirghizistan' },
+  { src: '/images/15.jpg',             ratio: '4/3',  loc: 'Ala-Kul 3500m', country: 'Kirghizistan' },
+  { src: '/images/11.jpg',             ratio: '4/3',  loc: 'Thorong-La 5416m', country: 'Népal' },
+  { src: '/images/kyrg-famille.jpg',   ratio: '3/2',  loc: 'Yourte nomade', country: 'Kirghizistan' },
+  { src: '/images/13.jpg',             ratio: '4/3',  loc: 'Kel-Suu',       country: 'Kirghizistan' },
+  { src: '/images/12.jpg',             ratio: '16/9', loc: 'Himalaya',       country: 'Népal' },
+  { src: '/images/kyrg-fille-cheval.jpg', ratio: '3/4', loc: 'Steppe',      country: 'Kirghizistan' },
+  { src: '/images/14.jpg',             ratio: '16/9', loc: 'Song-Köl',       country: 'Kirghizistan' },
+  { src: '/images/kyrg-filles.jpg',    ratio: '3/4',  loc: 'Camp nomade',   country: 'Kirghizistan' },
 ]
+
+function GalleryItem({ p, ci, pi }: { p: typeof GALLERY[0], ci: number, pi: number }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.7, delay: ci * 0.08 + pi * 0.06 }}
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+      style={{ position: 'relative', overflow: 'hidden', cursor: 'crosshair' }}>
+      <div style={{ position: 'relative', aspectRatio: p.ratio as string }}>
+        <Image src={p.src} alt={p.loc} fill sizes="33vw" loading="lazy"
+          style={{ objectFit: 'cover', transition: 'transform 0.7s cubic-bezier(0.22,1,0.36,1)', transform: hovered ? 'scale(1.05)' : 'scale(1)' }} />
+
+        {/* Overlay hover */}
+        <div style={{ position: 'absolute', inset: 0, background: `rgba(13,26,16,${hovered ? 0.45 : 0})`, transition: 'background 0.4s' }} />
+
+        {/* Info reveal */}
+        <motion.div
+          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }} transition={{ duration: 0.3 }}
+          style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '20px' }}>
+          <p style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.3em', color: ACCENT, marginBottom: '8px' }}>{p.country}</p>
+          <p style={{ fontFamily: C, fontSize: '20px', fontStyle: 'italic', fontWeight: 400, color: '#fff' }}>{p.loc}</p>
+        </motion.div>
+
+        {/* Info bottom (toujours visible, plus subtil) */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px 16px 14px', background: 'linear-gradient(to top, rgba(13,26,16,0.75), transparent)', opacity: hovered ? 0 : 1, transition: 'opacity 0.3s' }}>
+          <p style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.2em', color: ACCENT, marginBottom: '2px' }}>{p.country}</p>
+          <p style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.8)' }}>{p.loc}</p>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 function Galerie() {
   const cols = [
@@ -237,35 +341,33 @@ function Galerie() {
     GALLERY.filter((_, i) => i % 3 === 2),
   ]
   return (
-    <section id="galerie" style={{ background: BGMID, padding: '96px 64px' }}>
+    <section id="galerie" style={{ background: BGMID, padding: '104px 64px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '56px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
-          <div>
-            <Label>Sur le terrain</Label>
-            <h2 style={{ fontFamily: C, fontSize: 'clamp(36px, 4vw, 58px)', fontWeight: 300, fontStyle: 'italic', color: '#fff', lineHeight: 0.95 }}>
+        <div style={{ marginBottom: '64px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
+          <div style={{ position: 'relative' }}>
+            <div aria-hidden style={{
+              position: 'absolute', left: '-20px', top: '-50px',
+              fontFamily: C, fontSize: '200px', fontStyle: 'italic', fontWeight: 700,
+              color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
+            }}>04</div>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
+              Sur le terrain
+            </motion.p>
+            <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}
+              style={{ fontFamily: C, fontSize: 'clamp(40px, 4.5vw, 64px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
               Ce que les cartes<br />ne montrent pas
-            </h2>
+            </motion.h2>
           </div>
-          <p style={{ fontFamily: C, fontSize: '18px', fontStyle: 'italic', fontWeight: 300, color: 'rgba(255,255,255,0.4)', maxWidth: '240px', lineHeight: 1.7 }}>
-            Kirghizistan · Népal · et au-delà
+          <p style={{ fontFamily: C, fontSize: '18px', fontStyle: 'italic', fontWeight: 300, color: 'rgba(255,255,255,0.35)', maxWidth: '200px', lineHeight: 1.7, textAlign: 'right' }}>
+            Kirghizistan<br />Népal<br />et au-delà
           </p>
         </div>
 
-        <div className="grid-masonry">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '6px' }}>
           {cols.map((col, ci) => (
-            <div key={ci} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {col.map((p, pi) => (
-                <motion.div key={pi} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.7, delay: ci * 0.08 + pi * 0.06 }}
-                  style={{ position: 'relative', overflow: 'hidden' }}>
-                  <div style={{ position: 'relative', aspectRatio: p.ratio as string }}>
-                    <Image src={p.src} alt={p.loc} fill sizes="33vw" loading="lazy" style={{ objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 16px 14px', background: 'linear-gradient(to top, rgba(30,46,34,0.8), transparent)' }}>
-                      <p style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.2em', color: ACCENT, marginBottom: '2px' }}>{p.country}</p>
-                      <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.85)' }}>{p.loc}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+            <div key={ci} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {col.map((p, pi) => <GalleryItem key={pi} p={p} ci={ci} pi={pi} />)}
             </div>
           ))}
         </div>
@@ -275,31 +377,71 @@ function Galerie() {
 }
 
 /* ════════════════════════════════════════════════ */
-/*  CONTACT                                         */
+/*  CONTACT — Section percutante                    */
 /* ════════════════════════════════════════════════ */
 function Contact() {
+  const [hovered, setHovered] = useState(false)
   return (
-    <section id="contact" style={{ background: BGDARK, padding: '120px 64px' }}>
-      <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
-        <Label>Prendre contact</Label>
-        <h2 style={{ fontFamily: C, fontSize: 'clamp(40px, 5vw, 72px)', fontWeight: 300, fontStyle: 'italic', color: '#fff', lineHeight: 0.92, marginBottom: '24px' }}>
-          Intéressé·e par<br />le projet ?
-        </h2>
-        <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', lineHeight: 1.9, marginBottom: '48px', maxWidth: '480px', margin: '0 auto 48px' }}>
-          Que ce soit pour participer à une prochaine expédition, pour collaborer, ou simplement pour suivre l&apos;aventure — écrivez-moi.
-        </p>
+    <section id="contact" style={{ background: BGDARK, position: 'relative', overflow: 'hidden', padding: '0' }}>
+      {/* Grande ligne décorative */}
+      <div style={{ position: 'absolute', top: 0, left: '72px', right: '72px', height: '1px', background: 'rgba(255,255,255,0.06)' }} />
 
-        <a href="mailto:contact@btw2world.com" style={{
-          fontFamily: J, fontSize: '11px', letterSpacing: '0.22em', textTransform: 'uppercase',
-          background: ACCENT, color: '#1e2e22', padding: '16px 48px',
-          textDecoration: 'none', fontWeight: 500, display: 'inline-block', marginBottom: '20px',
-        }}>
-          contact@btw2world.com
-        </a>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '70vh' }}>
 
-        <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', marginTop: '32px' }}>
-          Kirghizistan · Népal · Prochaine destination inconnue
-        </p>
+        {/* Gauche — Titre dramatique */}
+        <div style={{ padding: '96px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderRight: '1px solid rgba(255,255,255,0.06)', position: 'relative', overflow: 'hidden' }}>
+          <div aria-hidden style={{
+            position: 'absolute', left: '-24px', bottom: '-60px',
+            fontFamily: C, fontSize: '280px', fontStyle: 'italic', fontWeight: 700,
+            color: 'rgba(255,255,255,0.02)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
+          }}>05</div>
+
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '32px' }}>
+            Prendre contact
+          </motion.p>
+
+          <motion.h2 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            style={{ fontFamily: C, fontSize: 'clamp(56px, 6vw, 88px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.88, letterSpacing: '-0.02em' }}>
+            Intéressé·e<br />par le<br />projet ?
+          </motion.h2>
+        </div>
+
+        {/* Droite — CTA */}
+        <div style={{ padding: '96px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '32px' }}>
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+            style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', lineHeight: 2, maxWidth: '400px' }}>
+            Que ce soit pour participer à une prochaine expédition, pour collaborer, ou simplement pour suivre l&apos;aventure — écrivez-moi.
+          </motion.p>
+
+          <motion.a
+            href="mailto:contact@btw2world.com"
+            onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.35 }}
+            style={{
+              fontFamily: J, fontSize: '11px', letterSpacing: '0.24em', textTransform: 'uppercase', fontWeight: 500,
+              display: 'inline-block', padding: '18px 48px', textDecoration: 'none',
+              background: hovered ? '#fff' : ACCENT,
+              color: BGDARK,
+              transition: 'background 0.3s, transform 0.3s',
+              transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
+              alignSelf: 'flex-start',
+            }}>
+            contact@btw2world.com
+          </motion.a>
+
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.5 }}
+            style={{ display: 'flex', gap: '32px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+            {['Instagram', 'YouTube', 'Mail'].map(s => (
+              <span key={s} style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }}>{s}</span>
+            ))}
+          </motion.div>
+
+          <p style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.12)', marginTop: '16px' }}>
+            Kirghizistan · Népal · Prochaine destination inconnue
+          </p>
+        </div>
+
       </div>
     </section>
   )
@@ -316,6 +458,7 @@ export default function LandingPage() {
       <LeConcept />
       <Expeditions />
       <Galerie />
+      <WorldMapSection />
       <Contact />
       <Footer />
     </main>

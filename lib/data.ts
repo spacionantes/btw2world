@@ -80,7 +80,7 @@ Le passage du Thorong-La à 5416m reste le moment le plus fort : partir à 3h du
     title: 'Namibie — Désert du Namib',
     country: 'Namibie',
     continent: 'Afrique australe',
-    coverImage: '/images/hero-bg.jpg',
+    coverImage: '/images/16.jpg',
     departureDate: '2025-11-01',
     duration: 12,
     spotsTotal: 4,
