@@ -7,42 +7,103 @@ const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
 const BGDARK = '#0d1a10'
-const BGMID  = '#243429'
+const BGMID  = '#1a2e1e'
 const ACCENT = '#f6b74d'
+
+// Projection équirectangulaire : viewBox 360x180
+// x = lon + 180  (0→360)
+// y = 90 - lat   (0→180)
+function ll(lon: number, lat: number): string {
+  return `${lon + 180},${90 - lat}`
+}
 
 type Destination = {
   id: string
   name: string
   country: string
   continent: string
-  // position en % sur la carte SVG (x, y)
-  x: number
-  y: number
+  lon: number
+  lat: number
   status: 'realise' | 'mystere'
   year?: string
   description: string
 }
 
 const DESTINATIONS: Destination[] = [
-  { id: 'kyrg',    name: 'Tian Shan',       country: 'Kirghizistan', continent: 'Asie centrale',   x: 67.2, y: 28.0, status: 'realise', year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m' },
-  { id: 'nepal',   name: 'Annapurna',       country: 'Népal',        continent: 'Himalaya',         x: 69.8, y: 34.5, status: 'realise', year: '2024', description: 'Thorong-La 5416m, villages sherpa' },
-  { id: 'namibie', name: 'Désert du Namib', country: 'Namibie',      continent: 'Afrique australe', x: 51.2, y: 67.5, status: 'realise', year: '2025', description: 'Sossusvlei, Skeleton Coast' },
-  { id: 'next',    name: '???',             country: 'Destination secrète', continent: '???',       x: 30,   y: 45,   status: 'mystere',              description: 'Révélée J-7 aux candidats retenus' },
+  { id: 'kyrg',    name: 'Tian Shan',       country: 'Kirghizistan', continent: 'Asie centrale',   lon: 74.5,  lat: 41.2,  status: 'realise', year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m' },
+  { id: 'nepal',   name: 'Annapurna',       country: 'Népal',        continent: 'Himalaya',         lon: 84.0,  lat: 28.6,  status: 'realise', year: '2024', description: 'Thorong-La 5416m, villages sherpa' },
+  { id: 'namibie', name: 'Désert du Namib', country: 'Namibie',      continent: 'Afrique australe', lon: 18.5,  lat: -22.9, status: 'realise', year: '2025', description: 'Sossusvlei, Skeleton Coast' },
+  { id: 'next',    name: '???',             country: 'Destination secrète', continent: '???',       lon: -10.0, lat: 20.0,  status: 'mystere',              description: 'Révélée J-7 aux candidats retenus' },
 ]
 
-// Carte monde SVG simplifiée — continents en paths approximatifs
-const WORLD_PATH = `
-M 8,38 C 10,32 14,28 18,30 C 22,26 26,28 28,32 C 30,28 34,24 38,26
-  C 40,22 44,20 46,24 C 48,18 52,16 54,22 C 58,16 64,18 66,24
-  C 70,18 76,20 78,26 C 82,22 88,24 90,28 C 94,24 98,26 100,32
-  C 102,28 106,30 108,36 C 110,32 114,34 114,40
-  C 112,46 110,50 108,48 C 106,54 102,56 100,52
-  C 98,58 94,60 90,56 C 88,62 82,64 78,60
-  C 76,66 70,68 66,62 C 64,68 58,70 54,64
-  C 52,70 48,72 46,66 C 44,72 40,74 38,68
-  C 34,74 30,72 28,66 C 26,72 22,70 18,64
-  C 14,70 10,68 8,62 Z
-`
+// Continents en polygones simplifiés (coordonnées géographiques réelles)
+const CONTINENTS = [
+  {
+    id: 'na',
+    label: '',
+    points: [
+      [-168,72],[-130,72],[-95,75],[-65,47],[-52,46],[-62,44],[-82,24],[-88,15],
+      [-84,9],[-78,8],[-76,8],[-77,9],[-83,10],[-90,16],[-104,18],[-118,22],
+      [-122,37],[-124,48],[-140,59],[-155,60],[-168,72],
+    ]
+  },
+  {
+    id: 'sa',
+    label: '',
+    points: [
+      [-81,11],[-64,12],[-60,9],[-50,2],[-35,-5],[-35,-8],[-38,-13],[-40,-20],
+      [-42,-22],[-44,-23],[-48,-28],[-50,-30],[-52,-33],[-55,-35],[-65,-42],
+      [-66,-55],[-70,-55],[-74,-45],[-80,-38],[-80,-28],[-75,-14],[-80,0],[-81,11],
+    ]
+  },
+  {
+    id: 'eu',
+    label: '',
+    points: [
+      [-10,36],[-5,36],[0,38],[3,43],[10,44],[15,44],[18,40],[25,40],
+      [28,42],[30,46],[30,48],[22,54],[20,60],[15,68],[5,62],
+      [0,51],[-5,48],[-8,42],[-10,36],
+    ]
+  },
+  {
+    id: 'af',
+    label: '',
+    points: [
+      [-17,15],[-17,22],[-12,28],[0,30],[10,37],[22,37],[37,30],[44,12],
+      [50,12],[52,12],[50,0],[42,-12],[40,-16],[36,-18],[35,-22],[30,-24],
+      [27,-30],[18,-35],[15,-35],[12,-34],[8,-26],[5,-2],[-3,5],
+      [-17,14],[-17,15],
+    ]
+  },
+  {
+    id: 'as',
+    label: '',
+    points: [
+      [26,42],[30,46],[35,42],[38,37],[42,38],[48,30],[58,22],[60,22],
+      [65,24],[72,22],[76,8],[80,10],[92,8],[100,5],[104,1],[108,2],
+      [120,23],[122,30],[130,35],[135,35],[140,38],[142,46],[142,54],
+      [135,50],[130,48],[125,50],[120,54],[105,52],[95,52],[80,55],
+      [68,55],[60,55],[50,58],[45,65],[40,68],[35,68],[30,65],[28,60],
+      [26,56],[26,42],
+    ]
+  },
+  {
+    id: 'as2',
+    label: '',
+    points: [
+      [98,20],[100,14],[104,10],[108,12],[110,20],[108,24],[104,22],[98,20],
+    ]
+  },
+  {
+    id: 'au',
+    label: '',
+    points: [
+      [114,-22],[118,-20],[122,-18],[128,-14],[132,-12],[136,-12],[140,-14],
+      [144,-18],[148,-20],[152,-24],[154,-28],[152,-34],[148,-38],[144,-38],
+      [138,-36],[132,-34],[128,-34],[122,-34],[116,-34],[112,-28],[114,-22],
+    ]
+  },
+]
 
 export default function WorldMapSection() {
   const [active, setActive] = useState<Destination | null>(null)
@@ -74,80 +135,79 @@ export default function WorldMapSection() {
         </div>
       </div>
 
-      {/* Carte SVG interactive */}
+      {/* Carte SVG */}
       <div style={{ position: 'relative', background: BGMID, borderTop: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
         <svg
-          viewBox="0 0 200 110"
+          viewBox="0 0 360 180"
           style={{ width: '100%', height: 'auto', display: 'block' }}
           preserveAspectRatio="xMidYMid meet"
         >
           {/* Fond océan */}
-          <rect width="200" height="110" fill={BGMID} />
+          <rect width="360" height="180" fill={BGMID} />
 
-          {/* Grille subtile */}
-          {[20,40,60,80,100,120,140,160,180].map(x => (
-            <line key={`v${x}`} x1={x} y1={0} x2={x} y2={110} stroke="rgba(255,255,255,0.03)" strokeWidth="0.3" />
+          {/* Grille méridiens/parallèles */}
+          {[-150,-120,-90,-60,-30,0,30,60,90,120,150].map(lon => (
+            <line key={lon} x1={lon+180} y1={0} x2={lon+180} y2={180} stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
           ))}
-          {[20,40,60,80,100].map(y => (
-            <line key={`h${y}`} x1={0} y1={y} x2={200} y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="0.3" />
+          {[-60,-30,0,30,60].map(lat => (
+            <line key={lat} x1={0} y1={90-lat} x2={360} y2={90-lat} stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
           ))}
+          {/* Équateur */}
+          <line x1={0} y1={90} x2={360} y2={90} stroke="rgba(255,255,255,0.07)" strokeWidth="0.5" strokeDasharray="4 4" />
 
-          {/* Continents — paths simplifiés */}
-          {/* Amérique du Nord */}
-          <path d="M8,18 L22,16 L28,20 L26,28 L22,34 L18,36 L12,32 L8,26 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
-          {/* Amérique du Sud */}
-          <path d="M18,42 L26,40 L28,48 L26,58 L22,64 L16,62 L14,54 L16,46 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
-          {/* Europe */}
-          <path d="M46,16 L56,14 L60,18 L58,26 L52,28 L46,26 L44,20 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
-          {/* Afrique */}
-          <path d="M46,30 L58,28 L62,36 L60,50 L56,62 L50,66 L44,60 L42,48 L44,36 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
-          {/* Asie */}
-          <path d="M62,14 L100,12 L108,18 L104,28 L96,32 L84,34 L72,30 L64,26 L60,20 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
-          {/* Asie du Sud */}
-          <path d="M72,32 L84,30 L88,38 L84,46 L76,48 L70,42 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
-          {/* Australie */}
-          <path d="M120,58 L136,56 L140,64 L136,72 L124,72 L118,66 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
+          {/* Continents */}
+          {CONTINENTS.map(c => (
+            <polygon
+              key={c.id}
+              points={c.points.map(([lon, lat]) => ll(lon, lat)).join(' ')}
+              fill="rgba(255,255,255,0.07)"
+              stroke="rgba(255,255,255,0.13)"
+              strokeWidth="0.6"
+              strokeLinejoin="round"
+            />
+          ))}
 
           {/* Lignes de connexion entre destinations réalisées */}
-          {DESTINATIONS.filter(d => d.status === 'realise').map((d, i, arr) => {
-            if (i === arr.length - 1) return null
-            const next = arr[i + 1]
-            return (
-              <line key={`line-${d.id}`}
-                x1={d.x} y1={d.y} x2={next.x} y2={next.y}
-                stroke={`rgba(246,183,77,0.15)`} strokeWidth="0.4" strokeDasharray="1.5 1.5"
-              />
-            )
-          })}
+          {(() => {
+            const realises = DESTINATIONS.filter(d => d.status === 'realise')
+            return realises.map((d, i) => {
+              if (i === realises.length - 1) return null
+              const next = realises[i + 1]
+              return (
+                <line key={`link-${d.id}`}
+                  x1={d.lon + 180} y1={90 - d.lat}
+                  x2={next.lon + 180} y2={90 - next.lat}
+                  stroke="rgba(246,183,77,0.2)" strokeWidth="0.6" strokeDasharray="2 2"
+                />
+              )
+            })
+          })()}
 
           {/* Pinpoints */}
-          {DESTINATIONS.map((dest) => (
-            <g key={dest.id} onClick={() => setActive(active?.id === dest.id ? null : dest)} style={{ cursor: 'pointer' }}>
-              {dest.status === 'mystere' ? (
-                <>
-                  <circle cx={dest.x} cy={dest.y} r={4} fill="rgba(246,183,77,0.08)" stroke={ACCENT} strokeWidth="0.4" strokeDasharray="1 1" />
-                  <circle cx={dest.x} cy={dest.y} r={1.2} fill="rgba(246,183,77,0.4)" />
-                  <text x={dest.x} y={dest.y - 6} textAnchor="middle" style={{ fontSize: '3px', fontFamily: M, fill: 'rgba(246,183,77,0.5)', letterSpacing: '0.05em' }}>???</text>
-                </>
-              ) : (
-                <>
-                  {/* Halo actif */}
-                  {active?.id === dest.id && (
-                    <circle cx={dest.x} cy={dest.y} r={8} fill="rgba(246,183,77,0.1)" />
-                  )}
-                  {/* Cercle extérieur */}
-                  <circle cx={dest.x} cy={dest.y} r={5} fill="transparent" stroke={ACCENT} strokeWidth="0.4" opacity={0.4} />
-                  {/* Point central */}
-                  <circle cx={dest.x} cy={dest.y} r={active?.id === dest.id ? 3 : 2} fill={ACCENT} style={{ transition: 'r 0.2s' }} />
-                  {/* Label */}
-                  <text x={dest.x} y={dest.y - 7} textAnchor="middle"
-                    style={{ fontSize: '3px', fontFamily: M, fill: 'rgba(255,255,255,0.55)', letterSpacing: '0.05em', pointerEvents: 'none' }}>
-                    {dest.country.toUpperCase()}
-                  </text>
-                </>
-              )}
-            </g>
-          ))}
+          {DESTINATIONS.map(dest => {
+            const cx = dest.lon + 180
+            const cy = 90 - dest.lat
+            const isActive = active?.id === dest.id
+
+            if (dest.status === 'mystere') return (
+              <g key={dest.id} onClick={() => setActive(isActive ? null : dest)} style={{ cursor: 'pointer' }}>
+                <circle cx={cx} cy={cy} r={6} fill="rgba(246,183,77,0.06)" stroke={ACCENT} strokeWidth="0.6" strokeDasharray="1.5 1.5" />
+                <circle cx={cx} cy={cy} r={1.5} fill="rgba(246,183,77,0.5)" />
+                <text x={cx} y={cy - 8} textAnchor="middle" fontSize="4" fontFamily={M} fill="rgba(246,183,77,0.5)" letterSpacing="0.5">???</text>
+              </g>
+            )
+
+            return (
+              <g key={dest.id} onClick={() => setActive(isActive ? null : dest)} style={{ cursor: 'pointer' }}>
+                {isActive && <circle cx={cx} cy={cy} r={12} fill="rgba(246,183,77,0.1)" />}
+                <circle cx={cx} cy={cy} r={7} fill="transparent" stroke={ACCENT} strokeWidth="0.7" opacity={0.45} />
+                <circle cx={cx} cy={cy} r={isActive ? 4 : 2.5} fill={ACCENT} />
+                <text x={cx} y={cy - 10} textAnchor="middle" fontSize="4.5" fontFamily={M} fill="rgba(255,255,255,0.65)" letterSpacing="0.3">
+                  {dest.country.toUpperCase()}
+                </text>
+              </g>
+            )
+          })}
         </svg>
 
         {/* Tooltip */}
@@ -159,7 +219,7 @@ export default function WorldMapSection() {
               style={{
                 position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)',
                 background: 'rgba(13,26,16,0.96)', border: '1px solid rgba(246,183,77,0.25)',
-                padding: '20px 28px', backdropFilter: 'blur(12px)', minWidth: '240px', textAlign: 'center',
+                padding: '20px 28px', backdropFilter: 'blur(12px)', minWidth: '240px', textAlign: 'center', zIndex: 10,
               }}>
               <p style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.28em', textTransform: 'uppercase', color: ACCENT, marginBottom: '8px' }}>
                 {active.continent}{active.year ? ` · ${active.year}` : ''}
