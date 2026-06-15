@@ -51,7 +51,7 @@ export default function AboutSection() {
             style={{ position: 'relative', overflow: 'hidden', minHeight: '600px' }}>
             <Image src="/images/maxence.jpg" alt="Maxence" fill sizes="50vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(66,98,72,0.35) 0%, transparent 50%)' }} />
-            <div style={{ position: 'absolute', top: '32px', left: '32px', background: 'rgba(246,183,77,0.88)', color: '#1e2e22', fontFamily: J, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', padding: '7px 16px', fontWeight: 500 }}>
+            <div style={{ position: 'absolute', top: '32px', left: '32px', background: 'rgba(246,183,77,0.88)', color: '#426248', fontFamily: J, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', padding: '7px 16px', fontWeight: 500 }}>
               Guide & Photographe
             </div>
             <div style={{ position: 'absolute', bottom: '48px', left: '40px', right: '40px', borderLeft: '2px solid rgba(246,183,77,0.5)', paddingLeft: '20px' }}>

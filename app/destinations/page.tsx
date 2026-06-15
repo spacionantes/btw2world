@@ -12,7 +12,7 @@ const C = "'Cormorant Garamond', serif"
 const M = "'DM Mono', monospace"
 
 const STATUS_CONF: Record<string, { txt: string; color: string; bg: string }> = {
-  ouvert:  { txt: 'Disponible',  color: '#1e2e22',              bg: '#f6b74d' },
+  ouvert:  { txt: 'Disponible',  color: '#426248',              bg: '#f6b74d' },
   complet: { txt: 'Complet',     color: 'rgba(255,255,255,0.5)', bg: 'rgba(255,255,255,0.08)' },
   bientot: { txt: 'Bientôt',     color: '#f6b74d',               bg: 'rgba(246,183,77,0.12)' },
   passe:   { txt: 'Passé',       color: 'rgba(255,255,255,0.3)', bg: 'rgba(255,255,255,0.05)' },
@@ -31,7 +31,7 @@ function VoyageCard({ v, idx }: { v: TVoyage; idx: number }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.12 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        style={{ position: 'relative', height: '80vh', overflow: 'hidden', marginBottom: '3px', background: '#2d4433', cursor: 'pointer' }}
+        style={{ position: 'relative', height: '80vh', overflow: 'hidden', marginBottom: '3px', background: '#3d5a43', cursor: 'pointer' }}
       >
         <Image
           src={v.coverImage} alt={v.title} fill
@@ -102,7 +102,7 @@ export default function DestinationsPage() {
   })
 
   return (
-    <div style={{ background: '#1e2e22', minHeight: '100dvh' }}>
+    <div style={{ background: '#426248', minHeight: '100dvh' }}>
       <PageHero
         image="/images/15.jpg"
         label="Les expéditions"
@@ -142,7 +142,7 @@ export default function DestinationsPage() {
           <p style={{ fontFamily: C, fontSize: '28px', fontStyle: 'italic', fontWeight: 300, color: '#ffffff', marginBottom: '8px' }}>Une idée en tête ?</p>
           <p style={{ fontFamily: J, fontSize: '14px', fontWeight: 300, color: 'rgba(255,255,255,0.38)' }}>La prochaine destination vous attend.</p>
         </div>
-        <Link href="/candidater" style={{ fontFamily: J, fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', background: '#f6b74d', color: '#1e2e22', padding: '16px 44px', textDecoration: 'none', fontWeight: 500 }}>
+        <Link href="/candidater" style={{ fontFamily: J, fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', background: '#f6b74d', color: '#426248', padding: '16px 44px', textDecoration: 'none', fontWeight: 500 }}>
           Candidater →
         </Link>
       </div>

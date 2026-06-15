@@ -3,25 +3,25 @@
 import Image from 'next/image'
 import Nav from '@/components/layout/Nav'
 
-
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
-const BGDARK = '#0d1a10'
+const BGDARK = '#2e4532'
 const ACCENT = '#f6b74d'
 
+// col: colonnes occupées (sur 3 colonnes), row: rangées occupées
 const PHOTOS = [
-  { src: '/images/15.jpg',                location: 'Ala-Kul 3500m',     country: 'Kirghizistan' },
-  { src: '/images/11.jpg',                location: 'Thorong-La 5416m',   country: 'Népal' },
-  { src: '/images/kyrg-famille.jpg',      location: 'Yourte nomade',      country: 'Kirghizistan' },
-  { src: '/images/13.jpg',                location: 'Kel-Suu',            country: 'Kirghizistan' },
-  { src: '/images/12.jpg',                location: 'Himalaya',           country: 'Népal' },
-  { src: '/images/kyrg-fille-cheval.jpg', location: 'Steppe',             country: 'Kirghizistan' },
-  { src: '/images/14.jpg',                location: 'Song-Köl',           country: 'Kirghizistan' },
-  { src: '/images/kyrg-filles.jpg',       location: 'Camp nomade',        country: 'Kirghizistan' },
-  { src: '/images/maxence.jpg',           location: 'Base camp',          country: 'Kirghizistan' },
-  { src: '/images/hero-bg.jpg',           location: 'Song-Köl',           country: 'Kirghizistan' },
-  { src: '/images/Amazonie.jpeg',         location: 'Rio Negro',          country: 'Brésil' },
+  { src: '/images/15.jpg',                col: 2, row: 1, location: 'Ala-Kul 3500m',   country: 'Kirghizistan' },
+  { src: '/images/kyrg-fille-cheval.jpg', col: 1, row: 2, location: 'Steppe',           country: 'Kirghizistan' },
+  { src: '/images/11.jpg',                col: 1, row: 1, location: 'Thorong-La 5416m', country: 'Népal' },
+  { src: '/images/kyrg-famille.jpg',      col: 1, row: 1, location: 'Yourte nomade',    country: 'Kirghizistan' },
+  { src: '/images/14.jpg',                col: 2, row: 1, location: 'Song-Köl',         country: 'Kirghizistan' },
+  { src: '/images/kyrg-filles.jpg',       col: 1, row: 2, location: 'Camp nomade',      country: 'Kirghizistan' },
+  { src: '/images/12.jpg',                col: 2, row: 1, location: 'Himalaya',         country: 'Népal' },
+  { src: '/images/13.jpg',                col: 1, row: 1, location: 'Kel-Suu',          country: 'Kirghizistan' },
+  { src: '/images/maxence.jpg',           col: 1, row: 2, location: 'Base camp',        country: 'Kirghizistan' },
+  { src: '/images/Amazonie.jpeg',         col: 2, row: 1, location: 'Rio Negro',        country: 'Brésil' },
+  { src: '/images/hero-bg.jpg',           col: 1, row: 1, location: 'Song-Köl',         country: 'Kirghizistan' },
 ]
 
 export default function GaleriePage() {
@@ -33,34 +33,49 @@ export default function GaleriePage() {
         <Nav />
       </div>
 
-      {/* Mosaïque masonry — format naturel des images */}
+      {/* Mosaïque tetris — CSS grid avec spans */}
       <div style={{ paddingTop: '70px' }}>
-        <div style={{ columnCount: 3, columnGap: '3px' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridAutoRows: '260px',
+          gridAutoFlow: 'row dense',
+          gap: '3px',
+        }}>
           {PHOTOS.map((photo, i) => (
-            <div key={i} style={{ breakInside: 'avoid', position: 'relative', overflow: 'hidden', marginBottom: '3px', display: 'block' }}
+            <div
+              key={i}
+              style={{
+                gridColumn: `span ${photo.col}`,
+                gridRow: `span ${photo.row}`,
+                position: 'relative',
+                overflow: 'hidden',
+              }}
               onMouseEnter={e => {
                 const img = e.currentTarget.querySelector('img') as HTMLImageElement | null
-                if (img) img.style.transform = 'scale(1.04)'
-                const overlay = e.currentTarget.querySelector('.overlay') as HTMLElement | null
-                if (overlay) overlay.style.opacity = '1'
+                if (img) img.style.transform = 'scale(1.05)'
+                const ov = e.currentTarget.querySelector('.ov') as HTMLElement | null
+                if (ov) ov.style.opacity = '1'
               }}
               onMouseLeave={e => {
                 const img = e.currentTarget.querySelector('img') as HTMLImageElement | null
                 if (img) img.style.transform = 'scale(1)'
-                const overlay = e.currentTarget.querySelector('.overlay') as HTMLElement | null
-                if (overlay) overlay.style.opacity = '0'
+                const ov = e.currentTarget.querySelector('.ov') as HTMLElement | null
+                if (ov) ov.style.opacity = '0'
               }}
             >
-              <Image src={photo.src} alt={photo.location}
-                width={800} height={600}
-                sizes="33vw"
+              <Image
+                src={photo.src}
+                alt={photo.location}
+                fill
+                sizes={photo.col === 2 ? '66vw' : '33vw'}
                 loading={i < 3 ? 'eager' : 'lazy'}
-                style={{ width: '100%', height: 'auto', display: 'block', transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)' }}
+                style={{ objectFit: 'cover', transition: 'transform 0.7s cubic-bezier(0.22,1,0.36,1)' }}
               />
-              <div className="overlay" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,20,14,0.75) 0%, transparent 55%)', opacity: 0, transition: 'opacity 0.4s', pointerEvents: 'none' }} />
-              <div style={{ position: 'absolute', bottom: '16px', left: '20px', pointerEvents: 'none' }}>
-                <p style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: ACCENT, marginBottom: '3px' }}>{photo.country}</p>
-                <p style={{ fontFamily: C, fontSize: '15px', fontStyle: 'italic', fontWeight: 400, color: '#fff' }}>{photo.location}</p>
+              <div className="ov" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(46,69,50,0.82) 0%, transparent 55%)', opacity: 0, transition: 'opacity 0.4s', pointerEvents: 'none' }} />
+              <div style={{ position: 'absolute', bottom: '18px', left: '22px', pointerEvents: 'none' }}>
+                <p style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: ACCENT, marginBottom: '4px' }}>{photo.country}</p>
+                <p style={{ fontFamily: C, fontSize: '16px', fontStyle: 'italic', fontWeight: 400, color: '#fff' }}>{photo.location}</p>
               </div>
             </div>
           ))}

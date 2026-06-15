@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
-const BGDARK = '#0d1a10'
+const BGDARK = '#2e4532'
 const ACCENT = '#f6b74d'
 
 const LINKS = [

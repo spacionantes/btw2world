@@ -87,7 +87,7 @@ export default function WorldMap() {
               />
               {/* Point */}
               <circle r={0.8} fill={isOpen ? '#f6b74d' : 'rgba(255,255,255,0.6)'} />
-              <circle r={0.35} fill={isOpen ? '#1e2e22' : 'rgba(30,46,34,0.8)'} />
+              <circle r={0.35} fill={isOpen ? '#426248' : 'rgba(30,46,34,0.8)'} />
 
               {/* Label */}
               <text

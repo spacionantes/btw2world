@@ -8,7 +8,7 @@ import Link from 'next/link'
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
-const BGDARK = '#0d1a10'
+const BGDARK = '#2e4532'
 const ACCENT = '#f6b74d'
 
 const EXPEDITIONS = [
@@ -105,51 +105,57 @@ export default function WorldMapSection() {
       ]
 
       const material = new THREE.MeshPhongMaterial({
-        color: new THREE.Color('#0e1f12'),
-        shininess: 10,
-        specular: new THREE.Color('#1a3320'),
+        color: new THREE.Color('#3a5c42'),
+        shininess: 18,
+        specular: new THREE.Color('#507358'),
+        emissive: new THREE.Color('#1a3020'),
+        emissiveIntensity: 0.15,
       })
 
       // @ts-expect-error globe.gl dynamic
       const globe = Globe()(el)
         .width(el.clientWidth)
-        .height(560)
-        .backgroundColor(BGDARK)
+        .height(640)
+        .backgroundColor('#2e4532')
+        .atmosphereColor('#8fc49a')
+        .atmosphereAltitude(0.18)
         .globeMaterial(material)
         .polygonsData(geoData.features)
-        .polygonCapColor(() => '#192e1c')
+        .polygonCapColor(() => '#426248')
         .polygonSideColor(() => 'rgba(0,0,0,0)')
-        .polygonStrokeColor(() => 'rgba(255,255,255,0.07)')
-        .polygonAltitude(0.003)
+        .polygonStrokeColor(() => 'rgba(255,255,255,0.1)')
+        .polygonAltitude(0.004)
         .pointsData(allPoints)
-        .pointColor((d: object) => (d as TPoint).kind === 'exp' ? ACCENT : 'rgba(255,255,255,0.55)')
-        .pointAltitude((d: object) => (d as TPoint).kind === 'exp' ? 0.025 : 0.012)
-        .pointRadius((d: object) => (d as TPoint).kind === 'exp' ? 0.55 : 0.18)
+        .pointColor((d: object) => (d as TPoint).kind === 'exp' ? ACCENT : 'rgba(255,255,255,0.65)')
+        .pointAltitude((d: object) => (d as TPoint).kind === 'exp' ? 0.04 : 0.015)
+        .pointRadius((d: object) => (d as TPoint).kind === 'exp' ? 0.65 : 0.22)
         .pointLabel((d: object) => {
           const p = d as TPoint
           return p.kind === 'exp'
-            ? `<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;color:#f6b74d;background:rgba(13,26,16,0.9);padding:6px 12px;border:1px solid rgba(246,183,77,0.3)">${p.name}</div>`
-            : `<div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(255,255,255,0.75);background:rgba(13,26,16,0.85);padding:4px 10px">${p.name}</div>`
+            ? `<div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;color:#f6b74d;background:rgba(46,69,50,0.95);padding:6px 12px;border:1px solid rgba(246,183,77,0.4)">${p.name}</div>`
+            : `<div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(255,255,255,0.85);background:rgba(46,69,50,0.9);padding:4px 10px">${p.name}</div>`
         })
         .onPointClick((point: object) => {
           const p = point as TPoint
           if (p.kind === 'exp') {
             const exp = EXPEDITIONS.find(e => e.id === p.id)
             if (exp) {
-              globe.pointOfView({ lat: exp.lat, lng: exp.lon, altitude: 1.8 }, 1400)
+              globe.pointOfView({ lat: exp.lat, lng: exp.lon, altitude: 1.4 }, 1600)
               setActivePanel(exp)
             }
           }
         })
         .onPointHover((point: object | null) => {
           setTooltip(point ? (point as TPoint).name : null)
-          el.style.cursor = point && (point as TPoint).kind === 'exp' ? 'pointer' : 'grab'
+          el.style.cursor = point ? 'pointer' : 'grab'
         })
 
       const controls = globe.controls()
       controls.autoRotate = true
-      controls.autoRotateSpeed = 0.35
-      controls.enableZoom = false
+      controls.autoRotateSpeed = 0.3
+      controls.enableZoom = true
+      controls.minDistance = 150
+      controls.maxDistance = 700
 
       globeRef.current = globe
       setLoaded(true)
@@ -202,7 +208,7 @@ export default function WorldMapSection() {
             <p style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)' }}>Chargement du globe…</p>
           </div>
         )}
-        <div ref={containerRef} style={{ width: '100%', height: '560px', background: BGDARK }} />
+        <div ref={containerRef} style={{ width: '100%', height: '640px', background: '#2e4532' }} />
 
         {tooltip && (
           <div style={{ position: 'absolute', top: '16px', left: '50%', transform: 'translateX(-50%)', fontFamily: M, fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', pointerEvents: 'none', zIndex: 10 }}>

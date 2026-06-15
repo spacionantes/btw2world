@@ -9,9 +9,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
-const BG     = '#1a2e1e'
-const BGDARK = '#0d1a10'
-const BGMID  = '#243429'
+const BG     = '#426248'
+const BGDARK = '#2e4532'
+const BGMID  = '#507358'
 const ACCENT = '#f6b74d'
 
 const MODES = {
@@ -84,26 +84,20 @@ export default function ConceptPage() {
           </h2>
 
           {/* Boutons toggle */}
-          <div style={{ display: 'inline-flex', border: '1px solid rgba(255,255,255,0.1)', position: 'relative' }}>
+          <div style={{ display: 'inline-flex', gap: '12px' }}>
             {(['aveugle', 'libre'] as const).map(m => (
               <button key={m} onClick={() => setMode(m)}
                 style={{
-                  position: 'relative', zIndex: 1,
-                  padding: '18px 48px',
+                  padding: '16px 40px',
                   fontFamily: J, fontWeight: 600, fontSize: '11px',
                   textTransform: 'uppercase', letterSpacing: '0.2em',
-                  color: mode === m ? BGDARK : 'rgba(255,255,255,0.4)',
-                  background: 'none', border: 'none', cursor: 'pointer',
-                  transition: 'color 0.35s',
+                  color: mode === m ? BGDARK : '#fff',
+                  background: mode === m ? ACCENT : 'rgba(255,255,255,0.08)',
+                  border: `1px solid ${mode === m ? ACCENT : 'rgba(255,255,255,0.2)'}`,
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
                 }}>
                 {m === 'aveugle' ? 'À l\'aveugle' : 'Mode libre'}
-                {mode === m && (
-                  <motion.div
-                    layoutId="tab-bg"
-                    style={{ position: 'absolute', inset: 0, background: ACCENT, zIndex: -1 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-                  />
-                )}
               </button>
             ))}
           </div>
