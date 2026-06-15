@@ -70,7 +70,6 @@ function LeProjet() {
 
   return (
     <div ref={ref} id="le-projet" style={{ position: 'relative', zIndex: 10 }}>
-      <Marquee />
       <motion.section style={{ y, background: BG }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '90vh' }}>
 
