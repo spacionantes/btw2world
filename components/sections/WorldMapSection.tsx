@@ -11,26 +11,27 @@ const BGMID  = '#1a2e1e'
 const ACCENT = '#f6b74d'
 
 const EXPEDITIONS = [
-  { id: 'kyrg',    name: 'Tian Shan',       country: 'Kirghizistan', continent: 'Asie centrale',   year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m',  geoName: 'Kyrgyzstan' },
-  { id: 'nepal',   name: 'Annapurna',       country: 'Népal',        continent: 'Himalaya',         year: '2024', description: 'Thorong-La 5416m, villages sherpa',       geoName: 'Nepal' },
-  { id: 'namibie', name: 'Désert du Namib', country: 'Namibie',      continent: 'Afrique australe', year: '2025', description: 'Sossusvlei, Skeleton Coast',              geoName: 'Namibia' },
+  { id: 'kyrg',    name: 'Tian Shan',       country: 'Kirghizistan', continent: 'Asie centrale',   year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m',  iso: 'KGZ' },
+  { id: 'nepal',   name: 'Annapurna',       country: 'Népal',        continent: 'Himalaya',         year: '2024', description: 'Thorong-La 5416m, villages sherpa',       iso: 'NPL' },
+  { id: 'namibie', name: 'Désert du Namib', country: 'Namibie',      continent: 'Afrique australe', year: '2025', description: 'Sossusvlei, Skeleton Coast',              iso: 'NAM' },
 ]
 
-// Noms GeoJSON (propriété ADMIN) des pays visités
-const VISITED_NAMES = new Set([
-  'Algeria', 'Comoros', 'Morocco', 'Tunisia',
-  'Singapore', 'Vietnam',
-  'Belgium', 'Czechia', 'Denmark', 'France', 'Greece', 'Hungary',
-  'Italy', 'Luxembourg', 'Monaco', 'Netherlands', 'Norway', 'Poland',
-  'Portugal', 'Spain', 'Sweden', 'Switzerland', 'United Kingdom',
-  'Turkey',
-  'Canada', 'United States of America',
-  'Australia',
-  'Brazil',
-  'India',
+// Codes ISO A3 des pays visités
+const VISITED_ISO = new Set([
+  'DZA', 'COM', 'MAR', 'TUN',          // Afrique
+  'SGP', 'VNM',                         // Asie du Sud-Est
+  'BEL', 'CZE', 'DNK', 'FRA', 'GRC',  // Europe
+  'HUN', 'ITA', 'LUX', 'MCO', 'NLD',
+  'NOR', 'POL', 'PRT', 'ESP', 'SWE',
+  'CHE', 'GBR',
+  'TUR',                                // Moyen-Orient
+  'CAN', 'USA',                         // Amérique du Nord
+  'AUS',                                // Océanie
+  'BRA',                                // Amérique du Sud
+  'IND',                                // Asie du Sud
 ])
 
-const EXPEDITION_NAMES = new Set(EXPEDITIONS.map(e => e.geoName))
+const EXPEDITION_ISO = new Set(EXPEDITIONS.map(e => e.iso))
 
 export default function WorldMapSection() {
   const mapRef = useRef<HTMLDivElement>(null)
@@ -68,25 +69,25 @@ export default function WorldMapSection() {
 
       L.geoJSON(geojson, {
         style: (feature) => {
-          const name = (feature?.properties?.ADMIN || feature?.properties?.NAME) as string
-          if (EXPEDITION_NAMES.has(name)) {
-            return { fillColor: ACCENT, fillOpacity: 0.9, color: '#0d1a10', weight: 0.8, opacity: 1 }
+          const iso = feature?.properties?.ISO_A3 as string
+          if (EXPEDITION_ISO.has(iso)) {
+            return { fillColor: ACCENT, fillOpacity: 0.9, color: '#0a140e', weight: 0.8, opacity: 1 }
           }
-          if (VISITED_NAMES.has(name)) {
-            return { fillColor: '#c8d4c0', fillOpacity: 0.65, color: '#0d1a10', weight: 0.8, opacity: 1 }
+          if (VISITED_ISO.has(iso)) {
+            return { fillColor: '#8faa8f', fillOpacity: 0.75, color: '#0a140e', weight: 0.8, opacity: 1 }
           }
-          return { fillColor: '#1e2e22', fillOpacity: 0.9, color: '#0d1a10', weight: 0.5, opacity: 1 }
+          return { fillColor: '#1a2e1e', fillOpacity: 1, color: '#0a140e', weight: 0.5, opacity: 1 }
         },
         onEachFeature: (feature, layer) => {
-          const name = (feature?.properties?.ADMIN || feature?.properties?.NAME) as string
-          if (EXPEDITION_NAMES.has(name)) {
-            const exp = EXPEDITIONS.find(e => e.geoName === name)!
+          const iso = feature?.properties?.ISO_A3 as string
+          if (EXPEDITION_ISO.has(iso)) {
+            const exp = EXPEDITIONS.find(e => e.iso === iso)!
             layer.on('click', () => setActive(prev => prev?.id === exp.id ? null : exp))
-            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 1, fillColor: '#ffc84d' }))
-            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.9, fillColor: ACCENT }))
-          } else if (VISITED_NAMES.has(name)) {
-            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 0.85 }))
-            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.65 }))
+            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillColor: '#ffd166', fillOpacity: 1 }))
+            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillColor: ACCENT, fillOpacity: 0.9 }))
+          } else if (VISITED_ISO.has(iso)) {
+            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 0.95 }))
+            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.75 }))
           }
         },
       }).addTo(map)
