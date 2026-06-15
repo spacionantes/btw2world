@@ -1,11 +1,8 @@
-import type { Metadata } from 'next'
+'use client'
+
 import Image from 'next/image'
 import Nav from '@/components/layout/Nav'
 
-export const metadata: Metadata = {
-  title: 'Galerie | BTW2WORLD',
-  description: "Photos d'expéditions — Kirghizistan, Népal et au-delà",
-}
 
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
