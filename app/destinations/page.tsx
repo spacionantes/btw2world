@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import Nav from '@/components/layout/Nav'
+import PageHero from '@/components/layout/PageHero'
 import { VOYAGES, type TVoyage } from '@/lib/data'
 
 const J = "'Jost', sans-serif"
@@ -103,37 +103,26 @@ export default function DestinationsPage() {
 
   return (
     <div style={{ background: '#1e2e22', minHeight: '100dvh' }}>
-      <Nav />
+      <PageHero
+        image="/images/15.jpg"
+        label="Les expéditions"
+        title={"Terres\nexplorées"}
+        subtitle="Kirghizistan · Népal · Namibie — et la prochaine que vous ne connaissez pas encore"
+      />
 
-      {/* En-tête éditorial pur texte */}
-      <div style={{ padding: '140px 56px 72px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '40px' }}>
-          <div>
-            <p style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.35em', textTransform: 'uppercase', color: '#f6b74d', marginBottom: '28px' }}>BTW2WORLD · Expéditions</p>
-            <h1 style={{ fontFamily: C, fontSize: 'clamp(72px, 11vw, 156px)', fontWeight: 300, fontStyle: 'italic', color: '#ffffff', lineHeight: 0.82, letterSpacing: '-0.02em' }}>
-              Destina-<br />tions
-            </h1>
-          </div>
-          <div style={{ maxWidth: '340px', paddingBottom: '12px' }}>
-            <p style={{ fontFamily: C, fontSize: '20px', fontStyle: 'italic', fontWeight: 300, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7, marginBottom: '32px' }}>
-              Kirghizistan, Himalaya, Namibie — et la prochaine que vous ne connaissez pas encore.
-            </p>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              {([['all', 'Toutes'], ['ouvert', 'Ouvertes'], ['passe', 'Passées']] as [string, string][]).map(([k, lbl]) => (
-                <button key={k} onClick={() => setFilter(k as typeof filter)}
-                  style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.18em', border: `1px solid ${filter === k ? '#f6b74d' : 'rgba(255,255,255,0.14)'}`, color: filter === k ? '#f6b74d' : 'rgba(255,255,255,0.38)', background: 'none', cursor: 'pointer', padding: '8px 18px', transition: 'all 0.2s' }}>
-                  {lbl}
-                </button>
-              ))}
-            </div>
-          </div>
+      {/* Filtres */}
+      <div style={{ padding: '48px 56px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px' }}>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {([['all', 'Toutes'], ['ouvert', 'Ouvertes'], ['passe', 'Passées']] as [string, string][]).map(([k, lbl]) => (
+            <button key={k} onClick={() => setFilter(k as typeof filter)}
+              style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.18em', border: `1px solid ${filter === k ? '#f6b74d' : 'rgba(255,255,255,0.14)'}`, color: filter === k ? '#f6b74d' : 'rgba(255,255,255,0.38)', background: 'none', cursor: 'pointer', padding: '8px 18px', transition: 'all 0.2s' }}>
+              {lbl}
+            </button>
+          ))}
         </div>
-        <div style={{ marginTop: '48px', display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ height: '1px', flex: 1, background: 'rgba(255,255,255,0.07)' }} />
-          <span style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)', textTransform: 'uppercase', flexShrink: 0 }}>
-            {shown.length} expédition{shown.length > 1 ? 's' : ''}
-          </span>
-        </div>
+        <span style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)', textTransform: 'uppercase' }}>
+          {shown.length} expédition{shown.length > 1 ? 's' : ''}
+        </span>
       </div>
 
       {/* Liste voyages — pleine hauteur */}

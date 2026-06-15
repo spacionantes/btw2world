@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Nav from '@/components/layout/Nav'
 import Link from 'next/link'
+import PageHero from '@/components/layout/PageHero'
 
 export const metadata: Metadata = {
   title: 'Le concept | BTW2WORLD',
@@ -25,26 +25,12 @@ const FAQ = [
 export default function ConceptPage() {
   return (
     <div style={{ background: '#426248', minHeight: '100dvh' }}>
-      <Nav />
-
-      {/* ── HERO TYPOGRAPHIQUE — pas de photo ────────── */}
-      <div style={{ background: '#1e2e22', minHeight: '100dvh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '120px 64px 72px', position: 'relative', overflow: 'hidden' }}>
-        {/* Grands chiffres en fond */}
-        <div style={{ position: 'absolute', right: '40px', top: '50%', transform: 'translateY(-50%)', fontFamily: "'Cormorant Garamond',serif", fontWeight: 800, fontSize: 'min(40vw, 400px)', color: 'rgba(246,183,77,0.05)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>
-          J-7
-        </div>
-        <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.3em', color: '#f6b74d', marginBottom: '32px', position: 'relative' }}>
-          02 — Le concept
-        </p>
-        <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 800, fontSize: 'clamp(60px, 10vw, 140px)', color: '#fff', textTransform: 'uppercase', lineHeight: 0.88, marginBottom: '48px', position: 'relative' }}>
-          La destination,<br />
-          <span style={{ color: '#f6b74d' }}>révélée</span><br />
-          J-7
-        </h1>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(18px, 2vw, 26px)', fontStyle: 'italic', color: 'rgba(255,255,255,0.6)', maxWidth: '600px', lineHeight: 1.65, position: 'relative' }}>
-          L&apos;aventure ne commence pas à l&apos;aéroport. Elle commence le jour où vous décidez de faire confiance à quelqu&apos;un pour vous emmener quelque part que vous ne connaissez pas.
-        </p>
-      </div>
+      <PageHero
+        image="/images/14.jpg"
+        label="Le concept"
+        title={"L'Entre\n2 Mondes"}
+        subtitle="La destination révélée 7 jours avant le départ"
+      />
 
       {/* ── PHOTO LARGE — randonneur face aux montagnes ── */}
       <div style={{ position: 'relative', height: '70vh', overflow: 'hidden' }}>

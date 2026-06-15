@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Nav from '@/components/layout/Nav'
+import PageHero from '@/components/layout/PageHero'
 import CandidatureForm from '@/components/voyage/CandidatureForm'
 
 export const metadata: Metadata = {
@@ -17,33 +17,24 @@ const POINTS = [
 export default function CandidaterPage() {
   return (
     <div style={{ background: '#1e2e22', minHeight: '100dvh' }}>
-      <Nav />
+      <PageHero
+        image="/images/12.jpg"
+        label="Candidater"
+        title={"Rejoindre\nl'expédition"}
+        subtitle="Places limitées · Sélection personnelle · Réponse sous 48h"
+      />
 
-      {/* ── HERO minimal, typographique ──────────────── */}
-      <div style={{ padding: '140px 64px 80px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'end' }} className="grid-2col">
-        <div>
-          <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.3em', color: '#f6b74d', marginBottom: '24px' }}>04 — Rejoindre une expédition</p>
-          <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 800, fontSize: 'clamp(56px, 7vw, 108px)', color: '#fff', textTransform: 'uppercase', lineHeight: 0.88, marginBottom: '32px' }}>
-            CANDIDATER
-          </h1>
-          <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.6)', lineHeight: 1.8, maxWidth: '420px' }}>
-            Les places sont rares. Les profils, sélectionnés avec soin. Chaque dossier reçu est lu personnellement.
-          </p>
-        </div>
-
-        {/* Points clés */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-          {POINTS.map((p, i) => (
-            <div key={i} style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '24px 0', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-              <div style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 800, fontSize: '36px', color: '#f6b74d', lineHeight: 1, flexShrink: 0, marginTop: '-4px' }}>0{i + 1}</div>
-              <div>
-                <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 600, fontSize: '20px', color: '#fff', marginBottom: '6px' }}>{p.titre}</p>
-                <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6 }}>{p.texte}</p>
-              </div>
+      {/* ── Points clés ──────────────────────────────── */}
+      <div style={{ padding: '80px 64px', display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '0', borderBottom: '1px solid rgba(255,255,255,0.07)' }} className="grid-3col">
+        {POINTS.map((p, i) => (
+          <div key={i} style={{ padding: '40px', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+            <div style={{ fontFamily: "'Bodoni Moda',serif", fontWeight: 800, fontSize: '36px', color: '#f6b74d', lineHeight: 1, flexShrink: 0, marginTop: '-4px' }}>0{i + 1}</div>
+            <div>
+              <p style={{ fontFamily: "'Bodoni Moda',serif", fontWeight: 600, fontSize: '18px', color: '#fff', marginBottom: '6px' }}>{p.titre}</p>
+              <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '14px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6 }}>{p.texte}</p>
             </div>
-          ))}
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
-        </div>
+          </div>
+        ))}
       </div>
 
       {/* ── FORMULAIRE + PHOTO ───────────────────────── */}

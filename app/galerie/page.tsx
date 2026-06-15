@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Nav from '@/components/layout/Nav'
+import PageHero from '@/components/layout/PageHero'
 
 export const metadata: Metadata = {
   title: 'Galerie | BTW2WORLD',
@@ -22,28 +22,12 @@ const PHOTOS = [
 export default function GaleriePage() {
   return (
     <div style={{ background: '#1e2e22', minHeight: '100dvh' }}>
-      <Nav />
-
-      {/* Header */}
-      <div style={{ padding: '140px 64px 64px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
-        <div>
-          <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.3em', color: '#f6b74d', marginBottom: '16px' }}>Le terrain en images</p>
-          <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 800, fontSize: 'clamp(56px, 8vw, 120px)', color: '#fff', textTransform: 'uppercase', lineHeight: 0.88 }}>GALERIE</h1>
-        </div>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: '18px', color: 'rgba(255,255,255,0.45)', maxWidth: '280px', lineHeight: 1.7 }}>
-          Ce que les cartes ne montrent pas
-        </p>
-      </div>
-
-      {/* Grande photo hero */}
-      <div style={{ position: 'relative', height: '80vh', overflow: 'hidden', margin: '0 64px' }}>
-        <Image src="/images/hero-bg.jpg" alt="Kirghizistan" fill sizes="100vw" style={{ objectFit: 'cover' }} priority />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 60%, rgba(30,46,34,0.9) 100%)' }} />
-        <div style={{ position: 'absolute', bottom: '40px', left: '40px' }}>
-          <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 700, fontSize: '32px', color: '#fff', textTransform: 'uppercase' }}>Song-Köl · Kirghizistan</p>
-          <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '13px', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em' }}>Chevaux sauvages au bord du lac</p>
-        </div>
-      </div>
+      <PageHero
+        image="/images/hero-bg.jpg"
+        label="Galerie"
+        title={"Ce que les cartes\nne montrent pas"}
+        subtitle="Kirghizistan · Népal · Namibie"
+      />
 
       {/* Grille masonry */}
       <div style={{ padding: '32px 64px 64px' }}>

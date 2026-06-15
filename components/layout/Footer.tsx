@@ -24,9 +24,10 @@ export default function Footer() {
 
       <nav style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
         {[
-          { href: '/qui-suis-je', label: 'Qui suis-je' },
+          { href: '/qui-suis-je', label: 'Le projet' },
           { href: '/concept', label: 'Le concept' },
-          { href: '/destinations', label: 'Destinations' },
+          { href: '/destinations', label: 'Expéditions' },
+          { href: '/galerie', label: 'Galerie' },
           { href: '/candidater', label: 'Candidater' },
         ].map(link => (
           <Link key={link.href} href={link.href} style={{

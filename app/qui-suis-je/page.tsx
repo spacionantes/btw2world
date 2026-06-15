@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Nav from '@/components/layout/Nav'
+import PageHero from '@/components/layout/PageHero'
 
 export const metadata: Metadata = {
   title: 'Qui suis-je | BTW2WORLD',
@@ -23,33 +23,12 @@ const CHIFFRES = [
 export default function QuiSuisJePage() {
   return (
     <div style={{ background: '#426248', minHeight: '100dvh' }}>
-      <Nav />
-
-      {/* ── HERO split ──────────────────────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '100dvh' }}>
-
-        {/* Gauche — texte */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '140px 64px 80px', background: '#426248' }}>
-          <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.3em', color: '#f6b74d', marginBottom: '24px' }}>
-            Maxence — Guide & Photographe
-          </p>
-          <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 700, fontSize: 'clamp(64px, 7vw, 110px)', color: '#fff', lineHeight: 0.9, textTransform: 'uppercase', marginBottom: '40px' }}>
-            L&apos;Homme<br />derrière<br />le voyage
-          </h1>
-          <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, maxWidth: '420px', marginBottom: '24px' }}>
-            Je ne suis pas guide de randonnée. Je suis quelqu&apos;un qui a décidé un jour d&apos;arrêter de voyager seul — pour partager des endroits avec des gens qui méritent de les voir.
-          </p>
-          <p style={{ fontFamily: "'Jost',sans-serif", fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.7)', lineHeight: 1.8, maxWidth: '420px' }}>
-            Photographe de formation, explorateur par conviction, je construis chaque expédition autour d&apos;un principe simple : aller là où les cartes s&apos;arrêtent.
-          </p>
-        </div>
-
-        {/* Droite — photo Maxence */}
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <Image src="/images/maxence.jpg" alt="Maxence" fill sizes="50vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} priority />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(66,98,72,0.4) 0%, transparent 40%)' }} />
-        </div>
-      </div>
+      <PageHero
+        image="/images/maxence.jpg"
+        label="Le projet"
+        title={"Maxence,\nphotographe\nvoyageur"}
+        subtitle="Guide d'expéditions · Petit groupe · Destination inconnue"
+      />
 
       {/* ── CHIFFRES ────────────────────────────────── */}
       <div style={{ background: '#2d4433', padding: '80px 64px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }} className="grid-4col">
