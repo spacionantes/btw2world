@@ -60,7 +60,7 @@ export default function Nav() {
 
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
-          <Image src="/images/logo.png" alt="BTW2WORLD" width={52} height={52}
+          <Image src="/images/logo.png" alt="BTW2WORLD" width={72} height={72}
             style={{ filter: 'brightness(0) invert(1)', objectFit: 'contain' }} />
         </Link>
 
