@@ -37,7 +37,7 @@ export const VOYAGES: TVoyage[] = [
 
 Le groupe — 5 personnes — a parcouru plus de 200km à cheval et à pied, traversé 3 cols de haute montagne et dormi chaque nuit sous une yourte différente. Aucun hôtel. Aucun itinéraire figé. Juste la steppe, les étoiles et les familles kirghizes qui nous ont accueillis.`,
     coordinates: [74.5698, 40.8601],
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoUrl: 'https://www.youtube.com/embed/psMpoJfhKPU',
     blogUrl: '#',
     gallery: [
       '/images/15.jpg',
@@ -66,7 +66,7 @@ Le groupe — 5 personnes — a parcouru plus de 200km à cheval et à pied, tra
 
 Le passage du Thorong-La à 5416m reste le moment le plus fort : partir à 3h du matin dans le froid, les lampes frontales comme seuls repères, et arriver au col au lever du soleil. Aucun mot ne suffit.`,
     coordinates: [84.0167, 28.5967],
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoUrl: 'https://www.youtube.com/embed/hUvQnEXjK_w',
     blogUrl: '#',
     gallery: [
       '/images/11.jpg',
@@ -91,7 +91,6 @@ Le passage du Thorong-La à 5416m reste le moment le plus fort : partir à 3h du
 
 Dunes de Sossusvlei au lever du soleil, Dead Vlei et ses arbres fossilisés, nuits sur la Skeleton Coast. Un silence absolu, comme nulle part ailleurs.`,
     coordinates: [18.4904, -22.9576],
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
     blogUrl: '#',
     gallery: ['/images/hero-bg.jpg', '/images/12.jpg'],
     tags: ['Désert', 'Wildlife', 'Photography'],
