@@ -14,10 +14,9 @@ const VALEURS = [
 ]
 
 const CHIFFRES = [
-  { n: '3', label: 'Continents' },
-  { n: '12+', label: 'Pays arpentés' },
-  { n: '6', label: 'Max par groupe' },
-  { n: '0', label: 'Agences impliquées' },
+  { n: '31', label: 'Pays visités' },
+  { n: '6', label: 'Continents explorés' },
+  { n: '2', label: 'Projets BTW2WORLD réalisés' },
 ]
 
 export default function QuiSuisJePage() {
@@ -31,9 +30,9 @@ export default function QuiSuisJePage() {
       />
 
       {/* ── CHIFFRES ────────────────────────────────── */}
-      <div style={{ background: '#2d4433', padding: '80px 64px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }} className="grid-4col">
+      <div style={{ background: '#2d4433', padding: '80px 64px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }} className="grid-4col">
         {CHIFFRES.map((c, i) => (
-          <div key={i} style={{ textAlign: 'center', padding: '20px 0', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
+          <div key={i} style={{ textAlign: 'center', padding: '20px 0', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
             <div style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 800, fontSize: 'clamp(56px, 6vw, 88px)', color: '#f6b74d', lineHeight: 1 }}>{c.n}</div>
             <div style={{ fontFamily: "'Jost',sans-serif", fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.45)', marginTop: '8px' }}>{c.label}</div>
           </div>

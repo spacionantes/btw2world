@@ -103,7 +103,7 @@ function LeProjet() {
 
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.5 }}
               style={{ display: 'flex', gap: '0', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '40px' }}>
-              {[['2–6', 'Participants'], ['J-7', 'Révélation'], ['0', 'Agences']].map(([v, l], i) => (
+              {[['31', 'Pays visités'], ['6', 'Continents'], ['2', 'Projets BTW2WORLD']].map(([v, l], i) => (
                 <div key={l} style={{ flex: 1, paddingRight: i < 2 ? '32px' : 0, paddingLeft: i > 0 ? '32px' : 0, borderRight: i < 2 ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
                   <div style={{ fontFamily: C, fontSize: '44px', fontStyle: 'italic', fontWeight: 400, color: ACCENT, lineHeight: 1 }}>{v}</div>
                   <div style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.25)', marginTop: '10px' }}>{l}</div>
