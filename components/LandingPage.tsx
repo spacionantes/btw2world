@@ -50,7 +50,7 @@ function Marquee() {
 function Hero() {
   return (
     <section id="hero" style={{ height: '100dvh', position: 'relative', overflow: 'hidden' }}>
-      <Image src="/images/hero-bg.jpg" alt="BTW2WORLD" fill priority sizes="100vw"
+      <Image src="/images/hero-btw.png" alt="BTW2WORLD" fill priority sizes="100vw"
         style={{ objectFit: 'cover', objectPosition: 'center 45%' }} />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,20,14,0.15) 0%, rgba(10,20,14,0.05) 50%, rgba(10,20,14,0.35) 100%)' }} />
       <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>

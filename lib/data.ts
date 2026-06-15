@@ -80,7 +80,7 @@ Le passage du Thorong-La à 5416m reste le moment le plus fort : partir à 3h du
     title: 'Amazonie — Manaus',
     country: 'Brésil',
     continent: 'Amérique du Sud',
-    coverImage: '/images/14.jpg',
+    coverImage: '/images/Amazonie.jpeg',
     departureDate: '2023-07-20',
     duration: 12,
     spotsTotal: 4,
