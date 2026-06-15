@@ -118,6 +118,37 @@ export default function ConceptPage() {
         </div>
       </div>
 
+      {/* ── FAQ ─────────────────────────────────────── */}
+      <div style={{ background: BG, padding: '96px 72px' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
+            Questions fréquentes
+          </p>
+          <h2 style={{ fontFamily: C, fontSize: 'clamp(36px, 4vw, 60px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em', marginBottom: '64px' }}>
+            Ce que vous vous demandez
+          </h2>
+          {[
+            {
+              q: "Et si je n'ai pas d'expérience en trek ?",
+              r: "Ce n'est pas un critère éliminatoire. J'adapte le niveau au groupe sélectionné. La motivation compte plus que le palmarès.",
+            },
+            {
+              q: "Que faut-il prévoir comme budget ?",
+              r: "Cela dépend de la destination révélée. Comptez entre 1 700 € et 3 500 € tout compris selon la durée et la région du monde.",
+            },
+            {
+              q: "On peut y aller en couple ou entre amis ?",
+              r: "Oui, mais je sélectionne des profils indépendamment. Si vous candidatez à plusieurs, vos dossiers sont étudiés séparément. Cela ne veut pas dire que vous ne serez pas pris tous les deux.",
+            },
+          ].map((f, i, arr) => (
+            <div key={i} style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '36px 0', borderBottom: i === arr.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
+              <p style={{ fontFamily: C, fontSize: '22px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '14px' }}>{f.q}</p>
+              <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 1.85 }}>{f.r}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ── CTA ─────────────────────────────────────── */}
       <div style={{ background: BGMID, padding: '80px 64px', textAlign: 'center' }}>
         <h2 style={{ fontFamily: C, fontSize: 'clamp(48px, 6vw, 96px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, marginBottom: '32px', letterSpacing: '-0.02em' }}>
