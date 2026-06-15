@@ -11,8 +11,9 @@ const BGMID  = '#1a2e1e'
 const ACCENT = '#f6b74d'
 
 const EXPEDITIONS = [
-  { id: 'kyrg',  name: 'Tian Shan',  country: 'Kirghizistan', continent: 'Asie centrale', year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m', lat: 41.2, lon: 74.5 },
-  { id: 'nepal', name: 'Annapurna', country: 'Népal',         continent: 'Himalaya',      year: '2024', description: 'Thorong-La 5416m, villages sherpa',    lat: 28.4, lon: 84.1 },
+  { id: 'kyrg',     name: 'Tian Shan',  country: 'Kirghizistan', continent: 'Asie centrale', year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m',   lat: 41.2,  lon: 74.5  },
+  { id: 'nepal',    name: 'Annapurna',  country: 'Népal',        continent: 'Himalaya',      year: '2024', description: 'Thorong-La 5416m, villages sherpa',       lat: 28.4,  lon: 84.1  },
+  { id: 'amazonie', name: 'Amazonie',   country: 'Brésil',       continent: 'Amérique du Sud', year: '2023', description: 'Manaus, jungle amazonienne, Rio Negro', lat: -3.1,  lon: -60.0 },
 ]
 
 const VISITED = [
@@ -161,7 +162,9 @@ export default function WorldMapSection() {
       {/* Carte */}
       <div style={{ position: 'relative', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-        <div ref={mapRef} style={{ width: '100%', height: '480px', background: BGMID }} />
+        <div style={{ width: '100%', height: '480px', filter: 'hue-rotate(105deg) saturate(0.65) brightness(0.75)' }}>
+          <div ref={mapRef} style={{ width: '100%', height: '100%', background: BGMID }} />
+        </div>
 
         {/* Tooltip pays visité */}
         {hoveredCountry && (
