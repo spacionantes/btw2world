@@ -55,9 +55,11 @@ export default function WorldMapSection() {
 
       mapInstance.current = map
 
+      // Fond ocean uniquement — les pays sont dessinés par GeoJSON
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
         maxZoom: 8,
         subdomains: 'abcd',
+        opacity: 0.15,
       }).addTo(map)
 
       // Chargement du GeoJSON mondial
@@ -66,25 +68,25 @@ export default function WorldMapSection() {
 
       L.geoJSON(geojson, {
         style: (feature) => {
-          const name = feature?.properties?.ADMIN as string
+          const name = (feature?.properties?.ADMIN || feature?.properties?.NAME) as string
           if (EXPEDITION_NAMES.has(name)) {
-            return { fillColor: ACCENT, fillOpacity: 0.75, color: ACCENT, weight: 0.5, opacity: 0.8 }
+            return { fillColor: ACCENT, fillOpacity: 0.9, color: '#0d1a10', weight: 0.8, opacity: 1 }
           }
           if (VISITED_NAMES.has(name)) {
-            return { fillColor: '#ffffff', fillOpacity: 0.35, color: '#ffffff', weight: 0.5, opacity: 0.4 }
+            return { fillColor: '#c8d4c0', fillOpacity: 0.65, color: '#0d1a10', weight: 0.8, opacity: 1 }
           }
-          return { fillColor: 'transparent', fillOpacity: 0, color: 'rgba(255,255,255,0.06)', weight: 0.5, opacity: 1 }
+          return { fillColor: '#1e2e22', fillOpacity: 0.9, color: '#0d1a10', weight: 0.5, opacity: 1 }
         },
         onEachFeature: (feature, layer) => {
-          const name = feature?.properties?.ADMIN as string
+          const name = (feature?.properties?.ADMIN || feature?.properties?.NAME) as string
           if (EXPEDITION_NAMES.has(name)) {
             const exp = EXPEDITIONS.find(e => e.geoName === name)!
             layer.on('click', () => setActive(prev => prev?.id === exp.id ? null : exp))
-            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 0.95 }))
-            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.75 }))
+            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 1, fillColor: '#ffc84d' }))
+            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.9, fillColor: ACCENT }))
           } else if (VISITED_NAMES.has(name)) {
-            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 0.55 }))
-            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.35 }))
+            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 0.85 }))
+            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.65 }))
           }
         },
       }).addTo(map)
