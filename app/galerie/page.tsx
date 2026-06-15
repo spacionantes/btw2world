@@ -11,16 +11,17 @@ const BGDARK = '#0d1a10'
 const ACCENT = '#f6b74d'
 
 const PHOTOS = [
-  { src: '/images/15.jpg',                ratio: '4/3',  location: 'Ala-Kul 3500m',     country: 'Kirghizistan' },
-  { src: '/images/11.jpg',                ratio: '4/3',  location: 'Thorong-La 5416m',   country: 'Népal' },
-  { src: '/images/kyrg-famille.jpg',      ratio: '3/2',  location: 'Yourte nomade',      country: 'Kirghizistan' },
-  { src: '/images/13.jpg',                ratio: '4/3',  location: 'Kel-Suu',            country: 'Kirghizistan' },
-  { src: '/images/12.jpg',                ratio: '16/9', location: 'Himalaya',           country: 'Népal' },
-  { src: '/images/kyrg-fille-cheval.jpg', ratio: '3/4',  location: 'Steppe',             country: 'Kirghizistan' },
-  { src: '/images/14.jpg',                ratio: '16/9', location: 'Song-Köl',           country: 'Kirghizistan' },
-  { src: '/images/kyrg-filles.jpg',       ratio: '3/4',  location: 'Camp nomade',        country: 'Kirghizistan' },
-  { src: '/images/maxence.jpg',           ratio: '3/4',  location: 'Base camp',          country: 'Kirghizistan' },
-  { src: '/images/hero-bg.jpg',           ratio: '16/9', location: 'Song-Köl',           country: 'Kirghizistan' },
+  { src: '/images/15.jpg',                location: 'Ala-Kul 3500m',     country: 'Kirghizistan' },
+  { src: '/images/11.jpg',                location: 'Thorong-La 5416m',   country: 'Népal' },
+  { src: '/images/kyrg-famille.jpg',      location: 'Yourte nomade',      country: 'Kirghizistan' },
+  { src: '/images/13.jpg',                location: 'Kel-Suu',            country: 'Kirghizistan' },
+  { src: '/images/12.jpg',                location: 'Himalaya',           country: 'Népal' },
+  { src: '/images/kyrg-fille-cheval.jpg', location: 'Steppe',             country: 'Kirghizistan' },
+  { src: '/images/14.jpg',                location: 'Song-Köl',           country: 'Kirghizistan' },
+  { src: '/images/kyrg-filles.jpg',       location: 'Camp nomade',        country: 'Kirghizistan' },
+  { src: '/images/maxence.jpg',           location: 'Base camp',          country: 'Kirghizistan' },
+  { src: '/images/hero-bg.jpg',           location: 'Song-Köl',           country: 'Kirghizistan' },
+  { src: '/images/Amazonie.jpeg',         location: 'Rio Negro',          country: 'Brésil' },
 ]
 
 export default function GaleriePage() {
@@ -32,21 +33,31 @@ export default function GaleriePage() {
         <Nav />
       </div>
 
-      {/* Mosaïque plein écran dès le haut */}
+      {/* Mosaïque masonry — format naturel des images */}
       <div style={{ paddingTop: '70px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3px' }}>
+        <div style={{ columnCount: 3, columnGap: '3px' }}>
           {PHOTOS.map((photo, i) => (
-            <div key={i} style={{ position: 'relative', overflow: 'hidden', aspectRatio: photo.ratio as string }}>
-              <Image src={photo.src} alt={photo.location} fill sizes="33vw"
-                style={{ objectFit: 'cover', transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)' }}
+            <div key={i} style={{ breakInside: 'avoid', position: 'relative', overflow: 'hidden', marginBottom: '3px', display: 'block' }}
+              onMouseEnter={e => {
+                const img = e.currentTarget.querySelector('img') as HTMLImageElement | null
+                if (img) img.style.transform = 'scale(1.04)'
+                const overlay = e.currentTarget.querySelector('.overlay') as HTMLElement | null
+                if (overlay) overlay.style.opacity = '1'
+              }}
+              onMouseLeave={e => {
+                const img = e.currentTarget.querySelector('img') as HTMLImageElement | null
+                if (img) img.style.transform = 'scale(1)'
+                const overlay = e.currentTarget.querySelector('.overlay') as HTMLElement | null
+                if (overlay) overlay.style.opacity = '0'
+              }}
+            >
+              <Image src={photo.src} alt={photo.location}
+                width={800} height={600}
+                sizes="33vw"
                 loading={i < 3 ? 'eager' : 'lazy'}
-                onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')}
-                onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+                style={{ width: '100%', height: 'auto', display: 'block', transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)' }}
               />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,20,14,0.7) 0%, transparent 50%)', opacity: 0, transition: 'opacity 0.4s' }}
-                onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
-                onMouseLeave={e => (e.currentTarget.style.opacity = '0')}
-              />
+              <div className="overlay" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,20,14,0.75) 0%, transparent 55%)', opacity: 0, transition: 'opacity 0.4s', pointerEvents: 'none' }} />
               <div style={{ position: 'absolute', bottom: '16px', left: '20px', pointerEvents: 'none' }}>
                 <p style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: ACCENT, marginBottom: '3px' }}>{photo.country}</p>
                 <p style={{ fontFamily: C, fontSize: '15px', fontStyle: 'italic', fontWeight: 400, color: '#fff' }}>{photo.location}</p>
