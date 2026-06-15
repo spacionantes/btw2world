@@ -10,56 +10,27 @@ const BGDARK = '#0d1a10'
 const BGMID  = '#1a2e1e'
 const ACCENT = '#f6b74d'
 
-// Expéditions BTW2WORLD — points gold cliquables
 const EXPEDITIONS = [
-  { id: 'kyrg',    name: 'Tian Shan',       country: 'Kirghizistan', continent: 'Asie centrale',   lat: 41.2,  lon: 74.5,  year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m' },
-  { id: 'nepal',   name: 'Annapurna',       country: 'Népal',        continent: 'Himalaya',         lat: 28.4,  lon: 84.1,  year: '2024', description: 'Thorong-La 5416m, villages sherpa' },
-  { id: 'namibie', name: 'Désert du Namib', country: 'Namibie',      continent: 'Afrique australe', lat: -22.9, lon: 18.5,  year: '2025', description: 'Sossusvlei, Skeleton Coast' },
+  { id: 'kyrg',    name: 'Tian Shan',       country: 'Kirghizistan', continent: 'Asie centrale',   year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m',  geoName: 'Kyrgyzstan' },
+  { id: 'nepal',   name: 'Annapurna',       country: 'Népal',        continent: 'Himalaya',         year: '2024', description: 'Thorong-La 5416m, villages sherpa',       geoName: 'Nepal' },
+  { id: 'namibie', name: 'Désert du Namib', country: 'Namibie',      continent: 'Afrique australe', year: '2025', description: 'Sossusvlei, Skeleton Coast',              geoName: 'Namibia' },
 ]
 
-// Tous les pays visités par Maxence — points discrets blancs
-const VISITED = [
-  // Afrique
-  { lat: 28.0,  lon: 1.7   }, // Algérie
-  { lat: -11.7, lon: 43.3  }, // Comores
-  { lat: 31.8,  lon: -7.1  }, // Maroc
-  { lat: 33.9,  lon: 9.6   }, // Tunisie
-  // Asie centrale
-  // (Kirghizistan déjà en expédition)
-  // Asie du Sud-Est
-  { lat: 1.3,   lon: 103.8 }, // Singapour
-  { lat: 14.1,  lon: 108.3 }, // Vietnam
-  // Europe
-  { lat: 50.8,  lon: 4.5   }, // Belgique
-  { lat: 49.8,  lon: 15.5  }, // République tchèque
-  { lat: 56.3,  lon: 9.5   }, // Danemark
-  { lat: 46.2,  lon: 2.2   }, // France
-  { lat: 39.1,  lon: 21.8  }, // Grèce
-  { lat: 47.2,  lon: 19.5  }, // Hongrie
-  { lat: 41.9,  lon: 12.6  }, // Italie
-  { lat: 49.8,  lon: 6.1   }, // Luxembourg
-  { lat: 43.7,  lon: 7.4   }, // Monaco
-  { lat: 52.1,  lon: 5.3   }, // Pays-Bas
-  { lat: 60.5,  lon: 8.5   }, // Norvège
-  { lat: 51.9,  lon: 19.1  }, // Pologne
-  { lat: 39.4,  lon: -8.2  }, // Portugal
-  { lat: 40.5,  lon: -3.7  }, // Espagne
-  { lat: 60.1,  lon: 18.6  }, // Suède
-  { lat: 46.8,  lon: 8.2   }, // Suisse
-  { lat: 51.5,  lon: -0.1  }, // Royaume-Uni
-  // Moyen-Orient
-  { lat: 38.9,  lon: 35.2  }, // Turquie
-  // Amérique du Nord
-  { lat: 60.0,  lon: -96.8 }, // Canada
-  { lat: 37.1,  lon: -95.7 }, // États-Unis
-  // Océanie
-  { lat: -25.3, lon: 133.8 }, // Australie
-  // Amérique du Sud
-  { lat: -14.2, lon: -51.9 }, // Brésil
-  // Asie du Sud
-  { lat: 20.6,  lon: 78.9  }, // Inde
-  // (Népal déjà en expédition)
-]
+// Noms GeoJSON (propriété ADMIN) des pays visités
+const VISITED_NAMES = new Set([
+  'Algeria', 'Comoros', 'Morocco', 'Tunisia',
+  'Singapore', 'Vietnam',
+  'Belgium', 'Czechia', 'Denmark', 'France', 'Greece', 'Hungary',
+  'Italy', 'Luxembourg', 'Monaco', 'Netherlands', 'Norway', 'Poland',
+  'Portugal', 'Spain', 'Sweden', 'Switzerland', 'United Kingdom',
+  'Turkey',
+  'Canada', 'United States of America',
+  'Australia',
+  'Brazil',
+  'India',
+])
+
+const EXPEDITION_NAMES = new Set(EXPEDITIONS.map(e => e.geoName))
 
 export default function WorldMapSection() {
   const mapRef = useRef<HTMLDivElement>(null)
@@ -69,7 +40,7 @@ export default function WorldMapSection() {
   useEffect(() => {
     if (!mapRef.current || mapInstance.current) return
 
-    import('leaflet').then(L => {
+    import('leaflet').then(async L => {
       // @ts-expect-error leaflet icon default
       delete L.Icon.Default.prototype._getIconUrl
 
@@ -79,6 +50,7 @@ export default function WorldMapSection() {
         zoomControl: false,
         attributionControl: false,
         scrollWheelZoom: false,
+        minZoom: 2,
       })
 
       mapInstance.current = map
@@ -88,39 +60,34 @@ export default function WorldMapSection() {
         subdomains: 'abcd',
       }).addTo(map)
 
-      // Points visités — petits cercles blancs discrets
-      VISITED.forEach(({ lat, lon }) => {
-        const icon = L.divIcon({
-          html: `<svg viewBox="0 0 10 10" width="10" height="10"><circle cx="5" cy="5" r="3" fill="rgba(255,255,255,0.45)"/></svg>`,
-          className: '',
-          iconSize: [10, 10],
-          iconAnchor: [5, 5],
-        })
-        L.marker([lat, lon], { icon, interactive: false }).addTo(map)
-      })
+      // Chargement du GeoJSON mondial
+      const res = await fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+      const geojson = await res.json()
 
-      // Expéditions BTW2WORLD — points gold cliquables
-      EXPEDITIONS.forEach(dest => {
-        const icon = L.divIcon({
-          html: `
-            <div style="position:relative;width:28px;height:28px;cursor:pointer">
-              <svg viewBox="0 0 28 28" width="28" height="28">
-                <circle cx="14" cy="14" r="12" fill="none" stroke="${ACCENT}" stroke-width="1" opacity="0.45"/>
-                <circle cx="14" cy="14" r="5" fill="${ACCENT}"/>
-              </svg>
-              <div style="position:absolute;top:-20px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.14em;color:rgba(255,255,255,0.8);text-transform:uppercase">
-                ${dest.country}
-              </div>
-            </div>
-          `,
-          className: '',
-          iconSize: [28, 28],
-          iconAnchor: [14, 14],
-        })
-        L.marker([dest.lat, dest.lon], { icon })
-          .addTo(map)
-          .on('click', () => setActive(prev => prev?.id === dest.id ? null : dest))
-      })
+      L.geoJSON(geojson, {
+        style: (feature) => {
+          const name = feature?.properties?.ADMIN as string
+          if (EXPEDITION_NAMES.has(name)) {
+            return { fillColor: ACCENT, fillOpacity: 0.75, color: ACCENT, weight: 0.5, opacity: 0.8 }
+          }
+          if (VISITED_NAMES.has(name)) {
+            return { fillColor: '#ffffff', fillOpacity: 0.35, color: '#ffffff', weight: 0.5, opacity: 0.4 }
+          }
+          return { fillColor: 'transparent', fillOpacity: 0, color: 'rgba(255,255,255,0.06)', weight: 0.5, opacity: 1 }
+        },
+        onEachFeature: (feature, layer) => {
+          const name = feature?.properties?.ADMIN as string
+          if (EXPEDITION_NAMES.has(name)) {
+            const exp = EXPEDITIONS.find(e => e.geoName === name)!
+            layer.on('click', () => setActive(prev => prev?.id === exp.id ? null : exp))
+            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 0.95 }))
+            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.75 }))
+          } else if (VISITED_NAMES.has(name)) {
+            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 0.55 }))
+            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.35 }))
+          }
+        },
+      }).addTo(map)
 
       L.control.zoom({ position: 'bottomright' }).addTo(map)
     })
@@ -150,23 +117,23 @@ export default function WorldMapSection() {
         </div>
         <div style={{ display: 'flex', gap: '28px', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'rgba(255,255,255,0.45)' }} />
+            <div style={{ width: '20px', height: '10px', background: 'rgba(255,255,255,0.35)', borderRadius: '2px' }} />
             <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Pays visité</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT }} />
+            <div style={{ width: '20px', height: '10px', background: ACCENT, borderRadius: '2px' }} />
             <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>Expédition BTW2WORLD</span>
           </div>
         </div>
       </div>
 
-      {/* Carte Leaflet */}
+      {/* Carte */}
       <div style={{ position: 'relative', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <div ref={mapRef} style={{ width: '100%', height: '480px', background: BGMID }} />
 
         <div style={{ position: 'absolute', top: '14px', right: '20px', fontFamily: M, fontSize: '7px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', zIndex: 1000, pointerEvents: 'none' }}>
-          Cliquer sur un point doré
+          Cliquer sur un pays doré
         </div>
 
         <AnimatePresence>
@@ -192,7 +159,7 @@ export default function WorldMapSection() {
         </AnimatePresence>
       </div>
 
-      {/* Liste expéditions BTW2WORLD */}
+      {/* Liste expéditions */}
       <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         {EXPEDITIONS.map((dest, i, arr) => (
           <motion.div key={dest.id}
