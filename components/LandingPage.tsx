@@ -115,15 +115,8 @@ function LeProjet() {
           {/* Photo */}
           <div style={{ position: 'relative', overflow: 'hidden' }}>
             <Image src="/images/maxence.jpg" alt="Maxence" fill sizes="50vw"
-              style={{ objectFit: 'cover', objectPosition: 'center top', transition: 'transform 0.8s ease' }} />
+              style={{ objectFit: 'cover', objectPosition: 'center center', transition: 'transform 0.8s ease' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(26,46,30,0.4), transparent 50%)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,20,14,0.85) 0%, rgba(10,20,14,0.4) 35%, transparent 60%)' }} />
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}
-              style={{ position: 'absolute', bottom: '48px', left: '40px', right: '40px', borderLeft: '2px solid rgba(246,183,77,0.6)', paddingLeft: '20px' }}>
-              <p style={{ fontFamily: C, fontSize: '18px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.95)', lineHeight: 1.65 }}>
-                &ldquo;Je ne guide pas des touristes. Je partage des endroits avec des gens qui méritent de les voir.&rdquo;
-              </p>
-            </motion.div>
           </div>
         </div>
       </motion.section>
