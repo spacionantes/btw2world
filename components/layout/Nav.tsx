@@ -12,7 +12,7 @@ const BGDARK = '#0d1a10'
 const ACCENT = '#f6b74d'
 
 const LINKS = [
-  { href: '/qui-suis-je', label: 'Le projet' },
+  { href: '/', label: 'Le projet' },
   { href: '/concept',     label: 'Le concept' },
   { href: '/destinations',label: 'Expéditions' },
   { href: '/galerie',     label: 'Galerie' },
