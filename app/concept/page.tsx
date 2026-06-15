@@ -5,7 +5,7 @@ import Nav from '@/components/layout/Nav'
 
 export const metadata: Metadata = {
   title: 'Le concept | BTW2WORLD',
-  description: "Partir à l'aveugle — destination révélée J-7 avant le départ",
+  description: "Deux façons de voyager avec BTW2WORLD — à l'aveugle ou en mode libre",
 }
 
 const J = "'Jost', sans-serif"
@@ -16,24 +16,39 @@ const BGDARK = '#0d1a10'
 const BGMID  = '#243429'
 const ACCENT = '#f6b74d'
 
-const ETAPES = [
-  { num: '01', titre: 'Candidature', corps: 'Un formulaire, quelques lignes sur vous. Je lis chaque dossier personnellement — motivations, expérience voyage, contraintes spécifiques. Pas d\'algorithme.' },
+const MODE_AVEUGLE_ETAPES = [
+  { num: '01', titre: 'Candidature', corps: 'Un formulaire, quelques lignes sur vous. Je lis chaque dossier personnellement — motivations, expérience voyage, contraintes. Pas d\'algorithme.' },
   { num: '02', titre: 'Sélection', corps: 'Je compose le groupe avec soin. Les places sont limitées à 2 invités pour garantir une expérience intime et une vraie cohésion sur le terrain.' },
-  { num: '03', titre: 'Organisation', corps: 'Je prends en charge l\'intégralité de la logistique : itinéraire, hébergements, transport, sécurité. Vous n\'avez qu\'à vous préparer à partir.' },
-  { num: '04', titre: 'Départ à l\'aveugle', corps: 'La destination est révélée à J-7. Puis on part. Terrain, photo, film — je gère tout. Vous apportez l\'ouverture d\'esprit et la confiance.' },
+  { num: '03', titre: 'Organisation', corps: 'Je prends en charge l\'intégralité de la logistique : itinéraire, hébergements, transport, sécurité. Vous n\'avez qu\'à vous préparer.' },
+  { num: '04', titre: 'Départ à l\'aveugle', corps: 'La destination est révélée à J-7. Puis on part. Terrain, photo, film — je gère tout. Vous apportez l\'ouverture d\'esprit.' },
 ]
 
-const AVANTAGES = [
-  { titre: 'Nouvelle destination', texte: 'Chaque expédition ouvre sur un territoire que vous n\'auriez peut-être jamais choisi seul. C\'est ça, l\'entre-deux-mondes.' },
-  { titre: 'Effet de surprise total', texte: 'Pas d\'attentes construites, pas de film en tête à l\'arrivée. Juste la réalité du terrain, brute et entière.' },
-  { titre: 'Équipe expérimentée', texte: 'Voyager avec quelqu\'un qui connaît les routes, les cultures et les imprévus. Aucune agence impliquée.' },
-  { titre: 'Un film du voyage', texte: 'Chaque expédition donne lieu à un film complet — tourné et monté par Maxence. Un souvenir à la hauteur de l\'aventure.' },
+const MODE_LIBRE_ETAPES = [
+  { num: '01', titre: 'Votre idée', corps: 'Vous savez déjà où vous voulez aller. Seuls ou accompagnés de moi — vous choisissez le cadre, je m\'adapte à votre vision.' },
+  { num: '02', titre: 'Premier contact', corps: 'Envoyez un message de contact. On échange rapidement pour comprendre votre projet, vos envies, votre budget.' },
+  { num: '03', titre: 'Appel de cadrage', corps: 'Un premier appel d\'organisation pour définir le projet en détail : destination, dates, rythme, attentes spécifiques.' },
+  { num: '04', titre: 'Organisation complète', corps: 'Je prends en main toute la logistique. Itinéraire sur mesure, hébergements, transport, sécurité. Votre voyage, clé en main.' },
+  { num: '05', titre: 'Expédition', corps: 'On part. Vous connaissez la destination, vous avez préparé, vous arrivez avec vos intentions. Je suis là pour que tout se passe au mieux.' },
+]
+
+const MODE_AVEUGLE_AVANTAGES = [
+  { titre: 'Nouvelle destination', texte: 'Chaque expédition ouvre sur un territoire que vous n\'auriez peut-être jamais choisi seul.' },
+  { titre: 'Effet surprise total', texte: 'Pas d\'attentes construites, pas de film en tête. Juste la réalité du terrain, brute et entière.' },
+  { titre: 'Équipe expérimentée', texte: 'Voyager avec quelqu\'un qui connaît les routes, les cultures et les imprévus. Aucune agence.' },
+  { titre: 'Film du voyage', texte: 'Chaque expédition donne lieu à un film complet — tourné et monté par Maxence.' },
+]
+
+const MODE_LIBRE_AVANTAGES = [
+  { titre: 'Plus de liberté sur les dates', texte: 'Vous choisissez quand partir. Pas de contrainte de groupe, pas de calendrier imposé.' },
+  { titre: 'Destination déjà connue', texte: 'Vous arrivez avec vos intentions, vos recherches, votre vision du voyage. Aucune surprise.' },
+  { titre: 'Moins d\'imprévus', texte: 'Tout est cadré, anticipé, discuté en amont. Vous partez en sachant exactement ce qui vous attend.' },
 ]
 
 export default function ConceptPage() {
   return (
     <div style={{ background: BG, minHeight: '100dvh' }}>
-      {/* Hero — image avec texte intégré */}
+
+      {/* Hero */}
       <div style={{ height: '100dvh', position: 'relative', overflow: 'hidden' }}>
         <Image src="/images/concept hero.png" alt="Le concept BTW2WORLD" fill sizes="100vw"
           style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
@@ -43,19 +58,40 @@ export default function ConceptPage() {
         </div>
       </div>
 
-      {/* ── MODES ─────────────────────────────────── */}
-      <div style={{ background: BGDARK, padding: '96px 72px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
-            Formule proposée
+      {/* ── INTRO ─────────────────────────────────────── */}
+      <div style={{ background: BGDARK, padding: '80px 72px 64px' }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '24px' }}>
+            Deux façons de voyager
           </p>
+          <h2 style={{ fontFamily: C, fontSize: 'clamp(36px, 4.5vw, 64px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '28px' }}>
+            Choisissez votre<br />formule
+          </h2>
+          <p style={{ fontFamily: J, fontSize: '16px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', lineHeight: 1.85 }}>
+            Que vous vouliez être surpris ou que vous sachiez déjà où aller, BTW2WORLD s&apos;adapte à vous.
+          </p>
+        </div>
+      </div>
+
+      {/* ── MODE À L'AVEUGLE ──────────────────────────── */}
+      <div style={{ background: BGDARK, padding: '0 72px 96px' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '40px', paddingTop: '16px', borderTop: '1px solid rgba(246,183,77,0.2)' }}>
+            <span style={{ background: ACCENT, color: BGDARK, fontFamily: M, fontSize: '8px', letterSpacing: '0.25em', textTransform: 'uppercase', padding: '6px 14px' }}>
+              Formule 01
+            </span>
+            <span style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em' }}>
+              Avec moi
+            </span>
+          </div>
+
           <h2 style={{ fontFamily: C, fontSize: 'clamp(44px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em', marginBottom: '64px' }}>
             Mode à l&apos;aveugle
           </h2>
 
-          {/* Étapes */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1px', background: 'rgba(255,255,255,0.06)' }} className="grid-4col">
-            {ETAPES.map((e, i) => (
+            {MODE_AVEUGLE_ETAPES.map(e => (
               <div key={e.num} style={{ background: BGDARK, padding: '40px 36px' }}>
                 <div style={{ fontFamily: C, fontSize: '72px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(246,183,77,0.15)', lineHeight: 1, marginBottom: '-12px' }}>{e.num}</div>
                 <h3 style={{ fontFamily: C, fontSize: '22px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '16px', marginTop: '16px' }}>{e.titre}</h3>
@@ -64,35 +100,22 @@ export default function ConceptPage() {
             ))}
           </div>
 
-          {/* Places limitées */}
           <div style={{ marginTop: '1px', background: BGMID, padding: '28px 36px', display: 'flex', alignItems: 'center', gap: '24px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
             <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: ACCENT, flexShrink: 0 }} />
             <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: ACCENT }}>
               Places limitées à 2 invités par expédition
             </p>
           </div>
-        </div>
-      </div>
 
-      {/* ── AVANTAGES ─────────────────────────────── */}
-      <div style={{ background: BG, padding: '96px 72px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
-            Ce que vous gagnez
-          </p>
-          <h2 style={{ fontFamily: C, fontSize: 'clamp(40px, 4.5vw, 64px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em', marginBottom: '64px' }}>
-            Les avantages du mode à l&apos;aveugle
-          </h2>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '1px', background: 'rgba(255,255,255,0.06)' }}>
-            {AVANTAGES.map((a, i) => (
-              <div key={i} style={{ background: BG, padding: '48px 48px', display: 'flex', gap: '28px', alignItems: 'flex-start' }}>
-                <div style={{ fontFamily: C, fontSize: '48px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(246,183,77,0.25)', lineHeight: 1, flexShrink: 0, marginTop: '-6px' }}>
+          <div style={{ marginTop: '48px', display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '1px', background: 'rgba(255,255,255,0.06)' }}>
+            {MODE_AVEUGLE_AVANTAGES.map((a, i) => (
+              <div key={i} style={{ background: BGDARK, padding: '36px 40px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+                <div style={{ fontFamily: C, fontSize: '40px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(246,183,77,0.2)', lineHeight: 1, flexShrink: 0, marginTop: '-4px' }}>
                   {String(i + 1).padStart(2, '0')}
                 </div>
                 <div>
-                  <h3 style={{ fontFamily: C, fontSize: '24px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '14px' }}>{a.titre}</h3>
-                  <p style={{ fontFamily: J, fontSize: '14px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', lineHeight: 1.85 }}>{a.texte}</p>
+                  <h3 style={{ fontFamily: C, fontSize: '20px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '10px' }}>{a.titre}</h3>
+                  <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8 }}>{a.texte}</p>
                 </div>
               </div>
             ))}
@@ -100,7 +123,57 @@ export default function ConceptPage() {
         </div>
       </div>
 
-      {/* ── POURQUOI L'AVEUGLE — section conservée ── */}
+      {/* ── MODE LIBRE ────────────────────────────────── */}
+      <div style={{ background: BG, padding: '96px 72px' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '40px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <span style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.6)', fontFamily: M, fontSize: '8px', letterSpacing: '0.25em', textTransform: 'uppercase', padding: '6px 14px', border: '1px solid rgba(255,255,255,0.1)' }}>
+              Formule 02
+            </span>
+            <span style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em' }}>
+              Seuls ou avec moi
+            </span>
+          </div>
+
+          <h2 style={{ fontFamily: C, fontSize: 'clamp(44px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em', marginBottom: '64px' }}>
+            Mode libre
+          </h2>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: '1px', background: 'rgba(255,255,255,0.06)' }} className="grid-5col">
+            {MODE_LIBRE_ETAPES.map(e => (
+              <div key={e.num} style={{ background: BG, padding: '36px 28px' }}>
+                <div style={{ fontFamily: C, fontSize: '64px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.07)', lineHeight: 1, marginBottom: '-12px' }}>{e.num}</div>
+                <h3 style={{ fontFamily: C, fontSize: '19px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '12px', marginTop: '16px' }}>{e.titre}</h3>
+                <p style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8 }}>{e.corps}</p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: '1px', background: 'rgba(255,255,255,0.03)', padding: '28px 36px', display: 'flex', alignItems: 'center', gap: '24px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'rgba(255,255,255,0.3)', flexShrink: 0 }} />
+            <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
+              Places limitées à 3 ou 4 invités
+            </p>
+          </div>
+
+          <div style={{ marginTop: '48px', display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1px', background: 'rgba(255,255,255,0.06)' }}>
+            {MODE_LIBRE_AVANTAGES.map((a, i) => (
+              <div key={i} style={{ background: BG, padding: '36px 40px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                <div style={{ fontFamily: C, fontSize: '40px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.1)', lineHeight: 1, flexShrink: 0, marginTop: '-4px' }}>
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div>
+                  <h3 style={{ fontFamily: C, fontSize: '19px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '10px' }}>{a.titre}</h3>
+                  <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8 }}>{a.texte}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── POURQUOI L'AVEUGLE ────────────────────────── */}
       <div style={{ background: BGDARK, padding: '96px 64px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontFamily: J, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.3em', color: ACCENT, marginBottom: '32px' }}>
@@ -118,7 +191,7 @@ export default function ConceptPage() {
         </div>
       </div>
 
-      {/* ── FAQ ─────────────────────────────────────── */}
+      {/* ── FAQ ──────────────────────────────────────── */}
       <div style={{ background: BG, padding: '96px 72px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
@@ -149,7 +222,7 @@ export default function ConceptPage() {
         </div>
       </div>
 
-      {/* ── CTA ─────────────────────────────────────── */}
+      {/* ── CTA ──────────────────────────────────────── */}
       <div style={{ background: BGMID, padding: '80px 64px', textAlign: 'center' }}>
         <h2 style={{ fontFamily: C, fontSize: 'clamp(48px, 6vw, 96px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, marginBottom: '32px', letterSpacing: '-0.02em' }}>
           Prêt pour<br /><span style={{ color: ACCENT }}>l&apos;inconnu ?</span>
