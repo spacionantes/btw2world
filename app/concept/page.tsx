@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import PageHero from '@/components/layout/PageHero'
+import Nav from '@/components/layout/Nav'
 
 export const metadata: Metadata = {
   title: 'Le concept | BTW2WORLD',
@@ -33,12 +33,15 @@ const AVANTAGES = [
 export default function ConceptPage() {
   return (
     <div style={{ background: BG, minHeight: '100dvh' }}>
-      <PageHero
-        image="/images/14.jpg"
-        label="Le concept"
-        title={"L'Entre\n2 Mondes"}
-        subtitle="La destination révélée 7 jours avant le départ"
-      />
+      {/* Hero — image avec texte intégré */}
+      <div style={{ height: '100dvh', position: 'relative', overflow: 'hidden' }}>
+        <Image src="/images/concept hero.png" alt="Le concept BTW2WORLD" fill sizes="100vw"
+          style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.08)' }} />
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <Nav />
+        </div>
+      </div>
 
       {/* ── MODES ─────────────────────────────────── */}
       <div style={{ background: BGDARK, padding: '96px 72px' }}>
