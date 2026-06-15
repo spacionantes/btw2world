@@ -447,11 +447,8 @@ export default function LandingPage() {
     <main style={{ background: BGDARK }}>
       <Hero />
       <LeProjet />
-      <LeConcept />
-      <Expeditions />
-      <Galerie />
       <WorldMapSection />
-      <Contact />
+      <Expeditions />
       <Footer />
     </main>
   )
