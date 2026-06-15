@@ -11,37 +11,52 @@ const BGMID  = '#1a2e1e'
 const ACCENT = '#f6b74d'
 
 const EXPEDITIONS = [
-  { id: 'kyrg',    name: 'Tian Shan',       country: 'Kirghizistan', continent: 'Asie centrale',   year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m',  iso: 'KGZ' },
-  { id: 'nepal',   name: 'Annapurna',       country: 'Népal',        continent: 'Himalaya',         year: '2024', description: 'Thorong-La 5416m, villages sherpa',       iso: 'NPL' },
-  { id: 'namibie', name: 'Désert du Namib', country: 'Namibie',      continent: 'Afrique australe', year: '2025', description: 'Sossusvlei, Skeleton Coast',              iso: 'NAM' },
+  { id: 'kyrg',  name: 'Tian Shan',  country: 'Kirghizistan', continent: 'Asie centrale', year: '2025', description: 'Hauts plateaux, yourtes, cols à 4000m', lat: 41.2, lon: 74.5 },
+  { id: 'nepal', name: 'Annapurna', country: 'Népal',         continent: 'Himalaya',      year: '2024', description: 'Thorong-La 5416m, villages sherpa',    lat: 28.4, lon: 84.1 },
 ]
 
-// Codes ISO A3 des pays visités
-const VISITED_ISO = new Set([
-  'DZA', 'COM', 'MAR', 'TUN',          // Afrique
-  'SGP', 'VNM',                         // Asie du Sud-Est
-  'BEL', 'CZE', 'DNK', 'FRA', 'GRC',  // Europe
-  'HUN', 'ITA', 'LUX', 'MCO', 'NLD',
-  'NOR', 'POL', 'PRT', 'ESP', 'SWE',
-  'CHE', 'GBR',
-  'TUR',                                // Moyen-Orient
-  'CAN', 'USA',                         // Amérique du Nord
-  'AUS',                                // Océanie
-  'BRA',                                // Amérique du Sud
-  'IND',                                // Asie du Sud
-])
-
-const EXPEDITION_ISO = new Set(EXPEDITIONS.map(e => e.iso))
+const VISITED = [
+  { name: 'Algérie',          lat: 28.0,  lon: 1.7   },
+  { name: 'Comores',          lat: -11.7, lon: 43.3  },
+  { name: 'Maroc',            lat: 31.8,  lon: -7.1  },
+  { name: 'Tunisie',          lat: 33.9,  lon: 9.6   },
+  { name: 'Singapour',        lat: 1.3,   lon: 103.8 },
+  { name: 'Vietnam',          lat: 14.1,  lon: 108.3 },
+  { name: 'Belgique',         lat: 50.8,  lon: 4.5   },
+  { name: 'Rép. tchèque',     lat: 49.8,  lon: 15.5  },
+  { name: 'Danemark',         lat: 56.3,  lon: 9.5   },
+  { name: 'France',           lat: 46.2,  lon: 2.2   },
+  { name: 'Grèce',            lat: 39.1,  lon: 21.8  },
+  { name: 'Hongrie',          lat: 47.2,  lon: 19.5  },
+  { name: 'Italie',           lat: 41.9,  lon: 12.6  },
+  { name: 'Luxembourg',       lat: 49.8,  lon: 6.1   },
+  { name: 'Monaco',           lat: 43.7,  lon: 7.4   },
+  { name: 'Pays-Bas',         lat: 52.1,  lon: 5.3   },
+  { name: 'Norvège',          lat: 60.5,  lon: 8.5   },
+  { name: 'Pologne',          lat: 51.9,  lon: 19.1  },
+  { name: 'Portugal',         lat: 39.4,  lon: -8.2  },
+  { name: 'Espagne',          lat: 40.5,  lon: -3.7  },
+  { name: 'Suède',            lat: 60.1,  lon: 18.6  },
+  { name: 'Suisse',           lat: 46.8,  lon: 8.2   },
+  { name: 'Royaume-Uni',      lat: 51.5,  lon: -0.1  },
+  { name: 'Turquie',          lat: 38.9,  lon: 35.2  },
+  { name: 'Canada',           lat: 60.0,  lon: -96.8 },
+  { name: 'États-Unis',       lat: 37.1,  lon: -95.7 },
+  { name: 'Australie',        lat: -25.3, lon: 133.8 },
+  { name: 'Brésil',           lat: -14.2, lon: -51.9 },
+  { name: 'Inde',             lat: 20.6,  lon: 78.9  },
+]
 
 export default function WorldMapSection() {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstance = useRef<unknown>(null)
   const [active, setActive] = useState<typeof EXPEDITIONS[0] | null>(null)
+  const [hoveredCountry, setHoveredCountry] = useState<{ name: string; x: number; y: number } | null>(null)
 
   useEffect(() => {
     if (!mapRef.current || mapInstance.current) return
 
-    import('leaflet').then(async L => {
+    import('leaflet').then(L => {
       // @ts-expect-error leaflet icon default
       delete L.Icon.Default.prototype._getIconUrl
 
@@ -56,41 +71,54 @@ export default function WorldMapSection() {
 
       mapInstance.current = map
 
-      // Fond ocean uniquement — les pays sont dessinés par GeoJSON
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
         maxZoom: 8,
         subdomains: 'abcd',
-        opacity: 0.15,
       }).addTo(map)
 
-      // Chargement du GeoJSON mondial
-      const res = await fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
-      const geojson = await res.json()
+      // Points pays visités — petits cercles blancs avec tooltip hover
+      VISITED.forEach(({ name, lat, lon }) => {
+        const icon = L.divIcon({
+          html: `<svg viewBox="0 0 10 10" width="10" height="10">
+            <circle cx="5" cy="5" r="3.5" fill="rgba(255,255,255,0.6)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          </svg>`,
+          className: '',
+          iconSize: [10, 10],
+          iconAnchor: [5, 5],
+        })
 
-      L.geoJSON(geojson, {
-        style: (feature) => {
-          const iso = feature?.properties?.ISO_A3 as string
-          if (EXPEDITION_ISO.has(iso)) {
-            return { fillColor: ACCENT, fillOpacity: 0.9, color: '#0a140e', weight: 0.8, opacity: 1 }
-          }
-          if (VISITED_ISO.has(iso)) {
-            return { fillColor: '#8faa8f', fillOpacity: 0.75, color: '#0a140e', weight: 0.8, opacity: 1 }
-          }
-          return { fillColor: '#1a2e1e', fillOpacity: 1, color: '#0a140e', weight: 0.5, opacity: 1 }
-        },
-        onEachFeature: (feature, layer) => {
-          const iso = feature?.properties?.ISO_A3 as string
-          if (EXPEDITION_ISO.has(iso)) {
-            const exp = EXPEDITIONS.find(e => e.iso === iso)!
-            layer.on('click', () => setActive(prev => prev?.id === exp.id ? null : exp))
-            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillColor: '#ffd166', fillOpacity: 1 }))
-            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillColor: ACCENT, fillOpacity: 0.9 }))
-          } else if (VISITED_ISO.has(iso)) {
-            layer.on('mouseover', () => (layer as L.Path).setStyle({ fillOpacity: 0.95 }))
-            layer.on('mouseout',  () => (layer as L.Path).setStyle({ fillOpacity: 0.75 }))
-          }
-        },
-      }).addTo(map)
+        const marker = L.marker([lat, lon], { icon }).addTo(map)
+
+        marker.on('mouseover', (e) => {
+          const containerPoint = map.latLngToContainerPoint([lat, lon])
+          setHoveredCountry({ name, x: containerPoint.x, y: containerPoint.y })
+        })
+        marker.on('mouseout', () => setHoveredCountry(null))
+      })
+
+      // Expéditions BTW2WORLD — points gold cliquables
+      EXPEDITIONS.forEach(dest => {
+        const icon = L.divIcon({
+          html: `
+            <div style="position:relative;width:28px;height:28px;cursor:pointer">
+              <svg viewBox="0 0 28 28" width="28" height="28">
+                <circle cx="14" cy="14" r="12" fill="none" stroke="${ACCENT}" stroke-width="1" opacity="0.5"/>
+                <circle cx="14" cy="14" r="5" fill="${ACCENT}"/>
+              </svg>
+              <div style="position:absolute;top:-20px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:'DM Mono',monospace;font-size:7.5px;letter-spacing:0.14em;color:rgba(255,255,255,0.85);text-transform:uppercase">
+                ${dest.country}
+              </div>
+            </div>
+          `,
+          className: '',
+          iconSize: [28, 28],
+          iconAnchor: [14, 14],
+        })
+
+        L.marker([dest.lat, dest.lon], { icon })
+          .addTo(map)
+          .on('click', () => setActive(prev => prev?.id === dest.id ? null : dest))
+      })
 
       L.control.zoom({ position: 'bottomright' }).addTo(map)
     })
@@ -120,11 +148,11 @@ export default function WorldMapSection() {
         </div>
         <div style={{ display: 'flex', gap: '28px', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '20px', height: '10px', background: 'rgba(255,255,255,0.35)', borderRadius: '2px' }} />
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'rgba(255,255,255,0.6)' }} />
             <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Pays visité</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '20px', height: '10px', background: ACCENT, borderRadius: '2px' }} />
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: ACCENT }} />
             <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>Expédition BTW2WORLD</span>
           </div>
         </div>
@@ -135,8 +163,22 @@ export default function WorldMapSection() {
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <div ref={mapRef} style={{ width: '100%', height: '480px', background: BGMID }} />
 
+        {/* Tooltip pays visité */}
+        {hoveredCountry && (
+          <div style={{
+            position: 'absolute', zIndex: 1000, pointerEvents: 'none',
+            left: hoveredCountry.x + 14, top: hoveredCountry.y - 28,
+            background: 'rgba(13,26,16,0.95)', border: '1px solid rgba(255,255,255,0.12)',
+            padding: '5px 12px', backdropFilter: 'blur(8px)',
+          }}>
+            <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>
+              {hoveredCountry.name}
+            </span>
+          </div>
+        )}
+
         <div style={{ position: 'absolute', top: '14px', right: '20px', fontFamily: M, fontSize: '7px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', zIndex: 1000, pointerEvents: 'none' }}>
-          Cliquer sur un pays doré
+          Cliquer sur un point doré
         </div>
 
         <AnimatePresence>

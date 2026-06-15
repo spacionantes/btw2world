@@ -26,7 +26,7 @@ export default function GaleriePage() {
         image="/images/hero-bg.jpg"
         label="Galerie"
         title={"Ce que les cartes\nne montrent pas"}
-        subtitle="Kirghizistan · Népal · Namibie"
+        subtitle="Kirghizistan · Népal · et au-delà"
       />
 
       {/* Grille masonry */}

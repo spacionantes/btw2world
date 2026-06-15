@@ -75,27 +75,6 @@ Le passage du Thorong-La à 5416m reste le moment le plus fort : partir à 3h du
     tags: ['Himalaya', 'Trek', 'Altitude', 'Sherpa'],
   },
   {
-    id: '2',
-    slug: 'namibie-desert',
-    title: 'Namibie — Désert du Namib',
-    country: 'Namibie',
-    continent: 'Afrique australe',
-    coverImage: '/images/16.jpg',
-    departureDate: '2025-11-01',
-    duration: 12,
-    spotsTotal: 4,
-    spotsLeft: 0,
-    status: 'complet',
-    description: 'Dunes de Sossusvlei, Skeleton Coast, ciel étoilé du désert.',
-    longDescription: `Namibie, novembre 2025. Quatre personnes, un 4x4, l'immensité du désert le plus ancien du monde.
-
-Dunes de Sossusvlei au lever du soleil, Dead Vlei et ses arbres fossilisés, nuits sur la Skeleton Coast. Un silence absolu, comme nulle part ailleurs.`,
-    coordinates: [18.4904, -22.9576],
-    blogUrl: '#',
-    gallery: ['/images/hero-bg.jpg', '/images/12.jpg'],
-    tags: ['Désert', 'Wildlife', 'Photography'],
-  },
-  {
     id: '3',
     slug: 'prochain-voyage',
     title: '??? — Destination secrète',
