@@ -21,7 +21,7 @@ export default function AboutSection() {
   const radius = useTransform(scrollYProgress, [0, 0.6, 1], ['24px 24px 0 0', '8px 8px 0 0', '0px'])
   return (
     <div ref={ref} style={{ marginTop: '-64px', position: 'relative', zIndex: 10 }}>
-      <motion.section style={{ y, borderRadius: radius, background: '#1a2e1e', boxShadow: '0 -40px 120px rgba(0,0,0,0.55)' }}>
+      <motion.section style={{ y, borderRadius: radius, background: '#426248', boxShadow: '0 -40px 120px rgba(0,0,0,0.55)' }}>
         <div className="grid-2col" style={{ minHeight: '90vh' }}>
           <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             style={{ padding: '96px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -51,7 +51,7 @@ export default function AboutSection() {
             style={{ position: 'relative', overflow: 'hidden', minHeight: '600px' }}>
             <Image src="/images/maxence.jpg" alt="Maxence" fill sizes="50vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(66,98,72,0.35) 0%, transparent 50%)' }} />
-            <div style={{ position: 'absolute', top: '32px', left: '32px', background: 'rgba(246,183,77,0.88)', color: '#1a2e1e', fontFamily: J, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', padding: '7px 16px', fontWeight: 500 }}>
+            <div style={{ position: 'absolute', top: '32px', left: '32px', background: 'rgba(246,183,77,0.88)', color: '#426248', fontFamily: J, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.2em', padding: '7px 16px', fontWeight: 500 }}>
               Guide & Photographe
             </div>
             <div style={{ position: 'absolute', bottom: '48px', left: '40px', right: '40px', borderLeft: '2px solid rgba(246,183,77,0.5)', paddingLeft: '20px' }}>

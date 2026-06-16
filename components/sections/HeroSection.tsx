@@ -96,7 +96,7 @@ export default function HeroSection() {
           <div style={{ display: 'flex', gap: '12px' }}>
             <Link href="/candidater" style={{
               fontFamily: J, fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase',
-              background: '#f6b74d', color: '#1a2e1e', padding: '12px 28px', textDecoration: 'none', fontWeight: 500,
+              background: '#f6b74d', color: '#426248', padding: '12px 28px', textDecoration: 'none', fontWeight: 500,
             }}>
               Candidater
             </Link>

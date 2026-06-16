@@ -16,7 +16,7 @@ const STATUS_LABEL: Record<string, string> = {
 export default function DestinationsSection() {
   const shown = VOYAGES.filter(v => v.status !== 'passe').slice(0, 3)
   return (
-    <section style={{ background: '#1a2e1e' }} className="section-pad">
+    <section style={{ background: '#426248' }} className="section-pad">
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '72px', flexWrap: 'wrap', gap: '24px' }}>
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}>
@@ -40,7 +40,7 @@ export default function DestinationsSection() {
                     style={{ objectFit: 'cover', transition: 'transform 0.8s ease' }} />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 55%, rgba(30,46,34,0.85) 100%)' }} />
                   {/* Status */}
-                  <div style={{ position: 'absolute', top: '20px', left: '20px', fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.18em', background: voyage.status === 'ouvert' ? '#f6b74d' : 'rgba(0,0,0,0.45)', color: voyage.status === 'ouvert' ? '#1a2e1e' : 'rgba(255,255,255,0.6)', padding: '5px 12px', fontWeight: 500 }}>
+                  <div style={{ position: 'absolute', top: '20px', left: '20px', fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.18em', background: voyage.status === 'ouvert' ? '#f6b74d' : 'rgba(0,0,0,0.45)', color: voyage.status === 'ouvert' ? '#426248' : 'rgba(255,255,255,0.6)', padding: '5px 12px', fontWeight: 500 }}>
                     {voyage.status === 'ouvert' ? `${voyage.spotsLeft} places` : STATUS_LABEL[voyage.status]}
                   </div>
                   {/* Country big italic */}
