@@ -31,16 +31,24 @@ const labelStyle: React.CSSProperties = {
   marginBottom: '6px',
 }
 
-const EXPEDITIONS_PASSEES = [
-  { value: 'kirghizistan-tian-shan', label: 'Kirghizistan — Tian Shan (Juillet 2025)' },
-  { value: 'nepal-annapurna',        label: 'Népal — Circuit Annapurna (Janvier 2024)' },
-  { value: 'amazonie-manaus',        label: 'Amazonie — Manaus (Mai 2023)' },
+const PAYS = [
+  'Afghanistan','Afrique du Sud','Albanie','Algérie','Allemagne','Angola','Argentine','Arménie','Australie','Autriche',
+  'Azerbaïdjan','Bangladesh','Belgique','Bénin','Bolivie','Bosnie-Herzégovine','Brésil','Bulgarie','Burkina Faso','Cambodge',
+  'Cameroun','Canada','Chili','Chine','Colombie','Congo','Corée du Sud','Costa Rica','Côte d\'Ivoire','Croatie',
+  'Cuba','Danemark','Émirats arabes unis','Équateur','Espagne','Éthiopie','Finlande','France','Géorgie','Ghana',
+  'Grèce','Guatemala','Guinée','Honduras','Hongrie','Inde','Indonésie','Irak','Iran','Irlande',
+  'Islande','Israël','Italie','Japon','Jordanie','Kazakhstan','Kenya','Kirghizistan','Laos','Liban',
+  'Madagascar','Malaisie','Mali','Maroc','Mexique','Mongolie','Myanmar','Namibie','Népal','Nicaragua',
+  'Niger','Nigeria','Norvège','Nouvelle-Zélande','Ouganda','Ouzbékistan','Pakistan','Panama','Paraguay','Pérou',
+  'Philippines','Pologne','Portugal','République tchèque','Roumanie','Royaume-Uni','Russie','Rwanda','Sénégal','Serbie',
+  'Singapour','Slovaquie','Slovénie','Sri Lanka','Suède','Suisse','Tadjikistan','Tanzanie','Thaïlande','Togo',
+  'Tunisie','Turkménistan','Turquie','Ukraine','Uruguay','Venezuela','Vietnam','Yémen','Zambie','Zimbabwe',
 ]
 
 export default function CandidatureForm() {
   const [mode, setMode] = useState<'aveugle' | 'libre' | ''>('')
   const [destination, setDestination] = useState('')
-  const [autreDestination, setAutreDestination] = useState('')
+  const [nbPersonnes, setNbPersonnes] = useState(1)
   const [files, setFiles] = useState<FileList | null>(null)
   const [form, setForm] = useState({
     prenom: '', nom: '', email: '', telephone: '',
@@ -60,7 +68,8 @@ export default function CandidatureForm() {
       const fd = new FormData()
       Object.entries(form).forEach(([k, v]) => fd.append(k, v))
       fd.append('mode', mode)
-      fd.append('destination', destination === 'autre' ? autreDestination : destination)
+      fd.append('destination', destination)
+      if (mode === 'libre') fd.append('nb_personnes', String(nbPersonnes))
       if (files) Array.from(files).forEach(f => fd.append('fichiers', f))
 
       const res = await fetch('/api/candidature', { method: 'POST', body: fd })
@@ -117,7 +126,7 @@ export default function CandidatureForm() {
         <label style={labelStyle}>Formule souhaitée *</label>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px', background: 'rgba(255,255,255,0.08)' }}>
           {(['aveugle', 'libre'] as const).map(m => (
-            <button key={m} type="button" onClick={() => { setMode(m); setDestination(''); setAutreDestination('') }}
+            <button key={m} type="button" onClick={() => { setMode(m); setDestination(''); setNbPersonnes(1) }}
               style={{
                 padding: '20px 24px', border: 'none', cursor: 'pointer', textAlign: 'left',
                 background: mode === m ? ACCENT : 'rgba(255,255,255,0.03)',
@@ -137,50 +146,64 @@ export default function CandidatureForm() {
         </div>
       </div>
 
-      {/* Mode libre — choix de destination */}
+      {/* Mode libre — destination + nombre de personnes */}
       {mode === 'libre' && (
-        <div>
-          <label style={labelStyle}>Destination souhaitée *</label>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', background: 'rgba(255,255,255,0.06)', marginBottom: destination === 'autre' ? '12px' : 0 }}>
-            {EXPEDITIONS_PASSEES.map(exp => (
-              <button key={exp.value} type="button" onClick={() => { setDestination(exp.value); setAutreDestination('') }}
-                style={{
-                  padding: '14px 20px', border: 'none', cursor: 'pointer', textAlign: 'left',
-                  background: destination === exp.value ? 'rgba(246,183,77,0.12)' : 'transparent',
-                  borderLeft: destination === exp.value ? `3px solid ${ACCENT}` : '3px solid transparent',
-                  transition: 'all 0.2s',
-                  display: 'flex', alignItems: 'center', gap: '12px',
-                }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: destination === exp.value ? ACCENT : 'rgba(255,255,255,0.15)', flexShrink: 0 }} />
-                <span style={{ fontFamily: J, fontSize: '14px', fontWeight: 300, color: destination === exp.value ? '#fff' : 'rgba(255,255,255,0.55)' }}>
-                  {exp.label}
-                </span>
-              </button>
-            ))}
-            <button type="button" onClick={() => setDestination('autre')}
-              style={{
-                padding: '14px 20px', border: 'none', cursor: 'pointer', textAlign: 'left',
-                background: destination === 'autre' ? 'rgba(246,183,77,0.12)' : 'transparent',
-                borderLeft: destination === 'autre' ? `3px solid ${ACCENT}` : '3px solid transparent',
-                transition: 'all 0.2s',
-                display: 'flex', alignItems: 'center', gap: '12px',
-              }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: destination === 'autre' ? ACCENT : 'rgba(255,255,255,0.15)', flexShrink: 0 }} />
-              <span style={{ fontFamily: J, fontSize: '14px', fontWeight: 300, color: destination === 'autre' ? '#fff' : 'rgba(255,255,255,0.55)' }}>
-                Autre destination
-              </span>
-            </button>
+        <>
+          <div>
+            <label style={labelStyle}>Pays souhaité *</label>
+            <select
+              value={destination}
+              onChange={e => setDestination(e.target.value)}
+              required
+              style={{ ...inputStyle, cursor: 'pointer' }}
+            >
+              <option value="" style={{ background: '#1a2e1e' }}>Sélectionner un pays</option>
+              {PAYS.map(p => (
+                <option key={p} value={p} style={{ background: '#1a2e1e' }}>{p}</option>
+              ))}
+            </select>
           </div>
-          {destination === 'autre' && (
-            <input
-              type="text"
-              placeholder="Nom du pays ou de la région souhaitée..."
-              value={autreDestination}
-              onChange={e => setAutreDestination(e.target.value)}
-              style={{ ...inputStyle, marginTop: '0' }}
-            />
-          )}
-        </div>
+
+          <div>
+            <label style={labelStyle}>Nombre de personnes (maximum 4)</label>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+              <button
+                type="button"
+                onClick={() => setNbPersonnes(n => Math.max(1, n - 1))}
+                style={{
+                  width: '48px', height: '48px', background: 'rgba(255,255,255,0.07)',
+                  border: '1px solid rgba(255,255,255,0.15)', borderRight: 'none',
+                  color: '#fff', fontSize: '20px', cursor: 'pointer', fontFamily: J,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  opacity: nbPersonnes <= 1 ? 0.3 : 1,
+                }}>
+                −
+              </button>
+              <div style={{
+                width: '80px', height: '48px', background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <span style={{ fontFamily: C, fontSize: '28px', fontStyle: 'italic', color: ACCENT }}>{nbPersonnes}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setNbPersonnes(n => Math.min(4, n + 1))}
+                style={{
+                  width: '48px', height: '48px', background: 'rgba(255,255,255,0.07)',
+                  border: '1px solid rgba(255,255,255,0.15)', borderLeft: 'none',
+                  color: '#fff', fontSize: '20px', cursor: 'pointer', fontFamily: J,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  opacity: nbPersonnes >= 4 ? 0.3 : 1,
+                }}>
+                +
+              </button>
+              <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginLeft: '16px' }}>
+                {nbPersonnes === 4 ? 'Maximum atteint' : `${4 - nbPersonnes} place${4 - nbPersonnes > 1 ? 's' : ''} restante${4 - nbPersonnes > 1 ? 's' : ''}`}
+              </span>
+            </div>
+          </div>
+        </>
       )}
 
       {/* Motivation */}
