@@ -16,7 +16,7 @@ const POINTS = [
 
 export default function CandidaterPage() {
   return (
-    <div style={{ background: '#426248', minHeight: '100dvh' }}>
+    <div style={{ background: '#354f3b', minHeight: '100dvh' }}>
       <PageHero
         image="/images/12.jpg"
         label="Candidater"
@@ -41,7 +41,7 @@ export default function CandidaterPage() {
       <div style={{ display: 'grid', gridTemplateColumns: '60% 40%', minHeight: '80vh' }} className="grid-2col-nosplit">
 
         {/* Formulaire */}
-        <div style={{ padding: '64px', background: '#426248', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+        <div style={{ padding: '64px', background: '#354f3b', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <p style={{ fontFamily: "'Cormorant Garamond',serif", fontWeight: 700, fontSize: '28px', textTransform: 'uppercase', color: '#fff', marginBottom: '40px' }}>
             Votre dossier de candidature
           </p>

@@ -11,9 +11,9 @@ const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
 
-const BGDARK = '#426248'
-const BGMID  = '#426248'
-const BG     = '#426248'
+const BGDARK = '#354f3b'
+const BGMID  = '#354f3b'
+const BG     = '#354f3b'
 const ACCENT = '#f6b74d'
 
 const STATUS_LABELS: Record<string, string> = {

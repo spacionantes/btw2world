@@ -6,7 +6,7 @@ import Nav from '@/components/layout/Nav'
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
-const BGDARK = '#426248'
+const BGDARK = '#354f3b'
 const ACCENT = '#f6b74d'
 
 // col: colonnes occupées (sur 3 colonnes), row: rangées occupées

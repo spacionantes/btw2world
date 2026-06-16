@@ -24,7 +24,7 @@ const WorldMap = dynamic(() => import('@/components/map/WorldMap'), {
 
 export default function MapSection() {
   return (
-    <section style={{ background: '#426248', padding: '96px 56px 64px' }}>
+    <section style={{ background: '#354f3b', padding: '96px 56px 64px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
         <motion.div

@@ -13,9 +13,9 @@ const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
 
-const BG     = '#426248'
-const BGDARK = '#426248'
-const BGMID  = '#426248'
+const BG     = '#354f3b'
+const BGDARK = '#354f3b'
+const BGMID  = '#354f3b'
 const ACCENT = '#f6b74d'
 
 /* ════════════════════════════════════════════════ */
@@ -35,7 +35,7 @@ function Marquee() {
         {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
           <span key={i} style={{
             fontFamily: M, fontSize: '10px', letterSpacing: '0.28em', textTransform: 'uppercase',
-            color: '#426248', paddingRight: item === '·' ? '28px' : '28px', paddingLeft: item === '·' ? '0' : '0',
+            color: '#354f3b', paddingRight: item === '·' ? '28px' : '28px', paddingLeft: item === '·' ? '0' : '0',
             fontWeight: 500,
           }}>{item}</span>
         ))}

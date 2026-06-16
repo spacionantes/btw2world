@@ -9,11 +9,11 @@ import Link from 'next/link'
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
-const BG     = '#426248'
+const BG     = '#354f3b'
 const ACCENT = '#f6b74d'
-const VISITED_COLOR   = '#f6b74d'  // or jaune vif — pays visités
-const UNVISITED_COLOR = '#7a5e28'  // jaune sombre — pays non visités
-const EXP_COLOR       = '#fff5d6'  // presque blanc-jaune — expéditions BTW
+const VISITED_COLOR   = '#f6b74d'
+const UNVISITED_COLOR = '#7a5e28'
+const EXP_COLOR       = '#fff5d6'
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
@@ -75,7 +75,7 @@ export default function WorldMapSection() {
   const [openContinent, setOpenContinent] = useState<string | null>('Europe')
 
   return (
-    <section id="carte" style={{ background: BG, padding: '104px 0 0' }}>
+    <section id="carte" style={{ background: BG, padding: '80px 0 0' }}>
 
       {/* Header */}
       <div style={{ padding: '0 72px 56px' }}>
@@ -90,7 +90,7 @@ export default function WorldMapSection() {
       </div>
 
       {/* Carte + Sidebar — collées sans gap */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px' }}>
 
         {/* Carte SVG */}
         <div style={{ position: 'relative', background: BG, overflow: 'hidden' }}>
@@ -108,8 +108,8 @@ export default function WorldMapSection() {
 
           <ComposableMap
             projection="geoMercator"
-            projectionConfig={{ scale: 130, center: [15, 20] }}
-            style={{ width: '100%', height: '520px' }}
+            projectionConfig={{ scale: 148, center: [15, 10] }}
+            style={{ width: '100%', height: '560px', display: 'block' }}
           >
             <Geographies geography={GEO_URL}>
               {({ geographies }) =>
@@ -139,15 +139,15 @@ export default function WorldMapSection() {
                       style={{
                         default: {
                           fill: fillColor,
-                          stroke: BG,
-                          strokeWidth: 0.5,
+                          stroke: 'transparent',
+                          strokeWidth: 0,
                           outline: 'none',
                           cursor: isExp ? 'pointer' : 'default',
                         },
                         hover: {
                           fill: isExp ? '#fff' : isVisited ? '#fac85e' : '#9a7a38',
-                          stroke: BG,
-                          strokeWidth: 0.5,
+                          stroke: 'transparent',
+                          strokeWidth: 0,
                           outline: 'none',
                         },
                         pressed: { fill: fillColor, outline: 'none' },

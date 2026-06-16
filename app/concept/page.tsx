@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
-const BG     = '#426248'
+const BG     = '#354f3b'
 const ACCENT = '#f6b74d'
 
 const MODES = {
