@@ -55,7 +55,7 @@ export default function WorldMap() {
         <line x1="0" y1="25" x2="100" y2="25" stroke="rgba(246,183,77,0.08)" strokeWidth="0.2" />
 
         {/* Masses terrestres */}
-        <path d={LAND} fill="#3a5f46" stroke="#426248" strokeWidth="0.25" strokeLinejoin="round" />
+        <path d={LAND} fill="#3a5f46" stroke="#1a2e1e" strokeWidth="0.25" strokeLinejoin="round" />
 
         {/* Pins destinations */}
         {pins.map((voyage, i) => {
@@ -87,7 +87,7 @@ export default function WorldMap() {
               />
               {/* Point */}
               <circle r={0.8} fill={isOpen ? '#f6b74d' : 'rgba(255,255,255,0.6)'} />
-              <circle r={0.35} fill={isOpen ? '#426248' : 'rgba(30,46,34,0.8)'} />
+              <circle r={0.35} fill={isOpen ? '#1a2e1e' : 'rgba(30,46,34,0.8)'} />
 
               {/* Label */}
               <text

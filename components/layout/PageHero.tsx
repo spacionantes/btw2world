@@ -7,7 +7,7 @@ import Nav from './Nav'
 const J = "'Jost', sans-serif"
 const C = "'Bodoni Moda', serif"
 const M = "'DM Mono', monospace"
-const BGDARK = '#2e4532'
+const BGDARK = '#0d1a10'
 const ACCENT = '#f6b74d'
 
 interface PageHeroProps {

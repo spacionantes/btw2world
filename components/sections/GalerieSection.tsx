@@ -33,7 +33,7 @@ export default function GalerieSection() {
   )
 
   return (
-    <section style={{ background: '#3d5a43' }} className="section-pad">
+    <section style={{ background: '#1a3320' }} className="section-pad">
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
           style={{ marginBottom: '56px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}
