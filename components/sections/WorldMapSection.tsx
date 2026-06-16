@@ -193,9 +193,8 @@ export default function WorldMapSection() {
             {/* Marqueurs expéditions */}
             {EXPEDITIONS.map(exp => (
               <Marker key={exp.id} coordinates={[exp.lon, exp.lat]}
-                onClick={() => setActivePanel(prev => prev?.id === exp.id ? null : exp)}
-                style={{ cursor: 'pointer' }}>
-                <circle r={5} fill={ACCENT} stroke="#0d1a10" strokeWidth={1.5} />
+                onClick={() => setActivePanel(prev => prev?.id === exp.id ? null : exp)}>
+                <circle r={5} fill={ACCENT} stroke="#0d1a10" strokeWidth={1.5} style={{ cursor: 'pointer' }} />
                 <circle r={9} fill="none" stroke={ACCENT} strokeWidth={0.8} opacity={0.5} />
               </Marker>
             ))}
