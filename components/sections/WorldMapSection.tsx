@@ -7,13 +7,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const J = "'Jost', sans-serif"
-const C = "'Bodoni Moda', serif"
+const C = "'Shippori Mincho B1', serif"
 const M = "'DM Mono', monospace"
 const BG     = '#354f3b'
 const ACCENT = '#f6b74d'
-const VISITED_COLOR   = '#f6b74d'
-const UNVISITED_COLOR = '#7a5e28'
-const EXP_COLOR       = '#fff5d6'
+const VISITED_COLOR   = '#ffffff'   // blanc — pays visités
+const UNVISITED_COLOR = '#7a5e28'   // or sombre — non visités
+const EXP_COLOR       = '#f6b74d'   // or vif — expéditions BTW
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
@@ -107,8 +107,8 @@ export default function WorldMapSection() {
           )}
 
           <ComposableMap
-            projection="geoMercator"
-            projectionConfig={{ scale: 148, center: [15, 10] }}
+            projection="geoEqualEarth"
+            projectionConfig={{ scale: 170, center: [10, 0] }}
             style={{ width: '100%', height: '560px', display: 'block' }}
           >
             <Geographies geography={GEO_URL}>
@@ -145,7 +145,7 @@ export default function WorldMapSection() {
                           cursor: isExp ? 'pointer' : 'default',
                         },
                         hover: {
-                          fill: isExp ? '#fff' : isVisited ? '#fac85e' : '#9a7a38',
+                          fill: isExp ? '#ffd97a' : isVisited ? '#e8e8e8' : '#9a7a38',
                           stroke: 'transparent',
                           strokeWidth: 0,
                           outline: 'none',
@@ -175,7 +175,7 @@ export default function WorldMapSection() {
               <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>Pas encore visité</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '12px', height: '12px', background: VISITED_COLOR }} />
+              <div style={{ width: '12px', height: '12px', background: '#fff', border: '1px solid rgba(255,255,255,0.3)' }} />
               <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>Pays visité</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

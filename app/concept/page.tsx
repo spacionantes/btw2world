@@ -7,7 +7,7 @@ import Nav from '@/components/layout/Nav'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const J = "'Jost', sans-serif"
-const C = "'Bodoni Moda', serif"
+const C = "'Shippori Mincho B1', serif"
 const M = "'DM Mono', monospace"
 const BG     = '#354f3b'
 const ACCENT = '#f6b74d'
@@ -77,7 +77,7 @@ export default function ConceptPage() {
           <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
             Deux façons de voyager
           </p>
-          <h2 style={{ fontFamily: C, fontSize: 'clamp(40px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontFamily: C, fontSize: 'clamp(56px, 7vw, 100px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em' }}>
             Choisissez votre formule
           </h2>
         </div>
@@ -112,23 +112,23 @@ export default function ConceptPage() {
                 </div>
 
                 <h3 style={{
-                  fontFamily: C, fontSize: 'clamp(36px, 4vw, 64px)', fontWeight: 400, fontStyle: 'italic',
+                  fontFamily: C, fontSize: 'clamp(48px, 5.5vw, 88px)', fontWeight: 400, fontStyle: 'italic',
                   color: isActive ? BG : '#fff', lineHeight: 0.9, letterSpacing: '-0.02em',
                 }}>
                   {md.label}
                 </h3>
 
                 <p style={{
-                  fontFamily: J, fontSize: '16px', fontWeight: 300,
-                  color: isActive ? 'rgba(66,98,72,0.85)' : 'rgba(255,255,255,0.45)',
-                  lineHeight: 1.6, maxWidth: '420px',
+                  fontFamily: J, fontSize: '20px', fontWeight: 300,
+                  color: isActive ? 'rgba(53,79,59,0.9)' : 'rgba(255,255,255,0.55)',
+                  lineHeight: 1.6, maxWidth: '480px',
                 }}>
                   {md.tagline}
                 </p>
 
                 <p style={{
-                  fontFamily: M, fontSize: '8px', letterSpacing: '0.25em', textTransform: 'uppercase',
-                  color: isActive ? 'rgba(66,98,72,0.6)' : 'rgba(255,255,255,0.25)',
+                  fontFamily: M, fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase',
+                  color: isActive ? 'rgba(53,79,59,0.65)' : 'rgba(255,255,255,0.3)',
                   marginTop: '8px',
                 }}>
                   ↳ {md.places}
@@ -159,7 +159,7 @@ export default function ConceptPage() {
                 }}>
                   Formule {current.badge}
                 </span>
-                <h2 style={{ fontFamily: C, fontSize: 'clamp(32px, 3.5vw, 52px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 1 }}>
+                <h2 style={{ fontFamily: C, fontSize: 'clamp(44px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 1 }}>
                   {current.label}
                 </h2>
               </div>
@@ -206,14 +206,14 @@ export default function ConceptPage() {
                     </div>
 
                     <h3 style={{
-                      fontFamily: C, fontSize: '22px', fontStyle: 'italic', fontWeight: 400,
-                      color: '#fff', marginBottom: '14px', lineHeight: 1.1,
+                      fontFamily: C, fontSize: '28px', fontStyle: 'italic', fontWeight: 400,
+                      color: '#fff', marginBottom: '16px', lineHeight: 1.1,
                     }}>
                       {e.titre}
                     </h3>
                     <p style={{
-                      fontFamily: J, fontSize: '13px', fontWeight: 300,
-                      color: 'rgba(255,255,255,0.5)', lineHeight: 1.85,
+                      fontFamily: J, fontSize: '15px', fontWeight: 300,
+                      color: 'rgba(255,255,255,0.55)', lineHeight: 1.85,
                     }}>
                       {e.corps}
                     </p>
@@ -245,8 +245,8 @@ export default function ConceptPage() {
                       {String(i + 1).padStart(2, '0')}
                     </div>
                     <div>
-                      <h3 style={{ fontFamily: C, fontSize: '21px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '10px' }}>{a.titre}</h3>
-                      <p style={{ fontFamily: J, fontSize: '14px', fontWeight: 300, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8 }}>{a.texte}</p>
+                      <h3 style={{ fontFamily: C, fontSize: '28px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '12px' }}>{a.titre}</h3>
+                      <p style={{ fontFamily: J, fontSize: '16px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}>{a.texte}</p>
                     </div>
                   </div>
                 ))}

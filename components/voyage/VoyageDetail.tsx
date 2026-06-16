@@ -8,7 +8,7 @@ import Nav from '@/components/layout/Nav'
 import type { TVoyage } from '@/lib/data'
 
 const J = "'Jost', sans-serif"
-const C = "'Bodoni Moda', serif"
+const C = "'Shippori Mincho B1', serif"
 const M = "'DM Mono', monospace"
 
 const BGDARK = '#354f3b'

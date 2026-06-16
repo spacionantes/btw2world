@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const J = "'Jost', sans-serif"
-const C = "'Bodoni Moda', serif"
+const C = "'Shippori Mincho B1', serif"
 const BGDARK = '#354f3b'
 const ACCENT = '#f6b74d'
 

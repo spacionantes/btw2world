@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 const J = "'Jost', sans-serif"
-const C = "'Bodoni Moda', serif"
+const C = "'Shippori Mincho B1', serif"
 const M = "'DM Mono', monospace"
 const BG     = '#354f3b'
 const BGDARK = '#354f3b'

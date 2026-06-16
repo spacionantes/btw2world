@@ -10,7 +10,7 @@ import WorldMapSection from '@/components/sections/WorldMapSection'
 import { VOYAGES } from '@/lib/data'
 
 const J = "'Jost', sans-serif"
-const C = "'Bodoni Moda', serif"
+const C = "'Shippori Mincho B1', serif"
 const M = "'DM Mono', monospace"
 
 const BG     = '#354f3b'
