@@ -77,16 +77,29 @@ export default function WorldMapSection() {
   return (
     <section id="carte" style={{ background: BG, padding: '80px 0 0' }}>
 
-      {/* Header */}
-      <div style={{ padding: '0 72px 56px' }}>
-        <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-          style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
-          Terres explorées
-        </motion.p>
-        <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}
-          style={{ fontFamily: C, fontSize: 'clamp(44px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
-          L&apos;empreinte<br />du voyage
-        </motion.h2>
+      {/* Header — titre à gauche, chiffres à droite */}
+      <div style={{ padding: '0 72px 48px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '40px' }}>
+        <div>
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
+            Terres explorées
+          </motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}
+            style={{ fontFamily: C, fontSize: 'clamp(44px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
+            L&apos;empreinte<br />du voyage
+          </motion.h2>
+        </div>
+
+        {/* Stats */}
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }}
+          style={{ display: 'flex', gap: '48px', alignItems: 'flex-end', flexShrink: 0, paddingBottom: '4px' }}>
+          {[['31', 'Pays visités'], ['6', 'Continents'], ['2', 'Projets BTW2WORLD']].map(([v, l], i) => (
+            <div key={l} style={{ borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.08)' : 'none', paddingLeft: i > 0 ? '48px' : 0 }}>
+              <div style={{ fontFamily: C, fontSize: 'clamp(36px, 4vw, 56px)', fontStyle: 'italic', fontWeight: 400, color: ACCENT, lineHeight: 1 }}>{v}</div>
+              <div style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.25)', marginTop: '8px' }}>{l}</div>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       {/* Carte + Sidebar — collées sans gap */}
@@ -187,16 +200,6 @@ export default function WorldMapSection() {
 
         {/* Sidebar — chiffres + liste des pays */}
         <div style={{ background: 'rgba(0,0,0,0.15)', borderLeft: '1px solid rgba(255,255,255,0.1)', padding: '28px 24px', overflowY: 'auto', maxHeight: '582px' }}>
-
-          {/* Stats */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0', marginBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '28px' }}>
-            {[['31', 'Pays visités'], ['6', 'Continents'], ['2', 'Projets BTW2WORLD']].map(([v, l], i) => (
-              <div key={l} style={{ display: 'flex', alignItems: 'baseline', gap: '16px', padding: '10px 0', borderTop: i > 0 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
-                <span style={{ fontFamily: C, fontSize: '48px', fontStyle: 'italic', fontWeight: 400, color: ACCENT, lineHeight: 1 }}>{v}</span>
-                <span style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.3)' }}>{l}</span>
-              </div>
-            ))}
-          </div>
 
           <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
             Liste des pays
