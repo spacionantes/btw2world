@@ -12,7 +12,7 @@ const M = "'DM Mono', monospace"
 const BG     = '#354f3b'
 const ACCENT = '#f6b74d'
 const VISITED_COLOR   = '#ffffff'   // blanc — pays visités
-const UNVISITED_COLOR = '#7a5e28'   // or sombre — non visités
+const UNVISITED_COLOR = '#4D7342'   // vert clair — non visités
 const EXP_COLOR       = '#f6b74d'   // or vif — expéditions BTW
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
@@ -145,7 +145,7 @@ export default function WorldMapSection() {
                           cursor: isExp ? 'pointer' : 'default',
                         },
                         hover: {
-                          fill: isExp ? '#ffd97a' : isVisited ? '#e8e8e8' : '#9a7a38',
+                          fill: isExp ? '#ffd97a' : isVisited ? '#e8e8e8' : '#5d8a52',
                           stroke: 'transparent',
                           strokeWidth: 0,
                           outline: 'none',
@@ -171,7 +171,7 @@ export default function WorldMapSection() {
           {/* Légende */}
           <div style={{ display: 'flex', gap: '28px', padding: '14px 24px', background: 'rgba(30,50,35,0.7)', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '12px', height: '12px', background: UNVISITED_COLOR }} />
+              <div style={{ width: '12px', height: '12px', background: '#4D7342' }} />
               <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>Pas encore visité</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -185,8 +185,19 @@ export default function WorldMapSection() {
           </div>
         </div>
 
-        {/* Sidebar liste pays — directement collée à la carte */}
+        {/* Sidebar — chiffres + liste des pays */}
         <div style={{ background: 'rgba(0,0,0,0.15)', borderLeft: '1px solid rgba(255,255,255,0.1)', padding: '28px 24px', overflowY: 'auto', maxHeight: '582px' }}>
+
+          {/* Stats */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0', marginBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '28px' }}>
+            {[['31', 'Pays visités'], ['6', 'Continents'], ['2', 'Projets BTW2WORLD']].map(([v, l], i) => (
+              <div key={l} style={{ display: 'flex', alignItems: 'baseline', gap: '16px', padding: '10px 0', borderTop: i > 0 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+                <span style={{ fontFamily: C, fontSize: '48px', fontStyle: 'italic', fontWeight: 400, color: ACCENT, lineHeight: 1 }}>{v}</span>
+                <span style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.3)' }}>{l}</span>
+              </div>
+            ))}
+          </div>
+
           <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
             Liste des pays
           </p>
