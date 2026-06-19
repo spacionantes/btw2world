@@ -16,37 +16,38 @@ const MODES = {
   aveugle: {
     label: 'À l\'aveugle',
     badge: '01',
-    tagline: 'Je décide de tout. La destination est révélée à J-7.',
+    tagline: 'Vous partez dans un lieu reculé sans aucun indice.',
     places: '2 invités maximum par expédition',
     etapes: [
-      { num: '01', titre: 'Candidature', corps: 'Un formulaire, quelques lignes sur vous. Je lis chaque dossier personnellement — motivations, expérience, contraintes.' },
-      { num: '02', titre: 'Sélection', corps: 'Je compose le groupe avec soin. 2 invités max pour garantir une expérience intime et une vraie cohésion.' },
-      { num: '03', titre: 'Organisation', corps: 'Je prends en charge l\'intégralité de la logistique : itinéraire, hébergements, transport, sécurité.' },
-      { num: '04', titre: 'Départ à l\'aveugle', corps: 'La destination est révélée à J-7. Puis on part. Terrain, photo, film — je gère tout.' },
+      { num: '01', titre: 'Candidature', corps: 'Montrez-moi votre motivation par le moyen qui vous semble le plus parlant. Chaque dossier sera étudié personnellement.' },
+      { num: '02', titre: 'Sélection', corps: 'Je compose le groupe en prenant en compte tous les éléments. 2 invités maximum seront invités à nous rejoindre pour garantir une expérience immersive et une vraie cohésion chez nos hôtes.' },
+      { num: '03', titre: 'Organisation', corps: 'Je m\'occupe de tout ce qui est nécessaire pour assurer le bon déroulement de l\'expédition : itinéraire, hébergements, transport, sécurité, vaccins.' },
+      { num: '04', titre: 'Départ à l\'aveugle', corps: 'La destination sera révélée pendant le voyage. Une fois sur place nous rejoindrons directement la famille.' },
     ],
     avantages: [
       { titre: 'Nouvelle destination', texte: 'Un territoire que vous n\'auriez peut-être jamais choisi seul.' },
       { titre: 'Effet surprise total', texte: 'Pas d\'attentes construites. Juste la réalité du terrain, brute et entière.' },
-      { titre: 'Équipe expérimentée', texte: 'Voyager avec quelqu\'un qui connaît les routes, les cultures et les imprévus.' },
-      { titre: 'Film du voyage', texte: 'Chaque expédition donne lieu à un film complet tourné et monté par Maxence.' },
+      { titre: 'Équipe expérimentée', texte: 'Voyager avec quelqu\'un qui a l\'habitude des routes, des nouvelles cultures et des imprévus.' },
+      { titre: 'Film du voyage', texte: 'Chaque nouvelle expédition donne lieu à un film complet tourné et monté.' },
     ],
   },
   libre: {
     label: 'Mode libre',
     badge: '02',
-    tagline: 'Vous savez où aller. Je m\'occupe de tout le reste.',
+    tagline: 'Vous décidez d\'où vous partez et je m\'occupe de tout.',
     places: '3 à 4 invités par expédition',
     etapes: [
-      { num: '01', titre: 'Votre idée', corps: 'Vous avez déjà une destination en tête. Seuls ou avec moi — vous choisissez le cadre.' },
-      { num: '02', titre: 'Premier contact', corps: 'On échange rapidement pour comprendre votre projet, vos envies, votre budget.' },
-      { num: '03', titre: 'Appel de cadrage', corps: 'Un appel pour définir le projet : destination, dates, rythme, attentes spécifiques.' },
-      { num: '04', titre: 'Organisation complète', corps: 'Je prends en main toute la logistique. Itinéraire sur mesure, hébergements, transport, sécurité.' },
-      { num: '05', titre: 'Expédition', corps: 'On part. Vous connaissez la destination, vous êtes prêt. Je suis là pour que tout se passe au mieux.' },
+      { num: '01', titre: 'Votre idée', corps: 'Vous avez déjà une destination en tête. Seuls ou avec moi — vous choisissez le cadre, je m\'adapte à votre vision.' },
+      { num: '02', titre: 'On organise ensemble', corps: 'On construit le voyage ensemble, avec ce que vous souhaitez et mes conseils aussi. L\'itinéraire se dessine selon vos envies et mon expérience du terrain.' },
+      { num: '03', titre: 'Appel de cadrage', corps: 'Un appel pour affiner le projet : destination, dates, rythme, attentes spécifiques. Rien n\'est figé tant que vous n\'êtes pas satisfait.' },
+      { num: '04', titre: 'Organisation complète', corps: 'Je prends en main toute la logistique. Hébergements, transport, sécurité, vaccins. Vous n\'avez plus qu\'à préparer vos bagages.' },
+      { num: '05', titre: 'Expédition', corps: 'Le jour du départ, vous connaissez la destination, vous êtes prêt. Je suis là en tant que support ou accompagnateur pour que tout se passe au mieux.' },
     ],
     avantages: [
-      { titre: 'Liberté totale sur les dates', texte: 'Vous choisissez quand partir. Pas de contrainte de groupe.' },
-      { titre: 'Destination déjà connue', texte: 'Vous arrivez avec vos intentions et votre vision du voyage.' },
-      { titre: 'Moins d\'imprévus', texte: 'Tout est cadré, anticipé, discuté en amont.' },
+      { titre: 'Liberté totale sur les dates', texte: 'Vous choisissez quand partir. Pas de contrainte de groupe, pas de calendrier imposé.' },
+      { titre: 'On organise ensemble le voyage', texte: 'Vous apportez vos envies, j\'apporte mon expérience du terrain. Le voyage se construit à deux.' },
+      { titre: 'Moins d\'imprévus', texte: 'Tout est cadré, anticipé, discuté en amont. Vous partez en sachant exactement ce qui vous attend.' },
+      { titre: 'Un film de votre aventure', texte: 'Je filme et monte votre expédition. Un souvenir visuel unique, à hauteur d\'homme, pour garder trace de ce que vous avez vécu.' },
     ],
   },
 }
@@ -74,12 +75,12 @@ export default function ConceptPage() {
 
         {/* Titre section */}
         <div style={{ padding: '80px 72px 56px', textAlign: 'center' }}>
-          <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
+          <h2 style={{ fontFamily: C, fontSize: 'clamp(52px, 7vw, 96px)', fontWeight: 700, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '20px' }}>
             Deux façons de voyager
-          </p>
-          <h2 style={{ fontFamily: C, fontSize: 'clamp(56px, 7vw, 100px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em' }}>
-            Choisissez votre formule
           </h2>
+          <p style={{ fontFamily: J, fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.45)' }}>
+            Choisissez votre formule
+          </p>
         </div>
 
         {/* Deux grandes cartes toggle côte à côte — pleine largeur */}

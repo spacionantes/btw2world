@@ -96,6 +96,31 @@ export default function VoyageDetail({ voyage }: { voyage: TVoyage }) {
           {/* Séparateur */}
           <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', margin: '56px 0' }} />
 
+          {/* Vidéo */}
+          {voyage.videoUrl && (
+            <div style={{ marginBottom: '64px' }}>
+              <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
+                Le film du voyage
+              </p>
+              <div style={{ position: 'relative', aspectRatio: '16/9', background: BGMID, overflow: 'hidden', border: '1px solid rgba(246,183,77,0.15)' }}>
+                {!playing ? (
+                  <div onClick={() => setPlaying(true)}
+                    style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', cursor: 'pointer' }}>
+                    <Image src={voyage.coverImage} alt="" fill sizes="100vw" style={{ objectFit: 'cover', opacity: 0.3 }} />
+                    <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}
+                      style={{ position: 'relative', zIndex: 2, width: '72px', height: '72px', border: `2px solid ${ACCENT}`, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <svg width="22" height="22" viewBox="0 0 20 20"><path d="M7 4L17 10L7 16V4Z" fill={ACCENT} /></svg>
+                    </motion.div>
+                    <span style={{ position: 'relative', zIndex: 2, fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.45)' }}>Voir le film</span>
+                  </div>
+                ) : (
+                  <iframe src={`${voyage.videoUrl}?autoplay=1`} allow="autoplay; fullscreen"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }} />
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Galerie photos */}
           {voyage.gallery && voyage.gallery.length > 0 && (
             <div style={{ marginBottom: '64px' }}>
@@ -118,31 +143,6 @@ export default function VoyageDetail({ voyage }: { voyage: TVoyage }) {
               </div>
             </div>
           )}
-
-          {/* Vidéo */}
-          {voyage.videoUrl && (
-            <div>
-              <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
-                Le film du voyage
-              </p>
-              <div style={{ position: 'relative', aspectRatio: '16/9', background: BGMID, overflow: 'hidden', border: '1px solid rgba(246,183,77,0.15)' }}>
-                {!playing ? (
-                  <div onClick={() => setPlaying(true)}
-                    style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', cursor: 'pointer' }}>
-                    <Image src={voyage.coverImage} alt="" fill sizes="100vw" style={{ objectFit: 'cover', opacity: 0.3 }} />
-                    <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}
-                      style={{ position: 'relative', zIndex: 2, width: '72px', height: '72px', border: `2px solid ${ACCENT}`, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <svg width="22" height="22" viewBox="0 0 20 20"><path d="M7 4L17 10L7 16V4Z" fill={ACCENT} /></svg>
-                    </motion.div>
-                    <span style={{ position: 'relative', zIndex: 2, fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.45)' }}>Voir le film</span>
-                  </div>
-                ) : (
-                  <iframe src={`${voyage.videoUrl}?autoplay=1`} allow="autoplay; fullscreen"
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }} />
-                )}
-              </div>
-            </div>
-          )}
         </motion.div>
 
         {/* Sidebar sticky */}
@@ -156,7 +156,7 @@ export default function VoyageDetail({ voyage }: { voyage: TVoyage }) {
             </p>
             {[
               { l: 'Durée', v: `${voyage.duration} jours` },
-              { l: 'Groupe', v: `max ${voyage.spotsTotal} pers.` },
+              { l: 'Groupe', v: `${voyage.spotsTotal} pers.` },
               { l: 'Statut', v: voyage.status === 'ouvert' ? `${voyage.spotsLeft} place${voyage.spotsLeft > 1 ? 's' : ''}` : STATUS_LABELS[voyage.status] },
               { l: 'Départ', v: new Date(voyage.departureDate).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }) },
             ].map((row, i, arr) => (

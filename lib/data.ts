@@ -23,19 +23,27 @@ export const VOYAGES: TVoyage[] = [
   {
     id: '1',
     slug: 'kirghizistan-tian-shan',
-    title: 'Kirghizistan — Tian Shan',
+    title: 'Kirghizistan',
     country: 'Kirghizistan',
     continent: 'Asie centrale',
     coverImage: '/images/15.jpg',
     departureDate: '2025-07-01',
-    duration: 14,
+    duration: 20,
     spotsTotal: 3,
     spotsLeft: 0,
     status: 'passe',
-    description: 'Traversée des hauts plateaux kirghiz, nuits en yourte, cols à 4000m.',
-    longDescription: `Une traversée de 14 jours dans les montagnes du Tian Shan, entre ciel et steppe. Chevaux sauvages, lacs turquoise, nuits sous les étoiles à 3500m d'altitude.
+    description: 'Une immersion totale de 20 jours à travers les steppes sauvages d\'Asie Centrale.',
+    longDescription: `Une immersion totale de 20 jours à travers les steppes sauvages d'Asie Centrale.
 
-Le groupe — 5 personnes — a parcouru plus de 200km à cheval et à pied, traversé 3 cols de haute montagne et dormi chaque nuit sous une yourte différente. Aucun hôtel. Aucun itinéraire figé. Juste la steppe, les étoiles et les familles kirghizes qui nous ont accueillis.`,
+Ce périple simple et authentique mène les voyageurs à la rencontre de la population kirghize, à la découverte d'un mode de vie et d'une culture d'une infinie richesse.
+
+Le groupe a partagé le quotidien des familles locales au rythme des chevauchées, en vivant au sein de yourtes traditionnelles au bord du grand lac Son Koul.
+
+Le voyage s'est ensuite poursuivi en traversant le pays du sud vers l'est, sans itinéraire figé, guidé par l'hospitalité unique des campements nomades.
+
+Aucun confort moderne, aucun filtre. Juste l'immensité de la steppe, les moments partagés avec nos hôtes et la beauté calme des grands espaces.
+
+Une véritable déconnexion et une pause hors du temps, filmée à hauteur d'homme.`,
     coordinates: [74.5698, 40.8601],
     videoUrl: 'https://www.youtube.com/embed/psMpoJfhKPU',
     blogUrl: '#',
@@ -52,19 +60,27 @@ Le groupe — 5 personnes — a parcouru plus de 200km à cheval et à pied, tra
   {
     id: '4',
     slug: 'nepal-annapurna',
-    title: 'Népal — Circuit Annapurna',
+    title: 'Népal',
     country: 'Népal',
     continent: 'Himalaya',
     coverImage: '/images/11.jpg',
     departureDate: '2024-01-12',
-    duration: 18,
+    duration: 15,
     spotsTotal: 2,
     spotsLeft: 0,
     status: 'passe',
-    description: 'Thorong-La Pass à 5416m, villages sherpa, glaciers éternels de l\'Annapurna.',
-    longDescription: `18 jours dans l'Himalaya. Le circuit Annapurna — l'un des treks les plus sauvages du monde — avec 4 personnes dont les niveaux allaient du randonneur occasionnel à l'alpiniste confirmé.
+    description: 'Une immersion humaine et suspendue de 15 jours sur les hauts plateaux du Népal.',
+    longDescription: `Une immersion humaine et suspendue de 15 jours sur les hauts plateaux du Népal.
 
-Le passage du Thorong-La à 5416m reste le moment le plus fort : partir à 3h du matin dans le froid, les lampes frontales comme seuls repères, et arriver au col au lever du soleil. Aucun mot ne suffit.`,
+Ce périple au cœur de l'Himalaya, surnommé le toit du monde, mène les voyageurs à la rencontre de la culture locale et de sa population d'une infinie richesse.
+
+Le groupe a partagé la vie quotidienne des habitants en marchant à travers les Annapurnas, avant de s'installer au sein d'une famille accueillante dans le village de Chapakoth.
+
+Le voyage s'est ensuite terminé par la découverte du safari de Chitwan, sans itinéraire figé, guidé par la bienveillance et l'hospitalité unique de nos hôtes.
+
+Aucun artifice, aucun filtre. Juste la grandeur des montagnes de l'Himalaya, les moments de vie partagés au bout du monde et la sérénité des grands espaces.
+
+Une véritable déconnexion et une pause hors du temps, filmée à hauteur d'homme.`,
     coordinates: [84.0167, 28.5967],
     videoUrl: 'https://www.youtube.com/embed/hUvQnEXjK_w',
     blogUrl: '#',
@@ -102,7 +118,7 @@ Le passage du Thorong-La à 5416m reste le moment le plus fort : partir à 3h du
     spotsTotal: 6,
     spotsLeft: 6,
     status: 'bientot',
-    description: 'La destination sera révélée 7 jours avant le départ aux candidats retenus.',
+    description: 'La destination sera révélée pendant le voyage aux candidats retenus.',
     coordinates: [0, 20],
     tags: ['Mystère'],
   },

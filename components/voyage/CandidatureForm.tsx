@@ -139,7 +139,7 @@ export default function CandidatureForm() {
                 {m === 'aveugle' ? 'À l\'aveugle' : 'Mode libre'}
               </div>
               <div style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: mode === m ? 'rgba(53,79,59,0.8)' : 'rgba(255,255,255,0.35)', marginTop: '6px' }}>
-                {m === 'aveugle' ? 'La destination est révélée à J-7' : 'Vous choisissez la destination'}
+                {m === 'aveugle' ? 'La destination est révélée dans l\'avion' : 'Vous choisissez la destination'}
               </div>
             </button>
           ))}

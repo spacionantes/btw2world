@@ -10,7 +10,7 @@ const C = "'Cormorant Garamond', serif"
 const M = "'DM Mono', monospace"
 const STATS = [
   { v: '6', l: 'Personnes max' },
-  { v: 'J-7', l: 'Révélation' },
+  { v: '???', l: 'Destination secrète' },
   { v: '100%', l: 'Sans agence' },
 ]
 

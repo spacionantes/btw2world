@@ -86,7 +86,7 @@ export default function WorldMapSection() {
           </motion.p>
           <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}
             style={{ fontFamily: C, fontSize: 'clamp(44px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
-            L&apos;empreinte<br />du voyage
+            Terres explorées
           </motion.h2>
         </div>
 
@@ -202,7 +202,7 @@ export default function WorldMapSection() {
         <div style={{ background: 'rgba(0,0,0,0.15)', borderLeft: '1px solid rgba(255,255,255,0.1)', padding: '28px 24px', overflowY: 'auto', maxHeight: '582px' }}>
 
           <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
-            Liste des pays
+            Liste des destinations
           </p>
           {Object.entries(VISITED_BY_CONTINENT).map(([continent, pays]) => (
             <div key={continent} style={{ marginBottom: '2px' }}>
@@ -222,9 +222,9 @@ export default function WorldMapSection() {
                   {openContinent === continent ? '▾' : '▸'}
                 </span>
                 <span style={{
-                  fontFamily: J, fontSize: '15px', fontWeight: 500,
-                  color: openContinent === continent ? '#fff' : 'rgba(255,255,255,0.65)',
-                  transition: 'color 0.2s',
+                  fontFamily: J, fontSize: '17px', fontWeight: 700,
+                  color: openContinent === continent ? '#fff' : 'rgba(255,255,255,0.7)',
+                  transition: 'color 0.2s', letterSpacing: '0.02em',
                 }}>{continent}</span>
                 <span style={{ marginLeft: 'auto', fontFamily: M, fontSize: '9px', color: ACCENT, opacity: 0.7 }}>{pays.length}</span>
               </button>
@@ -313,7 +313,7 @@ export default function WorldMapSection() {
         <div style={{ flex: 1, padding: '28px 40px', borderLeft: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <p style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(246,183,77,0.35)', marginBottom: '6px' }}>Prochain</p>
           <p style={{ fontFamily: C, fontSize: '18px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.35)', marginBottom: '4px' }}>???</p>
-          <p style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.2)' }}>Révélée J-7 aux candidats</p>
+          <p style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.2)' }}>Destination révélée dans l&apos;avion</p>
         </div>
       </div>
     </section>

@@ -10,7 +10,7 @@ const M = "'DM Mono', monospace"
 const STEPS = [
   { num: '01', title: 'Vous candidatez', body: "Formulaire en ligne. Je lis chaque candidature personnellement — pas d'algorithme." },
   { num: '02', title: 'Je compose le groupe', body: "2 à 6 profils sélectionnés pour leur complémentarité. L'équilibre humain compte autant que la destination." },
-  { num: '03', title: 'Destination J-7', body: 'Sept jours avant le départ, les retenus reçoivent la destination. Pas une heure avant.' },
+  { num: '03', title: 'Destination secrète', body: 'La destination est révélée aux candidats retenus pendant le voyage. Pas avant.' },
   { num: '04', title: 'On part. Ensemble.', body: "Terrain, logistique, sécurité, photo — je gère tout. Vous apportez l'ouverture d'esprit." },
 ]
 

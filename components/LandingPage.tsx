@@ -21,7 +21,7 @@ const ACCENT = '#f6b74d'
 /* ════════════════════════════════════════════════ */
 /*  MARQUEE                                         */
 /* ════════════════════════════════════════════════ */
-const TICKER_ITEMS = ['Kirghizistan', '·', 'Népal', '·', 'Destination inconnue', '·', 'J-7', '·', 'Petit groupe', '·', 'Terrain inexploré', '·', 'Kirghizistan', '·', 'Népal', '·', 'Destination inconnue', '·', 'J-7', '·', 'Petit groupe', '·', 'Terrain inexploré', '·']
+const TICKER_ITEMS = ['Kirghizistan', '·', 'Népal', '·', 'Destination secrète', '·', 'Petit groupe', '·', 'Terrain inexploré', '·', 'Immersion totale', '·', 'Kirghizistan', '·', 'Népal', '·', 'Destination secrète', '·', 'Petit groupe', '·', 'Terrain inexploré', '·', 'Immersion totale', '·']
 
 function Marquee() {
   return (
@@ -98,7 +98,7 @@ function LeProjet() {
             </motion.p>
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}
               style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '56px' }}>
-              Petit groupe, terrain connu, destination tenue secrète jusqu&apos;à J-7. Chaque expédition est unique.
+              Petit groupe, terrain connu, destination secrète révélée pendant le voyage. Chaque expédition est unique.
             </motion.p>
 
           </div>
@@ -121,7 +121,7 @@ function LeProjet() {
 const STEPS = [
   { n: '01', t: 'Candidature', b: "Un formulaire, quelques lignes sur vous. Je lis chaque dossier personnellement.", icon: '✦' },
   { n: '02', t: 'Sélection', b: "Je compose un groupe de 2 à 6 personnes. L'équilibre humain compte autant que la destination.", icon: '✦' },
-  { n: '03', t: 'Révélation J-7', b: "Sept jours avant le départ, les participants reçoivent la destination. Pas une heure avant.", icon: '✦' },
+  { n: '03', t: 'Destination secrète', b: "La destination est révélée pendant le voyage aux candidats retenus. Une surprise totale.", icon: '✦' },
   { n: '04', t: "L'expédition", b: "Terrain, logistique, photo. Vous apportez l'ouverture. Le reste se construit ensemble.", icon: '✦' },
 ]
 

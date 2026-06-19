@@ -53,10 +53,13 @@ export default function QuiSuisJePage() {
             </h2>
 
             <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
-              BTW2WORLD n&apos;est pas une agence. C&apos;est un projet photographique et humain — des expéditions pensées comme des rencontres, dans des endroits que la plupart des gens ne verront jamais.
+              Hello, moi c&apos;est Maxence — fondateur de BTW2WORLD, ou &laquo;&nbsp;Entre deux mondes&nbsp;&raquo;.
+            </p>
+            <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
+              Après avoir eu la chance de beaucoup voyager, j&apos;ai l&apos;envie de transmettre ma vision. BTW2WORLD est une immersion profondément humaine — des expéditions pensées au mieux pour vivre aux côtés de populations du bout du monde, découvrir un nouveau mode de vie.
             </p>
             <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '56px' }}>
-              Petit groupe, terrain connu, destination tenue secrète jusqu&apos;à J-7. Chaque expédition est unique.
+              L&apos;objectif&nbsp;: apprendre et grandir, réfléchir.
             </p>
 
             <div style={{ display: 'flex', gap: '0', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '40px' }}>
