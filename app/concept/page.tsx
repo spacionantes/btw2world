@@ -75,10 +75,10 @@ export default function ConceptPage() {
 
         {/* Titre section */}
         <div style={{ padding: '80px 72px 56px', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: C, fontSize: 'clamp(52px, 7vw, 96px)', fontWeight: 700, fontStyle: 'italic', color: '#fff', lineHeight: 0.95, letterSpacing: '-0.02em', marginBottom: '20px' }}>
+          <h2 style={{ fontFamily: C, fontSize: 'clamp(64px, 9vw, 120px)', fontWeight: 800, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '20px' }}>
             Deux façons de voyager
           </h2>
-          <p style={{ fontFamily: J, fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.45)' }}>
+          <p style={{ fontFamily: J, fontSize: '18px', fontWeight: 700, color: ACCENT }}>
             Choisissez votre formule
           </p>
         </div>
@@ -127,13 +127,6 @@ export default function ConceptPage() {
                   {md.tagline}
                 </p>
 
-                <p style={{
-                  fontFamily: M, fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase',
-                  color: isActive ? 'rgba(53,79,59,0.65)' : 'rgba(255,255,255,0.3)',
-                  marginTop: '8px',
-                }}>
-                  ↳ {md.places}
-                </p>
               </button>
             )
           })}
@@ -223,16 +216,16 @@ export default function ConceptPage() {
               </div>
             </div>
 
-            {/* Places limitées */}
-            <div style={{ margin: '56px 72px 0', padding: '20px 32px', background: 'rgba(0,0,0,0.2)', display: 'flex', alignItems: 'center', gap: '18px', borderLeft: `3px solid ${isAveugle ? ACCENT : 'rgba(255,255,255,0.3)'}` }}>
-              <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: isAveugle ? ACCENT : 'rgba(255,255,255,0.4)' }}>
+            {/* Places */}
+            <div style={{ margin: '56px 72px 0', padding: '24px 36px', background: 'rgba(0,0,0,0.2)', display: 'flex', alignItems: 'center', gap: '18px', borderLeft: `4px solid ${isAveugle ? ACCENT : 'rgba(255,255,255,0.3)'}` }}>
+              <p style={{ fontFamily: M, fontSize: '13px', letterSpacing: '0.25em', textTransform: 'uppercase', color: isAveugle ? ACCENT : '#fff', fontWeight: 700 }}>
                 ↳ {current.places}
               </p>
             </div>
 
             {/* Avantages */}
             <div style={{ padding: '56px 72px 80px' }}>
-              <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: isAveugle ? ACCENT : 'rgba(255,255,255,0.3)', marginBottom: '32px' }}>
+              <p style={{ fontFamily: M, fontSize: '14px', letterSpacing: '0.22em', textTransform: 'uppercase', color: isAveugle ? ACCENT : '#fff', marginBottom: '32px', fontWeight: 700 }}>
                 Ce que vous y gagnez
               </p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2px', background: 'rgba(255,255,255,0.08)' }}>
@@ -257,39 +250,61 @@ export default function ConceptPage() {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── POURQUOI L'AVEUGLE ────────────────────────── */}
+      {/* ── POURQUOI ────────────────────────── */}
       <div style={{ background: 'rgba(0,0,0,0.2)', padding: '96px 64px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontFamily: J, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.3em', color: ACCENT, marginBottom: '32px' }}>
-            Pourquoi à l&apos;aveugle ?
-          </p>
-          <h2 style={{ fontFamily: C, fontSize: 'clamp(36px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', marginBottom: '40px', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
-            Parce que savoir à l&apos;avance tue<br />la moitié du voyage
-          </h2>
-          <p style={{ fontFamily: J, fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.6)', lineHeight: 1.85, marginBottom: '32px' }}>
-            Quand vous connaissez la destination, vous cherchez des photos, lisez des avis, construisez des attentes. Vous arrivez avec un film déjà en tête.
-          </p>
-          <p style={{ fontFamily: C, fontSize: '22px', fontStyle: 'italic', color: 'rgba(255,255,255,0.85)', lineHeight: 1.65 }}>
-            &ldquo;Partir à l&apos;aveugle, c&apos;est s&apos;autoriser à être surpris. C&apos;est retrouver ce que le voyage était avant internet.&rdquo;
-          </p>
+          {mode === 'aveugle' ? (
+            <>
+              <p style={{ fontFamily: J, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.3em', color: ACCENT, marginBottom: '32px', fontWeight: 700 }}>
+                Pourquoi à l&apos;aveugle ?
+              </p>
+              <h2 style={{ fontFamily: C, fontSize: 'clamp(40px, 5vw, 80px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', marginBottom: '40px', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
+                Parce que savoir à l&apos;avance tue<br />la moitié du voyage
+              </h2>
+              <p style={{ fontFamily: J, fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.6)', lineHeight: 1.85, marginBottom: '32px' }}>
+                Quand vous connaissez la destination, vous cherchez des photos, lisez des avis, construisez des attentes. Vous arrivez avec un film déjà en tête.
+              </p>
+              <p style={{ fontFamily: C, fontSize: '22px', fontStyle: 'italic', color: 'rgba(255,255,255,0.85)', lineHeight: 1.65 }}>
+                &ldquo;Partir à l&apos;aveugle, c&apos;est s&apos;autoriser à être surpris. C&apos;est retrouver ce que le voyage était avant internet.&rdquo;
+              </p>
+            </>
+          ) : (
+            <>
+              <p style={{ fontFamily: J, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.3em', color: ACCENT, marginBottom: '32px', fontWeight: 700 }}>
+                Pourquoi le mode libre ?
+              </p>
+              <h2 style={{ fontFamily: C, fontSize: 'clamp(40px, 5vw, 80px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', marginBottom: '40px', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
+                Votre vision,<br />mon expérience
+              </h2>
+              <p style={{ fontFamily: J, fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.6)', lineHeight: 1.85, marginBottom: '32px' }}>
+                Vous avez une destination en tête, des envies précises, peut-être des proches à emmener. Le mode libre, c&apos;est votre projet — je le construis avec vous et je vous accompagne sur le terrain.
+              </p>
+              <p style={{ fontFamily: C, fontSize: '22px', fontStyle: 'italic', color: 'rgba(255,255,255,0.85)', lineHeight: 1.65 }}>
+                &ldquo;Vous apportez l&apos;envie. J&apos;apporte le reste.&rdquo;
+              </p>
+            </>
+          )}
         </div>
       </div>
 
       {/* ── FAQ ──────────────────────────────────────── */}
       <div style={{ background: BG, padding: '96px 72px' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
-            Questions fréquentes
-          </p>
-          <h2 style={{ fontFamily: C, fontSize: 'clamp(36px, 4vw, 60px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em', marginBottom: '64px' }}>
-            Ce que vous vous demandez
-          </h2>
+        <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
+          Questions fréquentes
+        </p>
+        <h2 style={{ fontFamily: C, fontSize: 'clamp(36px, 4vw, 60px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em', marginBottom: '64px' }}>
+          Ce que vous vous demandez
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px' }}>
           {[
             { q: "Et si je n'ai pas d'expérience en trek ?", r: "Ce n'est pas un critère éliminatoire. J'adapte le niveau au groupe sélectionné. La motivation compte plus que le palmarès." },
-            { q: "Que faut-il prévoir comme budget ?", r: "Cela dépend de la destination révélée. Comptez entre 1 700 € et 3 500 € tout compris selon la durée et la région du monde." },
+            { q: "Comment se passe le voyage concrètement ?", r: "De l'arrivée à l'aéroport au retour, je gère tout. Transport, hébergement, rencontres locales — vous n'avez qu'à vivre." },
+            { q: "Que faut-il prévoir comme budget ?", r: "Cela dépend de la destination. Comptez entre 1 700 € et 3 500 € tout compris selon la durée et la région du monde." },
+            { q: "Faut-il parler la langue du pays ?", r: "Non. Je sers de pont entre les cultures. Les rencontres se font souvent sans mot, juste par la présence et l'ouverture." },
             { q: "On peut y aller en couple ou entre amis ?", r: "Oui, mais je sélectionne des profils indépendamment. Si vous candidatez à plusieurs, vos dossiers sont étudiés séparément." },
-          ].map((f, i, arr) => (
-            <div key={i} style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '36px 0', borderBottom: i === arr.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
+            { q: "Y a-t-il des risques pour la sécurité ?", r: "Chaque destination est choisie après analyse approfondie. La sécurité du groupe est ma première priorité, avant même la beauté du cadre." },
+          ].map((f, i) => (
+            <div key={i} style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '36px 0' }}>
               <p style={{ fontFamily: C, fontSize: '22px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '14px' }}>{f.q}</p>
               <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 1.85 }}>{f.r}</p>
             </div>

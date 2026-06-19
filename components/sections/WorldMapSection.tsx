@@ -80,10 +80,6 @@ export default function WorldMapSection() {
       {/* Header — titre à gauche, chiffres à droite */}
       <div style={{ padding: '0 72px 48px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '40px' }}>
         <div>
-          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-            style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '16px' }}>
-            Terres explorées
-          </motion.p>
           <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}
             style={{ fontFamily: C, fontSize: 'clamp(44px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.02em' }}>
             Terres explorées
@@ -136,7 +132,7 @@ export default function WorldMapSection() {
                       key={geo.rsmKey}
                       geography={geo}
                       onMouseEnter={() => {
-                        if (isVisited || isExp) setHoveredCountry(geo.properties.name)
+                        if (isExp) setHoveredCountry(geo.properties.name)
                       }}
                       onMouseLeave={() => setHoveredCountry(null)}
                       onClick={() => {
@@ -182,7 +178,7 @@ export default function WorldMapSection() {
           </ComposableMap>
 
           {/* Légende */}
-          <div style={{ display: 'flex', gap: '28px', padding: '14px 24px', background: 'rgba(30,50,35,0.7)', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          <div style={{ display: 'flex', gap: '28px', padding: '14px 24px', background: BG, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '12px', height: '12px', background: '#4D7342' }} />
               <span style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>Pas encore visité</span>
@@ -198,10 +194,10 @@ export default function WorldMapSection() {
           </div>
         </div>
 
-        {/* Sidebar — chiffres + liste des pays */}
-        <div style={{ background: 'rgba(0,0,0,0.15)', borderLeft: '1px solid rgba(255,255,255,0.1)', padding: '28px 24px', overflowY: 'auto', maxHeight: '582px' }}>
+        {/* Sidebar — liste des pays */}
+        <div style={{ background: BG, borderLeft: '1px solid rgba(255,255,255,0.08)', padding: '28px 24px', overflowY: 'auto', maxHeight: '582px' }}>
 
-          <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.32em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px' }}>
+          <p style={{ fontFamily: M, fontSize: '13px', letterSpacing: '0.22em', textTransform: 'uppercase', color: ACCENT, marginBottom: '20px', fontWeight: 700 }}>
             Liste des destinations
           </p>
           {Object.entries(VISITED_BY_CONTINENT).map(([continent, pays]) => (
@@ -298,24 +294,6 @@ export default function WorldMapSection() {
         )}
       </AnimatePresence>
 
-      {/* Liste expéditions en bas */}
-      <div style={{ display: 'flex', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-        {EXPEDITIONS.map((dest, i, arr) => (
-          <motion.div key={dest.id}
-            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
-            onClick={() => setActivePanel(prev => prev?.id === dest.id ? null : dest)}
-            style={{ flex: 1, padding: '28px 40px', cursor: 'pointer', borderRight: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none', background: activePanel?.id === dest.id ? 'rgba(246,183,77,0.08)' : 'transparent', transition: 'background 0.3s' }}>
-            <p style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.25em', textTransform: 'uppercase', color: ACCENT, marginBottom: '6px' }}>{dest.month} {dest.year}</p>
-            <p style={{ fontFamily: C, fontSize: '18px', fontStyle: 'italic', fontWeight: 400, color: '#fff', marginBottom: '4px' }}>{dest.country}</p>
-            <p style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.4)' }}>{dest.people} voyageurs</p>
-          </motion.div>
-        ))}
-        <div style={{ flex: 1, padding: '28px 40px', borderLeft: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <p style={{ fontFamily: M, fontSize: '8px', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(246,183,77,0.35)', marginBottom: '6px' }}>Prochain</p>
-          <p style={{ fontFamily: C, fontSize: '18px', fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.35)', marginBottom: '4px' }}>???</p>
-          <p style={{ fontFamily: J, fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.2)' }}>Destination révélée dans l&apos;avion</p>
-        </div>
-      </div>
     </section>
   )
 }

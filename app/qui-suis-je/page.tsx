@@ -58,8 +58,12 @@ export default function QuiSuisJePage() {
             <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
               Après avoir eu la chance de beaucoup voyager, j&apos;ai l&apos;envie de transmettre ma vision. BTW2WORLD est une immersion profondément humaine — des expéditions pensées au mieux pour vivre aux côtés de populations du bout du monde, découvrir un nouveau mode de vie.
             </p>
-            <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '56px' }}>
+            <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '28px' }}>
               L&apos;objectif&nbsp;: apprendre et grandir, réfléchir.
+            </p>
+
+            <p style={{ fontFamily: C, fontSize: '20px', fontStyle: 'italic', color: 'rgba(255,255,255,0.7)', lineHeight: 1.55, maxWidth: '400px', borderLeft: `3px solid ${ACCENT}`, paddingLeft: '20px', marginBottom: '56px' }}>
+              &ldquo;&nbsp;Les pieds sur terre et la tête dans les étoiles.&nbsp;&rdquo;
             </p>
 
             <div style={{ display: 'flex', gap: '0', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '40px' }}>
