@@ -22,13 +22,12 @@ const inputStyle: React.CSSProperties = {
 }
 
 const labelStyle: React.CSSProperties = {
-  fontFamily: M,
-  fontSize: '9px',
-  textTransform: 'uppercase',
-  letterSpacing: '0.18em',
-  color: 'rgba(255,255,255,0.45)',
+  fontFamily: J,
+  fontSize: '13px',
+  fontWeight: 500,
+  color: 'rgba(255,255,255,0.75)',
   display: 'block',
-  marginBottom: '6px',
+  marginBottom: '8px',
 }
 
 const PAYS = [

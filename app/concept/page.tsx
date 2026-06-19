@@ -37,7 +37,7 @@ const MODES = {
     tagline: 'Vous décidez d\'où vous partez et je m\'occupe de tout.',
     places: '3 à 4 invités par expédition',
     etapes: [
-      { num: '01', titre: 'Votre idée', corps: 'Vous avez déjà une destination en tête. Seuls ou avec moi — vous choisissez le cadre, je m\'adapte à votre vision.' },
+      { num: '01', titre: 'Votre idée', corps: 'Vous avez déjà une destination en tête. Seuls ou avec moi, vous choisissez le cadre, je m\'adapte à votre vision.' },
       { num: '02', titre: 'On organise ensemble', corps: 'On construit le voyage ensemble, avec ce que vous souhaitez et mes conseils aussi. L\'itinéraire se dessine selon vos envies et mon expérience du terrain.' },
       { num: '03', titre: 'Appel de cadrage', corps: 'Un appel pour affiner le projet : destination, dates, rythme, attentes spécifiques. Rien n\'est figé tant que vous n\'êtes pas satisfait.' },
       { num: '04', titre: 'Organisation complète', corps: 'Je prends en main toute la logistique. Hébergements, transport, sécurité, vaccins. Vous n\'avez plus qu\'à préparer vos bagages.' },
@@ -47,7 +47,7 @@ const MODES = {
       { titre: 'Liberté totale sur les dates', texte: 'Vous choisissez quand partir. Pas de contrainte de groupe, pas de calendrier imposé.' },
       { titre: 'On organise ensemble le voyage', texte: 'Vous apportez vos envies, j\'apporte mon expérience du terrain. Le voyage se construit à deux.' },
       { titre: 'Moins d\'imprévus', texte: 'Tout est cadré, anticipé, discuté en amont. Vous partez en sachant exactement ce qui vous attend.' },
-      { titre: 'Partez avec qui vous le souhaitez', texte: 'Seul, en couple, entre amis ou en famille — vous composez votre groupe. Je m\'adapte à votre dynamique et m\'assure que l\'expérience reste intime et authentique.' },
+      { titre: 'Partez avec qui vous le souhaitez', texte: 'Seul, en couple, entre amis ou en famille, vous composez votre groupe. Je m\'adapte à votre dynamique et m\'assure que l\'expérience reste intime et authentique.' },
     ],
   },
 }
@@ -75,7 +75,7 @@ export default function ConceptPage() {
 
         {/* Titre section */}
         <div style={{ padding: '80px 72px 56px', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: C, fontSize: 'clamp(64px, 9vw, 120px)', fontWeight: 800, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '20px' }}>
+          <h2 style={{ fontFamily: C, fontSize: 'clamp(64px, 9vw, 120px)', fontWeight: 400, fontStyle: 'italic', color: '#fff', lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '20px' }}>
             Deux façons de voyager
           </h2>
           <p style={{ fontFamily: J, fontSize: '18px', fontWeight: 700, color: ACCENT }}>
@@ -277,7 +277,7 @@ export default function ConceptPage() {
                 Votre vision,<br />mon expérience
               </h2>
               <p style={{ fontFamily: J, fontSize: '18px', fontWeight: 300, color: 'rgba(255,255,255,0.6)', lineHeight: 1.85, marginBottom: '32px' }}>
-                Vous avez une destination en tête, des envies précises, peut-être des proches à emmener. Le mode libre, c&apos;est votre projet — je le construis avec vous et je vous accompagne sur le terrain.
+                Vous avez une destination en tête, des envies précises, peut-être des proches à emmener. Le mode libre, c&apos;est votre projet, je le construis avec vous et je vous accompagne sur le terrain.
               </p>
               <p style={{ fontFamily: C, fontSize: '22px', fontStyle: 'italic', color: 'rgba(255,255,255,0.85)', lineHeight: 1.65 }}>
                 &ldquo;Vous apportez l&apos;envie. J&apos;apporte le reste.&rdquo;
@@ -298,7 +298,7 @@ export default function ConceptPage() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px' }}>
           {[
             { q: "Et si je n'ai pas d'expérience en trek ?", r: "Ce n'est pas un critère éliminatoire. J'adapte le niveau au groupe sélectionné. La motivation compte plus que le palmarès." },
-            { q: "Comment se passe le voyage concrètement ?", r: "De l'arrivée à l'aéroport au retour, je gère tout. Transport, hébergement, rencontres locales — vous n'avez qu'à vivre." },
+            { q: "Comment se passe le voyage concrètement ?", r: "De l'arrivée à l'aéroport au retour, je gère tout. Transport, hébergement, rencontres locales, vous n'avez qu'à vivre." },
             { q: "Que faut-il prévoir comme budget ?", r: "Cela dépend de la destination. Comptez entre 1 700 € et 3 500 € tout compris selon la durée et la région du monde." },
             { q: "Faut-il parler la langue du pays ?", r: "Non. Je sers de pont entre les cultures. Les rencontres se font souvent sans mot, juste par la présence et l'ouverture." },
             { q: "On peut y aller en couple ou entre amis ?", r: "Oui, mais je sélectionne des profils indépendamment. Si vous candidatez à plusieurs, vos dossiers sont étudiés séparément." },

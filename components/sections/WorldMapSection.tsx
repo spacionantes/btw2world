@@ -106,10 +106,9 @@ export default function WorldMapSection() {
           {hoveredCountry && (
             <div style={{
               position: 'absolute', top: '16px', left: '50%', transform: 'translateX(-50%)',
-              background: 'rgba(30,50,35,0.95)', border: `1px solid ${ACCENT}`,
-              padding: '6px 18px', zIndex: 10, pointerEvents: 'none', backdropFilter: 'blur(8px)',
+              zIndex: 10, pointerEvents: 'none',
             }}>
-              <span style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#fff', whiteSpace: 'nowrap' }}>
+              <span style={{ fontFamily: J, fontSize: '14px', fontWeight: 700, color: '#fff', whiteSpace: 'nowrap', textShadow: '0 1px 8px rgba(0,0,0,0.7)' }}>
                 {hoveredCountry}
               </span>
             </div>

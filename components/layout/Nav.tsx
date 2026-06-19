@@ -50,7 +50,7 @@ export default function Nav() {
       <nav style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         padding: '0 40px',
-        height: '70px',
+        height: '88px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: scrolled ? 'rgba(13,26,16,0.97)' : 'rgba(13,26,16,0.55)',
         backdropFilter: 'blur(14px)',
@@ -60,7 +60,7 @@ export default function Nav() {
 
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
-          <Image src="/images/logo.png" alt="BTW2WORLD" width={72} height={72}
+          <Image src="/images/logo.png" alt="BTW2WORLD" width={92} height={92}
             style={{ filter: 'brightness(0) invert(1)', objectFit: 'contain' }} />
         </Link>
 

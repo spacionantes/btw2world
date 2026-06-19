@@ -133,12 +133,6 @@ function LeConcept() {
 
         {/* Gauche — Titre oversized */}
         <div style={{ padding: '96px 64px', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
-          <div aria-hidden style={{
-            position: 'absolute', left: '-30px', bottom: '-40px',
-            fontFamily: C, fontSize: '320px', fontStyle: 'italic', fontWeight: 700,
-            color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
-          }}>02</div>
-
           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
             style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '32px' }}>
             Comment ça marche
@@ -395,7 +389,7 @@ function Contact() {
         <div style={{ padding: '96px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '32px' }}>
           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
             style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.5)', lineHeight: 2, maxWidth: '400px' }}>
-            Que ce soit pour participer à une prochaine expédition, pour collaborer, ou simplement pour suivre l&apos;aventure — écrivez-moi.
+            Que ce soit pour participer à une prochaine expédition, pour collaborer, ou simplement pour suivre l&apos;aventure, écrivez-moi.
           </motion.p>
 
           <motion.a

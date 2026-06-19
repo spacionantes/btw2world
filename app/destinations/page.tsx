@@ -107,7 +107,7 @@ export default function DestinationsPage() {
         image="/images/15.jpg"
         label="Les expéditions"
         title={"Terres\nexplorées"}
-        subtitle="Kirghizistan · Népal — et la prochaine que vous ne connaissez pas encore"
+        subtitle="Kirghizistan · Népal · et la prochaine que vous ne connaissez pas encore"
       />
 
       {/* Filtres */}

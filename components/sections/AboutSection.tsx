@@ -33,7 +33,7 @@ export default function AboutSection() {
               Photographe et voyageur, je parcours le monde depuis des années à la recherche de paysages bruts et d&apos;instants vrais.
             </p>
             <p style={{ fontFamily: J, fontSize: '16px', fontWeight: 300, color: 'rgba(255,255,255,0.62)', lineHeight: 1.95, maxWidth: '420px', marginBottom: '52px' }}>
-              BTW2WORLD, c&apos;est l&apos;invitation à partager ces terres oubliées en petit groupe — sans agence, sans itinéraire figé.
+              BTW2WORLD, c&apos;est l&apos;invitation à partager ces terres oubliées en petit groupe, sans agence, sans itinéraire figé.
             </p>
             <Link href="/qui-suis-je" style={{ fontFamily: J, fontSize: '10px', letterSpacing: '0.24em', textTransform: 'uppercase', color: '#f6b74d', textDecoration: 'none', borderBottom: '1px solid rgba(246,183,77,0.4)', paddingBottom: '4px', alignSelf: 'flex-start', marginBottom: '64px' }}>
               En savoir plus →
