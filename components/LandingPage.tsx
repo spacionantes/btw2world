@@ -75,13 +75,6 @@ function LeProjet() {
 
           {/* Texte */}
           <div style={{ padding: '88px 64px 88px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-            {/* Numéro décoratif géant */}
-            <div aria-hidden style={{
-              position: 'absolute', right: '-20px', top: '50%', transform: 'translateY(-50%)',
-              fontFamily: C, fontSize: '280px', fontStyle: 'italic', fontWeight: 700,
-              color: 'rgba(255,255,255,0.03)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
-            }}>01</div>
-
             <motion.p initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
               style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '28px' }}>
               Le projet
@@ -94,11 +87,19 @@ function LeProjet() {
 
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }}
               style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
-              BTW2WORLD n&apos;est pas une agence. C&apos;est un projet photographique et humain — des expéditions pensées comme des rencontres, dans des endroits que la plupart des gens ne verront jamais.
+              Hello, moi c&apos;est Maxence — fondateur de BTW2WORLD, ou &laquo;&nbsp;Entre deux mondes&nbsp;&raquo;.
+            </motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.35 }}
+              style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
+              Après avoir eu la chance de beaucoup voyager, j&apos;ai l&apos;envie de transmettre ma vision. BTW2WORLD est une immersion profondément humaine, des expéditions pensées au mieux pour vivre aux côtés de populations du bout du monde, découvrir un nouveau mode de vie.
             </motion.p>
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}
-              style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '56px' }}>
-              Petit groupe, terrain connu, destination secrète révélée pendant le voyage. Chaque expédition est unique.
+              style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
+              L&apos;objectif&nbsp;: apprendre et grandir, réfléchir.
+            </motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.45 }}
+              style={{ fontFamily: C, fontSize: '18px', fontStyle: 'italic', color: 'rgba(255,255,255,0.65)', lineHeight: 1.55, maxWidth: '400px', borderLeft: `3px solid ${ACCENT}`, paddingLeft: '18px', marginBottom: '56px' }}>
+              &ldquo;&nbsp;Les pieds sur terre et la tête dans les étoiles.&nbsp;&rdquo;
             </motion.p>
 
           </div>
@@ -258,7 +259,7 @@ function Expeditions() {
           </motion.h2>
         </div>
         <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.35)', maxWidth: '260px', lineHeight: 1.9 }}>
-          Chaque destination, une rencontre. Chaque groupe, une alchimie unique.
+          Des rencontres au bout du monde, filmées à hauteur d&apos;homme.
         </p>
       </div>
 

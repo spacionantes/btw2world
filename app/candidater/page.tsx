@@ -38,7 +38,6 @@ export default function CandidaterPage() {
             <p style={{ fontFamily: "'Shippori Mincho B1', serif", fontStyle: 'italic', fontSize: '18px', color: 'rgba(255,255,255,0.85)', lineHeight: 1.65, marginBottom: '16px' }}>
               &ldquo;Le bonheur est la seule chose qui se double quand on le partage.&rdquo;
             </p>
-            <span style={{ fontFamily: "'Jost',sans-serif", fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.2em', color: '#f6b74d' }}>— Maxence</span>
           </div>
         </div>
       </div>

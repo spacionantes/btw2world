@@ -91,8 +91,8 @@ export default function WorldMapSection() {
           style={{ display: 'flex', gap: '48px', alignItems: 'flex-end', flexShrink: 0, paddingBottom: '4px' }}>
           {[['31', 'Pays visités'], ['6', 'Continents'], ['2', 'Projets BTW2WORLD']].map(([v, l], i) => (
             <div key={l} style={{ borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.08)' : 'none', paddingLeft: i > 0 ? '48px' : 0 }}>
-              <div style={{ fontFamily: C, fontSize: 'clamp(36px, 4vw, 56px)', fontStyle: 'italic', fontWeight: 400, color: ACCENT, lineHeight: 1 }}>{v}</div>
-              <div style={{ fontFamily: M, fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.25)', marginTop: '8px' }}>{l}</div>
+              <div style={{ fontFamily: C, fontSize: 'clamp(52px, 6vw, 80px)', fontStyle: 'italic', fontWeight: 400, color: ACCENT, lineHeight: 1 }}>{v}</div>
+              <div style={{ fontFamily: M, fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.35)', marginTop: '10px' }}>{l}</div>
             </div>
           ))}
         </motion.div>

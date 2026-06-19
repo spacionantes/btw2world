@@ -47,7 +47,7 @@ const MODES = {
       { titre: 'Liberté totale sur les dates', texte: 'Vous choisissez quand partir. Pas de contrainte de groupe, pas de calendrier imposé.' },
       { titre: 'On organise ensemble le voyage', texte: 'Vous apportez vos envies, j\'apporte mon expérience du terrain. Le voyage se construit à deux.' },
       { titre: 'Moins d\'imprévus', texte: 'Tout est cadré, anticipé, discuté en amont. Vous partez en sachant exactement ce qui vous attend.' },
-      { titre: 'Un film de votre aventure', texte: 'Je filme et monte votre expédition. Un souvenir visuel unique, à hauteur d\'homme, pour garder trace de ce que vous avez vécu.' },
+      { titre: 'Partez avec qui vous le souhaitez', texte: 'Seul, en couple, entre amis ou en famille — vous composez votre groupe. Je m\'adapte à votre dynamique et m\'assure que l\'expérience reste intime et authentique.' },
     ],
   },
 }

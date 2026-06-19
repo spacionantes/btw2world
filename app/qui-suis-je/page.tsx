@@ -37,13 +37,7 @@ export default function QuiSuisJePage() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '90vh' }}>
 
           {/* Texte */}
-          <div style={{ padding: '88px 64px 88px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-            <div aria-hidden style={{
-              position: 'absolute', right: '-20px', top: '50%', transform: 'translateY(-50%)',
-              fontFamily: C, fontSize: '280px', fontStyle: 'italic', fontWeight: 700,
-              color: 'rgba(255,255,255,0.03)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
-            }}>01</div>
-
+          <div style={{ padding: '88px 64px 88px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <p style={{ fontFamily: M, fontSize: '9px', letterSpacing: '0.38em', textTransform: 'uppercase', color: ACCENT, marginBottom: '28px' }}>
               Le projet
             </p>
@@ -100,7 +94,7 @@ export default function QuiSuisJePage() {
             </h2>
           </div>
           <p style={{ fontFamily: J, fontSize: '13px', fontWeight: 300, color: 'rgba(255,255,255,0.35)', maxWidth: '260px', lineHeight: 1.9 }}>
-            Chaque destination, une rencontre. Chaque groupe, une alchimie unique.
+            Des rencontres au bout du monde, filmées à hauteur d&apos;homme.
           </p>
         </div>
 
