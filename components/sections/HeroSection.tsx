@@ -74,7 +74,7 @@ export default function HeroSection() {
               color: 'rgba(255,255,255,0.55)', letterSpacing: '0.02em',
             }}
           >
-            en terre inconnue — destination révélée J&#8209;7
+            en terre inconnue, destination secrète
           </motion.p>
         </div>
 

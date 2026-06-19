@@ -242,7 +242,7 @@ export default function CandidatureForm() {
 
       {/* Pièces jointes */}
       <div>
-        <label style={labelStyle}>Pièces jointes — vidéo, lettre, diaporama (optionnel)</label>
+        <label style={labelStyle}>Pièces jointes : vidéo, lettre, diaporama (optionnel)</label>
         <div
           onClick={() => fileRef.current?.click()}
           style={{

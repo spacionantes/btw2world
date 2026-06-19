@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: "BTW2WORLD | L'Entre 2 Mondes",
-  description: "Partir à l'aveugle en terre inconnue — Expéditions nature en petit groupe",
+  description: "Partir à l'aveugle en terre inconnue. Expéditions nature en petit groupe.",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

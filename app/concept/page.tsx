@@ -108,7 +108,7 @@ export default function ConceptPage() {
                     fontFamily: M, fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase',
                     color: isActive ? BG : 'rgba(255,255,255,0.25)',
                   }}>
-                    {isActive ? '— Sélectionné' : 'Choisir →'}
+                    {isActive ? 'Sélectionné ✓' : 'Choisir →'}
                   </span>
                 </div>
 

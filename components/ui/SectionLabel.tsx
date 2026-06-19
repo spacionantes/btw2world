@@ -17,7 +17,7 @@ export default function SectionLabel({ number, label }: SectionLabelProps) {
         marginBottom: '16px',
       }}
     >
-      {number} — {label}
+      {number} {label}
     </p>
   )
 }

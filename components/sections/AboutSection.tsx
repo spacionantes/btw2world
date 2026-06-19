@@ -25,7 +25,7 @@ export default function AboutSection() {
         <div className="grid-2col" style={{ minHeight: '90vh' }}>
           <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             style={{ padding: '96px 72px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <p style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#f6b74d', marginBottom: '36px' }}>01 — Le guide</p>
+            <p style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#f6b74d', marginBottom: '36px' }}>01 Le guide</p>
             <h2 style={{ fontFamily: C, fontSize: 'clamp(52px, 5.5vw, 88px)', fontWeight: 300, fontStyle: 'italic', color: '#ffffff', lineHeight: 0.92, marginBottom: '40px' }}>
               Maxence,<br />l&apos;Explorateur
             </h2>

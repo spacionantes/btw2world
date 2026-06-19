@@ -5,7 +5,7 @@ import CandidatureForm from '@/components/voyage/CandidatureForm'
 
 export const metadata: Metadata = {
   title: 'Candidater | BTW2WORLD',
-  description: "Rejoindre une expédition BTW2WORLD — candidature en ligne",
+  description: "Rejoindre une expédition BTW2WORLD, candidature en ligne",
 }
 
 export default function CandidaterPage() {

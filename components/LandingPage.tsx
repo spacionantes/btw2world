@@ -86,8 +86,12 @@ function LeProjet() {
             </motion.h2>
 
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }}
-              style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
-              Hello, moi c&apos;est Maxence — fondateur de BTW2WORLD, ou &laquo;&nbsp;Entre deux mondes&nbsp;&raquo;.
+              style={{ fontFamily: J, fontSize: '22px', fontWeight: 600, color: '#fff', lineHeight: 1.3, maxWidth: '400px', marginBottom: '8px' }}>
+              Hello moi c&apos;est Maxence
+            </motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.33 }}
+              style={{ fontFamily: J, fontSize: '16px', fontWeight: 700, color: ACCENT, lineHeight: 1.4, maxWidth: '400px', marginBottom: '24px' }}>
+              Fondateur de BTW2WORLD ou Entre 2 mondes
             </motion.p>
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.35 }}
               style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>

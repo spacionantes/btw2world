@@ -13,7 +13,7 @@ export default function CandidaterSection() {
       <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
         <p style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.35em', textTransform: 'uppercase', color: '#f6b74d', marginBottom: '32px' }}>
-          04 — Rejoindre une expédition
+          04 Rejoindre une expédition
         </p>
         <h2 style={{ fontFamily: C, fontSize: 'clamp(56px, 8vw, 120px)', fontWeight: 300, fontStyle: 'italic', color: '#ffffff', lineHeight: 0.88, letterSpacing: '-0.01em', marginBottom: '32px' }}>
           Prêt pour<br />l&apos;inconnu ?

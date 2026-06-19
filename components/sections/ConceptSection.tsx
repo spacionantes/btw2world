@@ -20,7 +20,7 @@ export default function ConceptSection() {
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '80px', flexWrap: 'wrap', gap: '32px' }}>
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}>
-            <p style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#f6b74d', marginBottom: '20px' }}>02 — Le concept</p>
+            <p style={{ fontFamily: M, fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#f6b74d', marginBottom: '20px' }}>02 Le concept</p>
             <h2 style={{ fontFamily: C, fontSize: 'clamp(48px, 5vw, 80px)', fontWeight: 300, fontStyle: 'italic', color: '#ffffff', lineHeight: 0.92 }}>L&apos;Entre 2 Mondes</h2>
           </motion.div>
           <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.15 }}

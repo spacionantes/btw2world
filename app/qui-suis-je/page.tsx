@@ -7,7 +7,7 @@ import { VOYAGES } from '@/lib/data'
 
 export const metadata: Metadata = {
   title: 'Le projet | BTW2WORLD',
-  description: "Maxence — Photographe voyageur et guide d'expéditions nature en petit groupe",
+  description: "Maxence, photographe voyageur et guide d'expéditions nature en petit groupe",
 }
 
 const J = "'Jost', sans-serif"
@@ -46,11 +46,14 @@ export default function QuiSuisJePage() {
               Maxence,<br />photographe<br />voyageur
             </h2>
 
-            <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
-              Hello, moi c&apos;est Maxence — fondateur de BTW2WORLD, ou &laquo;&nbsp;Entre deux mondes&nbsp;&raquo;.
+            <p style={{ fontFamily: J, fontSize: '22px', fontWeight: 600, color: '#fff', lineHeight: 1.3, maxWidth: '400px', marginBottom: '8px' }}>
+              Hello moi c&apos;est Maxence
+            </p>
+            <p style={{ fontFamily: J, fontSize: '16px', fontWeight: 700, color: ACCENT, lineHeight: 1.4, maxWidth: '400px', marginBottom: '24px' }}>
+              Fondateur de BTW2WORLD ou Entre 2 mondes
             </p>
             <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '16px' }}>
-              Après avoir eu la chance de beaucoup voyager, j&apos;ai l&apos;envie de transmettre ma vision. BTW2WORLD est une immersion profondément humaine — des expéditions pensées au mieux pour vivre aux côtés de populations du bout du monde, découvrir un nouveau mode de vie.
+              Après avoir eu la chance de beaucoup voyager, j&apos;ai l&apos;envie de transmettre ma vision. BTW2WORLD est une immersion profondément humaine, des expéditions pensées au mieux pour vivre aux côtés de populations du bout du monde, découvrir un nouveau mode de vie.
             </p>
             <p style={{ fontFamily: J, fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.55)', lineHeight: 2, maxWidth: '400px', marginBottom: '28px' }}>
               L&apos;objectif&nbsp;: apprendre et grandir, réfléchir.
